@@ -1,0 +1,28 @@
+{
+  "name": "RutasColombiaBack",
+  "version": "0.0.1",
+  "private": true,
+  "description": "New Swagger API Project",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "camelcase": "^6.0.0",
+    "express": "^4.12.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.9.10",
+    "mongoose-snake-to-camel": "^0.3.0",
+    "swagger-express-mw": "^0.7.0",
+    "wait-until": "0.0.2"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "swagger project test"
+  }
+}
