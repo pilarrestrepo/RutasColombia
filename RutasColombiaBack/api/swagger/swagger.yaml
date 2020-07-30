@@ -42,8 +42,35 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /sitiosCercanos:
+    x-swagger-router-controller: sitios.controlador
+    post:
+      description: Devuelve los sitios cercanos a una ubicación geográfica
+      operationId: sitiosCercanos
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
+
+
+
+
+
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:
@@ -52,9 +79,15 @@ definitions:
     properties:
       message:
         type: string
+  
   ErrorResponse:
     required:
       - message
     properties:
       message:
         type: string
+
+  Object:
+    type: object
+    
+  
