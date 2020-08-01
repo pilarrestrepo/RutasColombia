@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-mapa',
@@ -9,13 +10,15 @@ import { TranslateService } from '@ngx-translate/core';
 export class MapaComponent implements OnInit {
   lat = 51.678418;
   lng = 7.809007;
-  @Input() lenguajeSeleccionado: string;
+  
+  public suscribirEventoCambiarIdioma: any
+
+  @Input() eventoCambiarIdioma: Observable<void>;  
   constructor(private translateService: TranslateService) {
-    this.translateService.setDefaultLang(this.lenguajeSeleccionado);
-    this.translateService.use(this.lenguajeSeleccionado);
   }
 
   ngOnInit(): void {
+    this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
   }
   // Obtener la geolocalización
   obtenerPosicion() {
@@ -40,6 +43,12 @@ export class MapaComponent implements OnInit {
 
     });
   }
+  establecerIdioma(){
+    let idioma = sessionStorage.getItem("Idioma");
+    this.translateService.use(idioma);
+  }
+
+  /*
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
     let cambio: SimpleChange = changes['lenguajeSeleccionado'];
@@ -47,10 +56,11 @@ export class MapaComponent implements OnInit {
     console.log(cambio.currentValue)
 
 
-    this.toogleLanguage(cambio.currentValue);
+    this.cambiarIdioma(cambio.currentValue);
 
+  }*/
+  ngOnDestroy() {
+    this.suscribirEventoCambiarIdioma.unsubscribe()
   }
-  toogleLanguage(lenguaje: string) {
-    this.translateService.use(lenguaje);
-  }
+ 
 }

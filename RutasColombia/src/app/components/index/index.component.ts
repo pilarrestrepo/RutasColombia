@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-index',
@@ -8,24 +9,25 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class IndexComponent implements OnInit {
 
-  public lenguajeSeleccionado = 'es';
-
+  public idiomaSeleccionado;
+  public eventoCambiarIdioma: Subject<void> = new Subject<void>();
+  
   constructor(private translateService: TranslateService) {
     console.log("IndexComponent")
-    var ln = navigator.language;
-    this.lenguajeSeleccionado = ln.substr(0,2);
-    console.log(this.lenguajeSeleccionado)
-    
-
-    this.translateService.setDefaultLang(this.lenguajeSeleccionado);
-    this.translateService.use(this.lenguajeSeleccionado);
-
-
+    this.establecerIdioma();
+  }
+  establecerIdioma(){
+    let idioma = sessionStorage.getItem("Idioma");
+    this.translateService.use(idioma);
+  }
+  cambiarIdioma(idioma: string) {
+    sessionStorage.setItem("Idioma",idioma);
+    this.translateService.use(idioma);        
+    this.emitirCambiarIdioma();
   }
 
-  toogleLanguage(lang: string) {
-    this.translateService.use(lang);
-    this.lenguajeSeleccionado = lang;
+  emitirCambiarIdioma() {
+    this.eventoCambiarIdioma.next();
   }
 
   ngOnInit(): void {

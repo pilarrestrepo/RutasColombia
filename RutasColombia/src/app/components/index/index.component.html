@@ -12,35 +12,35 @@
                     <li class="dropdown-language"><a class="waves-effect waves-block waves-light translation-button"
                             href="#" data-target="translation-dropdown"><span class="flag-icon flag-icon-es"></span></a>
                     </li>
-                    <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen"
+    <!--                 <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen"
                             href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
                     <li class="hide-on-large-only search-input-wrapper"><a
                             class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i
                                 class="material-icons">search</i></a></li>
                     <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);"
                             data-target="notifications-dropdown"><i class="material-icons">notifications_none<small
-                                    class="notification-badge">5</small></i></a></li>
+                                    class="notification-badge">5</small></i></a></li> -->
                 </ul>
 
                 <!-- translation-button-->
                 <ul class="dropdown-content" id="translation-dropdown">
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" (click)="toogleLanguage('es')" data-language="es">
+                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')" >
                             <i class="flag-icon flag-icon-es"></i> Español
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" (click)="toogleLanguage('en')" data-language="en">
+                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('en')" >
                             <i class="flag-icon flag-icon-gb"></i> English
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" data-language="fr">
+                        <a class="grey-text text-darken-1" href="#!" >
                             <i class="flag-icon flag-icon-fr"></i> French
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" data-language="pt">
+                        <a class="grey-text text-darken-1" href="#!" >
                             <i class="flag-icon flag-icon-pt"></i> Portuguese
                         </a>
                     </li>
@@ -103,7 +103,7 @@
                             <!-- Total Transaction -->
                             <div style="text-align:center">
 
-                                <h1 (click)="toogleLanguage('en')">
+                                <h1 (click)="cambiarIdioma('en')">
                                     {{ 'index.titulo' | translate }}
                                 </h1>
 
@@ -116,7 +116,7 @@
                                     <p class="medium-small">This month transaction</p>
                                     <div class="total-transaction-container">
                                         <div id="total-transaction-line-chart" class="total-transaction-shadow">
-                                            <app-mapa [lenguajeSeleccionado]="lenguajeSeleccionado"></app-mapa>
+                                            <app-mapa [eventoCambiarIdioma]="eventoCambiarIdioma.asObservable()"></app-mapa>
                                         </div>
                                     </div>
                                 </div>
