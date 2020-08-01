@@ -17,6 +17,7 @@ export class IndexComponent implements OnInit {
 
   toogleLanguage(lang: string) {
       this.translateService.use(lang);
+      this.lenguajeSeleccionado = lang;
   }
 
   ngOnInit(): void {

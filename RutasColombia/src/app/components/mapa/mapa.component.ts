@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -40,4 +40,17 @@ export class MapaComponent implements OnInit {
 
     });
   }
+  ngOnChanges(changes: { [property: string]: SimpleChange }){
+    // Extract changes to the input property by its name
+    let cambio: SimpleChange = changes['lenguajeSeleccionado']; 
+    console.log("ngOnChanges")
+    console.log(cambio.currentValue)
+
+    
+    this.toogleLanguage(cambio.currentValue);
+
+ }
+ toogleLanguage(lenguaje: string) {
+  this.translateService.use(lenguaje);
+}
 }
