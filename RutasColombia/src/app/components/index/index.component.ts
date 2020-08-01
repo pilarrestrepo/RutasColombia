@@ -8,11 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class IndexComponent implements OnInit {
 
-  selectedLanguage = 'es';
+  lenguajeSeleccionado = 'es';
 
   constructor(private translateService: TranslateService) {
-      this.translateService.setDefaultLang(this.selectedLanguage);
-      this.translateService.use(this.selectedLanguage);
+      this.translateService.setDefaultLang(this.lenguajeSeleccionado);
+      this.translateService.use(this.lenguajeSeleccionado);
   }
 
   toogleLanguage(lang: string) {

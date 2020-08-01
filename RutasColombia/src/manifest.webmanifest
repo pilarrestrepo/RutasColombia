@@ -1,9 +1,10 @@
 {
-  "name": "RutasColombia",
-  "short_name": "RutasColombia",
+  "name": "Rutas Por Colombia",
+  "short_name": "Rutas Colombia",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
-  "display": "standalone",
+  "display": "standalone",  
+  "orientation":"portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [

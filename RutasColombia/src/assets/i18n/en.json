@@ -1,7 +1,9 @@
 {
-    "home": {
-        "title": "Internationalization of an angular application",
-        "englishLabel": "English",
-        "spanishLabel": "Spanish"
-    }
+    "index": {
+        "titulo": "Home"
+    },
+    "mapa": {
+        "titulo": "Map",
+        "estoyAqui": "I'm here"
+    }    
 }

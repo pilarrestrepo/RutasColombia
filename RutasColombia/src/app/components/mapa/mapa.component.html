@@ -2,3 +2,8 @@
 <agm-map [latitude]="lat" [longitude]="lng">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
+<br />
+<button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2" type="button"
+  (click)="obtenerPosicion()">
+  {{ 'mapa.estoyAqui' | translate }}
+</button>

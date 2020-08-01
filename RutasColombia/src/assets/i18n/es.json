@@ -1,7 +1,9 @@
 {
-    "home": {
-        "title": "Internacionalización de una aplicación angular",
-        "englishLabel": "Ingles",
-        "spanishLabel": "Español"
-    }
+    "index": {
+        "titulo": "Inicio"
+    },
+    "mapa": {
+        "titulo": "Mapa",
+        "estoyAqui": "Estoy aquí"
+    }  
 }
