@@ -40,17 +40,17 @@ export class MapaComponent implements OnInit {
 
     });
   }
-  ngOnChanges(changes: { [property: string]: SimpleChange }){
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
-    let cambio: SimpleChange = changes['lenguajeSeleccionado']; 
+    let cambio: SimpleChange = changes['lenguajeSeleccionado'];
     console.log("ngOnChanges")
     console.log(cambio.currentValue)
 
-    
+
     this.toogleLanguage(cambio.currentValue);
 
- }
- toogleLanguage(lenguaje: string) {
-  this.translateService.use(lenguaje);
-}
+  }
+  toogleLanguage(lenguaje: string) {
+    this.translateService.use(lenguaje);
+  }
 }
