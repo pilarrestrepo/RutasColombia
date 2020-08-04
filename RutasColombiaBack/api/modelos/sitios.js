@@ -12,6 +12,10 @@ let sitiosSchema = new Schema({
     nombre: {
         type: String
     },
+    punto: {
+        latitud: {type: Number},
+        longitud: {type: Number}
+    },    
     municipio: {
         type: Schema.ObjectId,
         ref: 'municipios'
