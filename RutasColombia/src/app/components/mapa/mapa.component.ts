@@ -32,7 +32,10 @@ export class MapaComponent implements OnInit {
   }
   markers = []
   infoContent = ''
-
+  iconBase = '../../../assets/icons/mapa/'
+  urlImagenBase = '../../../assets/images/sitios/'
+  iconEstaAqui = 'you-are-here-2.png'
+  
   @Input() eventoCambiarIdioma: Observable<void>;  
   constructor(private translateService: TranslateService,
     private sitiosService : SitiosService) {
@@ -45,9 +48,13 @@ export class MapaComponent implements OnInit {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       }
+      this.lat = position.coords.latitude;
+      this.lng = position.coords.longitude;        
     })
+
     this.obtenerPosicion();
   }
+  /*
   zoomIn() {
     if (this.zoom < this.options.maxZoom) this.zoom++
   }
@@ -73,6 +80,11 @@ export class MapaComponent implements OnInit {
         color: 'red',
         text: 'Marker label ' + (this.markers.length + 1),
       },
+      icon: {
+        url: "https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png",
+        size: new google.maps.Size(7, 7),
+        anchor: new google.maps.Point(4, 4)
+      },
       title: 'Marker title ' + (this.markers.length + 1),
       info: 'Marker info ' + (this.markers.length + 1),
       options: {
@@ -85,6 +97,7 @@ export class MapaComponent implements OnInit {
     this.infoContent = content
     this.info.open(marker)
   }
+  */
   // Obtener la geolocalización
   obtenerPosicion() {
     console.log("obtenerPosicion");
@@ -154,15 +167,60 @@ export class MapaComponent implements OnInit {
       punto:{
         "latitud": +punto.latitud,
         "longitud": +punto.longitud,
+        "animation" :'BOUNCE',
+        "icono":  this.iconBase + this.iconEstaAqui,
+        "nombre": "Estas aquí",
+        "descripcion": "",
+        "categoria": "",
+        "imagen": "",
+        "direccion": "",
+        "telefono": "",
+        "url": ""
+
     }})      
     for (let sito of sitosCercanos){
       this.sitosCercanos.push({
         punto:{
           "latitud": +sito.punto.latitud,
           "longitud": +sito.punto.longitud,
+          "animation" :'DROP',
+          "icono":  this.iconBase + sito.icono,    
+          "nombre": sito.nombre,
+          "descripcion": sito.descripcion,
+          "categoria": sito.categoria.nombre,
+          "imagen": this.urlImagenBase + sito.urlImagen,
+          "direccion": sito.direccion,
+          "telefono": sito.telefono,
+          "url": this.urlImagenBase + sito.url
+          
       }})      
     }
     console.log(this.sitosCercanos)
+    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png';
+    const image = {
+      url:
+      iconBase,
+      // This marker is 20 pixels wide by 32 pixels high.
+      size: new google.maps.Size(20, 32),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(0, 32)
+    };
+    
+    this.markers.push({
+      position: {
+        lat: punto.latitud,
+        lng: punto.longitud
+      },   
+      icon:image,
+      title: 'Estoy aquí... ',
+      info: 'Marker info ' + (this.markers.length + 1),
+      options: {
+        animation: google.maps.Animation.BOUNCE,
+      },
+    })
+
     
   }
   /*

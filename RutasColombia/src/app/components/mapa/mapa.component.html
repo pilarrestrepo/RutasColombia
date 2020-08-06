@@ -5,14 +5,40 @@
   <br />
   {{sitio.punto.longitud}}
 </p>
-<!-- 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" >
 
-  <agm-marker iconUrl ='https://www.google.es/maps/vt/icon/name=assets/icons/poi/tactile/pinlet_shadow-2-medium.png,assets/icons/poi/tactile/pinlet_outline_v2-1-small.png,assets/icons/poi/tactile/pinlet-2-medium.png,assets/icons/poi/quantum/pinlet/airport_pinlet-2-medium.png&highlight=ff000000,ffffff,10bdff,ffffff&color=ff000000?sale=2'
-  [animation]="'BOUNCE'"
-  *ngFor="let sitio of sitosCercanos; let i = index" [latitude]="sitio.punto.latitud" 
-    [longitude]="sitio.punto.longitud"> </agm-marker>
-</agm-map> -->
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+
+  <agm-marker *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitio.punto.icono'
+    [animation]="sitio.punto.animation" [latitude]="sitio.punto.latitud" [longitude]="sitio.punto.longitud">
+    <agm-info-window>
+      <!-- <strong>{{ sitio.punto.nombre }}</strong>
+      <p>
+        {{ sitio.punto.descripcion }}
+      </p> -->
+      <div class="wpgmp_infowindow fc-infowindow-default">
+        <div class="wpgmp_iw_content">
+           <div>
+              <div class="fc-main">
+                 <div class="fc-item-title">{{sitio.punto.nombre}} <span class="fc-badge info">{{sitio.punto.categoria}}</span></div>
+                 <div class="fc-item-featured_image"><img [src]="sitio.punto.imagen"> </div>
+                 <p>{{sitio.punto.descripcion}}</p>
+                 <address><b>Dirección : </b>{{sitio.direccion}}, {{sitio.telefono}}</address>
+                 <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" [href]="sitio.url">Visitar</a></p>
+              </div>
+           </div>
+        </div>
+     </div>
+      <!-- <div>
+        <button (click)="editarMarcador( sitio )" mat-raised-button color="primary">Editar</button>
+        <button (click)="borrarMarcador(i)" mat-raised-button color="warn">Borrar</button>
+      </div> -->
+
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+
+
+<!-- 
 <google-map
   height="500px"
   width="100%"
@@ -37,7 +63,7 @@
 <button (click)="zoomIn()">Zoom in</button>
 <button (click)="zoomOut()">Zoom out</button>
 <button (click)="logCenter()">Log center</button>
-<button (click)="addMarker()">Add marker</button>
+<button (click)="addMarker()">Add marker</button> -->
 <br />
 <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2" type="button"
   (click)="obtenerSitioCercanos()">
