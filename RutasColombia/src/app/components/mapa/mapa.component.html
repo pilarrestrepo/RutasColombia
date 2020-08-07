@@ -1,33 +1,29 @@
 <p>mapa works!</p>
 <p>{{sitosCercanos.length}}</p>
-<p *ngFor="let sitio of sitosCercanos; let i = index">
-  {{sitio.punto.latitud}}
-  <br />
-  {{sitio.punto.longitud}}
+<!-- <p *ngFor="let sitio of sitosCercanos; let i = index">
+  {{sitio | json}}
 </p>
-
+ -->
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
 
-  <agm-marker *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitio.punto.icono'
-    [animation]="sitio.punto.animation" [latitude]="sitio.punto.latitud" [longitude]="sitio.punto.longitud">
-    <agm-info-window>
-      <!-- <strong>{{ sitio.punto.nombre }}</strong>
-      <p>
-        {{ sitio.punto.descripcion }}
-      </p> -->
+  <agm-marker #gm  *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitosCercanos[i].punto.icono'
+    [animation]="sitosCercanos[i].punto.animation" [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
+    (markerClick)="clickedMarker(infoWindow,gm, i)"       
+    [markerDraggable]="sitosCercanos[i].punto.draggable"
+    (dragEnd)="markerDragEnd(sitosCercanos[i], $event)">
+    <agm-info-window #infoWindow >  
       <div class="wpgmp_infowindow fc-infowindow-default">
         <div class="wpgmp_iw_content">
-           <div>
-              <div class="fc-main">
-                 <div class="fc-item-title">{{sitio.punto.nombre}} <span class="fc-badge info">{{sitio.punto.categoria}}</span></div>
-                 <div class="fc-item-featured_image"><img [src]="sitio.punto.imagen"> </div>
-                 <p>{{sitio.punto.descripcion}}</p>
-                 <address><b>Dirección : </b>{{sitio.direccion}}, {{sitio.telefono}}</address>
-                 <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" [href]="sitio.url">Visitar</a></p>
-              </div>
-           </div>
+          <div class="fc-main">
+            <div class="fc-item-title">{{sitosCercanos[i].punto.nombre}} <span
+                class="fc-badge info">{{sitosCercanos[i].punto.categoria}}</span></div>
+            <div class="fc-item-featured_image"><img [src]="sitosCercanos[i].punto.imagen"> </div>
+            <p>{{sitosCercanos[i].punto.descripcion}}</p>
+            <address><b>Dirección : </b>{{sitosCercanos[i].punto.direccion}}, {{sitosCercanos[i].punto.telefono}}</address>
+            <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" [href]="sitosCercanos[i].punto.url">Visitar</a></p>
+          </div>
         </div>
-     </div>
+      </div>
       <!-- <div>
         <button (click)="editarMarcador( sitio )" mat-raised-button color="primary">Editar</button>
         <button (click)="borrarMarcador(i)" mat-raised-button color="warn">Borrar</button>
