@@ -4,14 +4,14 @@
   {{sitio | json}}
 </p>
  -->
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
 
   <agm-marker #gm  *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitosCercanos[i].punto.icono'
     [animation]="sitosCercanos[i].punto.animation" [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
     (markerClick)="clickedMarker(infoWindow,gm, i)"       
     [markerDraggable]="sitosCercanos[i].punto.draggable"
     (dragEnd)="markerDragEnd(sitosCercanos[i], $event)">
-    <agm-info-window #infoWindow >  
+    <agm-info-window  (infoWindowClose)="cerrar()" #infoWindow>  
       <div class="wpgmp_infowindow fc-infowindow-default">
         <div class="wpgmp_iw_content">
           <div class="fc-main">

@@ -17,8 +17,8 @@ export class MapaComponent implements OnInit {
   public cargando = false;
   public suscribirEventoCambiarIdioma: any
   public sitosCercanos = [];
-  infoWindowOpened = null
-  previous_info_window = null
+  public infoWindow = null
+  
 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
@@ -57,7 +57,22 @@ export class MapaComponent implements OnInit {
 
     this.obtenerPosicion();
   }
+  cerrar(){
+    console.log("cerrar")
+    this.sitosCercanos.forEach((value, i) => {
+        this.sitosCercanos[i].punto.animation = null
+      
+    });
+  }
+ 
   clickedMarker(infoWindow, gm, index: number) {
+    if (this.infoWindow) {
+      this.infoWindow.close();
+    }
+    this.infoWindow = infoWindow;
+    
+
+    
 /*     if (this.previous_info_window == null)
       this.previous_info_window = infoWindow;
     else {
@@ -65,7 +80,7 @@ export class MapaComponent implements OnInit {
       this.previous_info_window.close()
     }
     this.previous_info_window = infoWindow */
-    infoWindow.open();
+    //infoWindow.open();
 
     this.sitosCercanos.forEach((value, i) => {
       if (i == index) {
@@ -77,6 +92,9 @@ export class MapaComponent implements OnInit {
   }
 
   mapClicked($event: any) {
+    if (this.infoWindow) {
+      this.infoWindow.close();
+   }
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
@@ -87,11 +105,7 @@ export class MapaComponent implements OnInit {
   markerDragEnd(m: any, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-  close_window() {
-    if (this.previous_info_window != null) {
-      this.previous_info_window.close()
-    }
-  }
+
   /*
   zoomIn() {
     if (this.zoom < this.options.maxZoom) this.zoom++

@@ -12,7 +12,7 @@
                     <li class="dropdown-language"><a class="waves-effect waves-block waves-light translation-button"
                             href="#" data-target="translation-dropdown"><span class="flag-icon flag-icon-es"></span></a>
                     </li>
-    <!--                 <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen"
+                    <!--                 <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen"
                             href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
                     <li class="hide-on-large-only search-input-wrapper"><a
                             class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i
@@ -25,22 +25,22 @@
                 <!-- translation-button-->
                 <ul class="dropdown-content" id="translation-dropdown">
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')" >
+                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')">
                             <i class="flag-icon flag-icon-es"></i> Español
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('en')" >
+                        <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('en')">
                             <i class="flag-icon flag-icon-gb"></i> English
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" >
+                        <a class="grey-text text-darken-1" href="#!">
                             <i class="flag-icon flag-icon-fr"></i> French
                         </a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="grey-text text-darken-1" href="#!" >
+                        <a class="grey-text text-darken-1" href="#!">
                             <i class="flag-icon flag-icon-pt"></i> Portuguese
                         </a>
                     </li>
@@ -116,7 +116,8 @@
                                     <p class="medium-small">This month transaction</p>
                                     <div class="total-transaction-container">
                                         <div id="total-transaction-line-chart" class="total-transaction-shadow">
-                                            <app-mapa [eventoCambiarIdioma]="eventoCambiarIdioma.asObservable()"></app-mapa>
+                                            <app-mapa [eventoCambiarIdioma]="eventoCambiarIdioma.asObservable()">
+                                            </app-mapa>
                                         </div>
                                     </div>
                                 </div>
