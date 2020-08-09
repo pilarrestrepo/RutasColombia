@@ -1,9 +1,15 @@
 {
     "index": {
-        "titulo": "Inicio"
+        "titulo": "Tu compañero de ruta"
     },
     "mapa": {
         "titulo": "Mapa",
-        "estoyAqui": "Estoy aquí"
+        "estoyAqui": "Estoy aquí",
+        "direccion":"Dirección",
+        "visitarSitio":"Visitar sitio",
+        "botonConsultarSitios":"Places around me",
+        "tituloListaSitios":"Te mostramos sitios interesantes para visitar muy cerca a ti",        
+        "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti"
+
     }  
 }

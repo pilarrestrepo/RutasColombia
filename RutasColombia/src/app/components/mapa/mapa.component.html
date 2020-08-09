@@ -1,69 +1,166 @@
-<p>mapa works!</p>
-<p>{{sitosCercanos.length}}</p>
-<!-- <p *ngFor="let sitio of sitosCercanos; let i = index">
-  {{sitio | json}}
-</p>
- -->
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+<div class="app-chat">
+  <div class="content-area content-right">
+    <div class="app-wrapper">
+      <!-- Sidebar menu for small screen -->
+      <a href="#" data-target="chat-sidenav" class="sidenav-trigger hide-on-large-only">
+        <i class="material-icons">menu</i>
+      </a>
+      <!--/ Sidebar menu for small screen -->
 
-  <agm-marker #gm  *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitosCercanos[i].punto.icono'
-    [animation]="sitosCercanos[i].punto.animation" [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
-    (markerClick)="clickedMarker(infoWindow,gm, i)"       
-    [markerDraggable]="sitosCercanos[i].punto.draggable"
-    (dragEnd)="markerDragEnd(sitosCercanos[i], $event)">
-    <agm-info-window  (infoWindowClose)="cerrar()" #infoWindow>  
-      <div class="wpgmp_infowindow fc-infowindow-default">
-        <div class="wpgmp_iw_content">
-          <div class="fc-main">
-            <div class="fc-item-title">{{sitosCercanos[i].punto.nombre}} <span
-                class="fc-badge info">{{sitosCercanos[i].punto.categoria}}</span></div>
-            <div class="fc-item-featured_image"><img [src]="sitosCercanos[i].punto.imagen"> </div>
-            <p>{{sitosCercanos[i].punto.descripcion}}</p>
-            <address><b>Dirección : </b>{{sitosCercanos[i].punto.direccion}}, {{sitosCercanos[i].punto.telefono}}</address>
-            <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" [href]="sitosCercanos[i].punto.url">Visitar</a></p>
+      <div class="card card card-default scrollspy border-radius-6 fixed-width">
+        <div class="card-content chat-content p-0">
+          <!-- Sidebar Area -->
+          <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
+            <div class="sidebar animate fadeUp">
+              <div class="sidebar-content">
+                <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
+                  <div class="sidebar-list-padding app-sidebar sidenav" id="chat-sidenav">
+                    <!-- Sidebar Header -->
+                    <div class="sidebar-header">
+                      <div class="row valign-wrapper">
+                        <div class="col s12">
+                          <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                            {{ 'mapa.tituloListaSitios' | translate }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!--/ Sidebar Header -->
+
+                    <!-- Sidebar Search -->
+                    <div class="sidebar-search animate fadeUp">
+                      <div class="search-area">
+                        <i class="material-icons search-icon">search</i>
+                        <input type="text" placeholder="" class="app-filter" id="chat_filter">
+                      </div>
+                      <div class="add-user">
+                        <i class="material-icons mr-2">face</i>
+                      </div>
+                    </div>
+                    <!--/ Sidebar Search -->
+
+                    <!-- Sidebar Content List -->
+                    <div class="sidebar-content sidebar-chat">
+                      <div class="chat-list">
+                        <div class="chat-user animate fadeUp delay-1">
+                          <div class="user-section">
+                            <div class="row valign-wrapper">
+                              <div class="col s2 media-image online pr-0">
+                                <img src="../../../app-assets/images/user/2.jpg" alt=""
+                                  class="circle z-depth-2 responsive-img">
+                              </div>
+                              <div class="col s10">
+                                <p class="m-0 blue-grey-text text-darken-4 font-weight-700"></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="info-section">
+                            <div class="star-timing">
+                              <div class="favorite">
+                                <i class="material-icons amber-text">star</i>
+                              </div>
+                              <div class="time">
+                                <span>2.38 pm</span>
+                              </div>
+                            </div>
+                            <span class="badge badge pill red">4</span>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="no-data-found">
+                        <h6 class="center">No Results Found</h6>
+                      </div>
+                    </div>
+                    <!--/ Sidebar Content List -->
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <!--/ Sidebar Area -->
+
+          <!-- Content Area -->
+          <div class="chat-content-area animate fadeUp">
+            <!-- Chat header -->
+            <div class="chat-header">
+              <div class="row valign-wrapper">
+                <div class="col media-image online pr-0">
+                  <img src="../../../app-assets/images/user/7.jpg" alt="" class="circle z-depth-2 responsive-img">
+                </div>
+                <div class="col">
+                  <p class="m-0 blue-grey-text text-darken-4 font-weight-700">{{ 'mapa.tituloMapa' | translate }}</p>
+                </div>
+              </div>
+              <span class="option-icon">
+                <span class="favorite">
+                  <i class="material-icons">star_outline</i>
+                </span>
+                <i class="material-icons">delete</i>
+                <i class="material-icons">more_vert</i>
+              </span>
+            </div>
+            <!--/ Chat header -->
+
+            <!-- Chat content area -->
+            <div class="chat-area">
+              <div class="chats">
+                <div class="chats">
+
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+                    <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
+                      [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
+                      [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
+                      (markerClick)="clickedMarker(infoWindow,gm, i)"
+                      [markerDraggable]="sitosCercanos[i].punto.draggable"
+                      (dragEnd)="markerDragEnd(sitosCercanos[i], $event)">
+                      <agm-info-window (infoWindowClose)="cerrar()" #infoWindow>
+                        <div class="wpgmp_infowindow fc-infowindow-default">
+                          <div class="wpgmp_iw_content">
+                            <div class="fc-main">
+                              <div class="fc-item-title">{{sitosCercanos[i].punto.idiomas[idioma].nombre}} <span
+                                  class="fc-badge info">{{sitosCercanos[i].punto.categoria.idiomas[idioma].nombre}}</span>
+                              </div>
+                              <div class="fc-item-featured_image"><img [src]="sitosCercanos[i].punto.imagen"> </div>
+                              <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
+                              <address><b>{{ 'mapa.direccion' | translate }} : </b>{{sitosCercanos[i].punto.direccion}},
+                                {{sitosCercanos[i].punto.telefono}}
+                              </address>
+                              <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red"
+                                  [href]="sitosCercanos[i].punto.url">{{ 'mapa.visitarSitio' | translate }}</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div>
+                          <button (click)="editarMarcador( sitio )" mat-raised-button color="primary">Editar</button>
+                          <button (click)="borrarMarcador(i)" mat-raised-button color="warn">Borrar</button>
+                        </div> -->
+
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                </div>
+              </div>
+            </div>
+            <!--/ Chat content area -->
+
+            <!-- Chat footer <-->
+            <div class="chat-footer">
+              <form onsubmit="enter_chat();" action="javascript:void(0);" class="chat-input">
+                <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
+                  type="button" (click)="obtenerSitioCercanos()">
+                  {{ 'mapa.botonConsultarSitios' | translate }}
+                </button>
+                <input type="text" placeholder="Type message here.." class="message mb-0">
+                <a class="btn waves-effect waves-light send" onclick="enter_chat();">Send</a>
+              </form>
+            </div>
+            <!--/ Chat footer -->
+          </div>
+          <!--/ Content Area -->
         </div>
       </div>
-      <!-- <div>
-        <button (click)="editarMarcador( sitio )" mat-raised-button color="primary">Editar</button>
-        <button (click)="borrarMarcador(i)" mat-raised-button color="warn">Borrar</button>
-      </div> -->
-
-    </agm-info-window>
-  </agm-marker>
-</agm-map>
-
-
-<!-- 
-<google-map
-  height="500px"
-  width="100%"
-  [zoom]="zoom"
-  [center]="center"
-  [options]="options"
-  (mapClick)="click($event)"
->
-  <map-marker
-    #markerElem
-    *ngFor="let marker of markers"
-    [position]="marker.position"
-    [label]="marker.label"
-    [title]="marker.title"
-    [options]="marker.options"
-    (mapClick)="openInfo(markerElem, marker.info)"
-  >
-  </map-marker>
-
-  <map-info-window>{{ infoContent }}</map-info-window>
-</google-map>
-<button (click)="zoomIn()">Zoom in</button>
-<button (click)="zoomOut()">Zoom out</button>
-<button (click)="logCenter()">Log center</button>
-<button (click)="addMarker()">Add marker</button> -->
-<br />
-<button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2" type="button"
-  (click)="obtenerSitioCercanos()">
-  {{ 'mapa.estoyAqui' | translate }}
-  {{lat}}
-  {{lng}}
-</button>
+    </div>
+  </div>
+</div>

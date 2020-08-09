@@ -12,35 +12,53 @@ let sitiosSchema = new Schema({
     nombre: {
         type: String
     },    
-    municipio: {
-        type: Schema.ObjectId,
-        ref: 'municipios'
-    },
-    categoria: {
-        type: Schema.ObjectId,
-        ref: 'sitiosCategorias'
-    },
-    punto: {
-        latitud: {type: Number},
-        longitud: {type: Number}
-    },    
-    descripcion: {
-        type: String
-    },     
-    icono: {
-        type: String
-    },        
-    urlImagen: {
-        type: String
-    },     
     direccion: {
         type: String
     },      
     telefono: {
         type: String
     },     
+    categoria: {
+        type: Schema.ObjectId,
+        ref: 'sitiosCategorias'
+    },
+    municipio: {
+        type: Schema.ObjectId,
+        ref: 'municipios'
+    },
+    punto: {
+        latitud: {type: Number},
+        longitud: {type: Number}
+    },        
+    icono: {
+        type: String
+    },        
+    urlImagen: {
+        type: String
+    },     
     url: {
         type: String
+    },
+    idiomas:{
+        es:
+        {
+            nombre:{
+                type: String
+            },     
+            descripcion:{
+                type: String
+            },     
+        },
+        en:
+        {
+            nombre: {
+                type: String
+            },     
+            descripcion:{
+                type: String
+            },     
+        }        
+            
     }
 },{ collection: 'sitios'});
 

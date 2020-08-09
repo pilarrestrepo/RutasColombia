@@ -1,9 +1,14 @@
 {
     "index": {
-        "titulo": "Home"
+        "titulo": "Your travel friend"
     },
     "mapa": {
         "titulo": "Map",
-        "estoyAqui": "I'm here"
+        "estoyAqui": "I'm here",
+        "direccion":"Address",
+        "visitarSitio":"Visit website",
+        "botonConsultarSitios":"Places around me",
+        "tituloListaSitios":"We show you interesting places to visit very close to you",        
+        "tituloMapa":"We show you interesting places to visit very close to you"
     }    
 }

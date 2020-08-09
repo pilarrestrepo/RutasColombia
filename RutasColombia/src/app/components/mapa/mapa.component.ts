@@ -18,7 +18,7 @@ export class MapaComponent implements OnInit {
   public suscribirEventoCambiarIdioma: any
   public sitosCercanos = [];
   public infoWindow = null
-  
+  public idioma="es";
 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
@@ -57,6 +57,10 @@ export class MapaComponent implements OnInit {
 
     this.obtenerPosicion();
   }
+  obtenerValorPropiedad(objeto,propiedad):string { 
+    let valor = Object.keys(objeto).map(key => objeto[propiedad]);
+    return valor[0];
+}
   cerrar(){
     console.log("cerrar")
     this.sitosCercanos.forEach((value, i) => {
@@ -172,8 +176,8 @@ export class MapaComponent implements OnInit {
     });
   }
   establecerIdioma() {
-    let idioma = sessionStorage.getItem("Idioma");
-    this.translateService.use(idioma);
+    this.idioma = sessionStorage.getItem("Idioma");
+    this.translateService.use(this.idioma);
   }
   obtenerSitioCercanos() {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -215,6 +219,26 @@ export class MapaComponent implements OnInit {
   }
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
     this.sitosCercanos = [];
+    let idiomas ={
+      es:{
+        nombre:"Estas aquí",
+        descripcion:"Estas aquí"
+      },
+      en:{
+        nombre:"Are you here",
+        descripcion:"Are you here"
+      }
+    }
+    let idiomasCategoria ={
+      idiomas:{
+        es:{
+          nombre:"Estas aquí"        
+        },
+        en:{
+          nombre:"Are you here"        
+        }  
+      }
+    }    
     this.sitosCercanos.push({
       punto: {
         "latitud": +punto.latitud,
@@ -222,8 +246,9 @@ export class MapaComponent implements OnInit {
         "animation": 'BOUNCE',
         "icono": this.iconBase + this.iconEstaAqui,
         "nombre": "Estas aquí",
+        "idiomas": idiomas,
         "descripcion": "",
-        "categoria": "",
+        "categoria": idiomasCategoria,
         "imagen": "",
         "direccion": "",
         "telefono": "",
@@ -240,8 +265,8 @@ export class MapaComponent implements OnInit {
           "animation": 'DROP',
           "icono": this.iconBase + sito.icono,
           "nombre": sito.nombre,
-          "descripcion": sito.descripcion,
-          "categoria": sito.categoria.nombre,
+          "idiomas": sito.idiomas,
+          "categoria": sito.categoria,
           "imagen": this.urlImagenBase + sito.urlImagen,
           "direccion": sito.direccion,
           "telefono": sito.telefono,
@@ -300,3 +325,4 @@ export class MapaComponent implements OnInit {
   }
 
 }
+
