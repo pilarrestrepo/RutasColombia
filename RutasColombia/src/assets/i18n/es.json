@@ -7,8 +7,8 @@
         "estoyAqui": "Estoy aquí",
         "direccion":"Dirección",
         "visitarSitio":"Visitar sitio",
-        "botonConsultarSitios":"Places around me",
-        "tituloListaSitios":"Te mostramos sitios interesantes para visitar muy cerca a ti",        
+        "botonConsultarSitios":"Sitios cercanos",
+        "tituloListaSitios":"Tus sitios",        
         "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti"
 
     }  

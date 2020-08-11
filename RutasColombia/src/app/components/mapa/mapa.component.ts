@@ -241,6 +241,7 @@ export class MapaComponent implements OnInit {
     }    
     this.sitosCercanos.push({
       punto: {
+        "tipo":1,
         "latitud": +punto.latitud,
         "longitud": +punto.longitud,
         "animation": 'BOUNCE',
@@ -253,6 +254,7 @@ export class MapaComponent implements OnInit {
         "direccion": "",
         "telefono": "",
         "url": "",
+        "distiacia": "1.5",
         "draggable": true
 
       }
@@ -260,6 +262,7 @@ export class MapaComponent implements OnInit {
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
         punto: {
+          "tipo":2,
           "latitud": +sito.punto.latitud,
           "longitud": +sito.punto.longitud,
           "animation": 'DROP',
@@ -271,6 +274,7 @@ export class MapaComponent implements OnInit {
           "direccion": sito.direccion,
           "telefono": sito.telefono,
           "url": sito.url,
+          "distancia": "3.5",
           "draggable": true
 
         }
