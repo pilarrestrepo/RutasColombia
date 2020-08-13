@@ -1,6 +1,9 @@
 {
     "index": {
-        "titulo": "Your travel friend"
+        "titulo": "Your travel friend",
+        "buscarEnRutasColombia":"Explore Rutas por Colombia",
+        "menuInicio":"Home",        
+        "menuRuta":"Travel Route"
     },
     "mapa": {
         "titulo": "Map",
@@ -9,6 +12,8 @@
         "visitarSitio":"Visit website",
         "botonConsultarSitios":"Places around me",
         "tituloListaSitios":"your sites",        
-        "tituloMapa":"We show you interesting places to visit very close to you"
+        "tituloMapa":"We show you interesting places to visit very close to you",
+        "buscar":"Search",
+        "buscarSitio":"Find a travel distination..."             
     }    
 }

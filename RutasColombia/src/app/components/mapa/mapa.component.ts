@@ -217,6 +217,9 @@ export class MapaComponent implements OnInit {
           this.error = error;
         });
   }
+  borrarSitiosCercanos() {
+    this.sitosCercanos = [];
+  }
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
     this.sitosCercanos = [];
     let idiomas ={

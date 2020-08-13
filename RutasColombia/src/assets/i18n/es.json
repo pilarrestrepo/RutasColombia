@@ -1,6 +1,9 @@
 {
     "index": {
-        "titulo": "Tu compañero de ruta"
+        "titulo": "Tu compañero de ruta",
+        "buscarEnRutasColombia":"Explora Rutas por Colombia",
+        "menuInicio":"Inicio",        
+        "menuRuta":"Ruta de Viaje"
     },
     "mapa": {
         "titulo": "Mapa",
@@ -9,7 +12,9 @@
         "visitarSitio":"Visitar sitio",
         "botonConsultarSitios":"Sitios cercanos",
         "tituloListaSitios":"Tus sitios",        
-        "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti"
+        "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti",
+        "buscar":"Buscar",
+        "buscarSitio":"Buscar un destino de viaje"
 
     }  
 }
