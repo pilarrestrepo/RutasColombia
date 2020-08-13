@@ -26,7 +26,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
     HttpClientModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14'
+     // apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14'
+     apiKey: 'AIzaSyDWkyhNLZn2zUjMJedGdXviKrDqp1NOLIw'
     }),
     TranslateModule.forRoot({
       loader: {

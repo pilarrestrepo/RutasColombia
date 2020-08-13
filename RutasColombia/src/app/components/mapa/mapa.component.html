@@ -88,7 +88,7 @@
             <div class="chat-header">
               <div class="row valign-wrapper">
                 <div class="col media-image online pr-0">
-                  <img src="../../../app-assets/images/user/7.jpg" alt="" class="circle z-depth-2 responsive-img">
+                  <!-- <img src="../../../app-assets/images/user/7.jpg" alt="" class="circle z-depth-2 responsive-img"> -->
                 </div>
                 <div class="col">
                   
@@ -149,13 +149,17 @@
             <!--/ Chat content area -->
 
             <!-- Chat footer <-->
+            <div class="form-group">
+              <label>Enter address</label>
+              <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+            </div>
             <div class="chat-footer">
               <form onsubmit="enter_chat();" action="javascript:void(0);" class="chat-input">
                 <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
                   type="button" (click)="obtenerSitioCercanos()">
                   {{ 'mapa.botonConsultarSitios' | translate }}
                 </button>
-                <input type="text" placeholder="{{ 'mapa.buscarSitio' | translate }}" class="message mb-0">
+                <!-- <input type="text" placeholder="{{ 'mapa.buscarSitio' | translate }}" class="message mb-0" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search> -->
                 <a class="waves-effect waves-light btn gradient-45deg-red-pink z-depth-4 mr-1 mb-2">{{ 'mapa.buscar' | translate }}</a>                
               </form>
             </div>

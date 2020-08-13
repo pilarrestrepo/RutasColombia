@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, SimpleChange, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { SitiosService } from '../../services/sitios.service'
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
-
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-mapa',
@@ -18,10 +18,13 @@ export class MapaComponent implements OnInit {
   public suscribirEventoCambiarIdioma: any
   public sitosCercanos = [];
   public infoWindow = null
-  public idioma="es";
+  public idioma = "es";
+  address: string;
+  private geoCoder;
 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
+  @ViewChild('search') public searchElementRef: ElementRef;
 
   zoom = 11
   center: google.maps.LatLngLiteral
@@ -38,14 +41,42 @@ export class MapaComponent implements OnInit {
   iconBase = '../../../assets/icons/mapa/'
   urlImagenBase = '../../../assets/images/sitios/'
   iconEstaAqui = 'you-are-here-2.png'
-
+  latitude: number;
+  longitude: number;
   @Input() eventoCambiarIdioma: Observable<void>;
   constructor(private translateService: TranslateService,
-    private sitiosService: SitiosService) {
+    private sitiosService: SitiosService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
     this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
+   //load Places Autocomplete
+   this.mapsAPILoader.load().then(() => {
+    this.setCurrentLocation();
+    this.geoCoder = new google.maps.Geocoder;
+
+    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    autocomplete.addListener("place_changed", () => {
+      this.ngZone.run(() => {
+        console.log("entre")
+        
+        //get the place result
+        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        console.log(place)
+        //verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        //set latitude, longitude and zoom
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.zoom = 12;
+      });
+    });
+  });
     navigator.geolocation.getCurrentPosition(position => {
       this.center = {
         lat: position.coords.latitude,
@@ -56,34 +87,72 @@ export class MapaComponent implements OnInit {
     })
 
     this.obtenerPosicion();
+    
   }
-  obtenerValorPropiedad(objeto,propiedad):string { 
-    let valor = Object.keys(objeto).map(key => objeto[propiedad]);
-    return valor[0];
-}
-  cerrar(){
-    console.log("cerrar")
-    this.sitosCercanos.forEach((value, i) => {
-        this.sitosCercanos[i].punto.animation = null
-      
+// Get Current Location Coordinates
+private setCurrentLocation() {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.zoom = 8;
+      this.getAddress(this.latitude, this.longitude);
     });
   }
- 
+}
+
+
+markerDragEnd($event: any) {
+  console.log($event);
+  this.latitude = $event.coords.lat;
+  this.longitude = $event.coords.lng;
+  this.getAddress(this.latitude, this.longitude);
+}
+
+getAddress(latitude, longitude) {
+  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+    console.log(results);
+    console.log(status);
+    if (status === 'OK') {
+      if (results[0]) {
+        this.zoom = 12;
+        this.address = results[0].formatted_address;
+      } else {
+        window.alert('No results found');
+      }
+    } else {
+      window.alert('Geocoder failed due to: ' + status);
+    }
+
+  });
+}
+  obtenerValorPropiedad(objeto, propiedad): string {
+    let valor = Object.keys(objeto).map(key => objeto[propiedad]);
+    return valor[0];
+  }
+  cerrar() {
+    console.log("cerrar")
+    this.sitosCercanos.forEach((value, i) => {
+      this.sitosCercanos[i].punto.animation = null
+
+    });
+  }
+
   clickedMarker(infoWindow, gm, index: number) {
     if (this.infoWindow) {
       this.infoWindow.close();
     }
     this.infoWindow = infoWindow;
-    
 
-    
-/*     if (this.previous_info_window == null)
-      this.previous_info_window = infoWindow;
-    else {
-      this.infoWindowOpened = infoWindow
-      this.previous_info_window.close()
-    }
-    this.previous_info_window = infoWindow */
+
+
+    /*     if (this.previous_info_window == null)
+          this.previous_info_window = infoWindow;
+        else {
+          this.infoWindowOpened = infoWindow
+          this.previous_info_window.close()
+        }
+        this.previous_info_window = infoWindow */
     //infoWindow.open();
 
     this.sitosCercanos.forEach((value, i) => {
@@ -98,7 +167,7 @@ export class MapaComponent implements OnInit {
   mapClicked($event: any) {
     if (this.infoWindow) {
       this.infoWindow.close();
-   }
+    }
     this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
@@ -106,11 +175,12 @@ export class MapaComponent implements OnInit {
     });
   }
 
-  markerDragEnd(m: any, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
+
 
   /*
+    markerDragEnd(m: any, $event: MouseEvent) {
+    console.log('dragEnd', m, $event);
+  }
   zoomIn() {
     if (this.zoom < this.options.maxZoom) this.zoom++
   }
@@ -222,29 +292,29 @@ export class MapaComponent implements OnInit {
   }
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
     this.sitosCercanos = [];
-    let idiomas ={
-      es:{
-        nombre:"Estas aquí",
-        descripcion:"Estas aquí"
+    let idiomas = {
+      es: {
+        nombre: "Estas aquí",
+        descripcion: "Estas aquí"
       },
-      en:{
-        nombre:"Are you here",
-        descripcion:"Are you here"
+      en: {
+        nombre: "Are you here",
+        descripcion: "Are you here"
       }
     }
-    let idiomasCategoria ={
-      idiomas:{
-        es:{
-          nombre:"Estas aquí"        
+    let idiomasCategoria = {
+      idiomas: {
+        es: {
+          nombre: "Estas aquí"
         },
-        en:{
-          nombre:"Are you here"        
-        }  
+        en: {
+          nombre: "Are you here"
+        }
       }
-    }    
+    }
     this.sitosCercanos.push({
       punto: {
-        "tipo":1,
+        "tipo": 1,
         "latitud": +punto.latitud,
         "longitud": +punto.longitud,
         "animation": 'BOUNCE',
@@ -265,7 +335,7 @@ export class MapaComponent implements OnInit {
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
         punto: {
-          "tipo":2,
+          "tipo": 2,
           "latitud": +sito.punto.latitud,
           "longitud": +sito.punto.longitud,
           "animation": 'DROP',
