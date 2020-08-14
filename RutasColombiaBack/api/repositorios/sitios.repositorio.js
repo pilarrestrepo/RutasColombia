@@ -37,9 +37,9 @@ function sitiosCercanos(punto, callback) {
                 {
                     $geometry: {
                         type: "Point",
-                        coordinates: [-74, 4]
+                        coordinates: [punto.longitud, punto.latitud]
                     },
-                    $maxDistance: 72000
+                    $maxDistance: punto.distancia
                 }
             }
         }
@@ -56,8 +56,7 @@ function sitiosCercanos(punto, callback) {
             }
         })
         .populate({
-            path: 'categoria',
-            select: { 'nombre': 1 }
+            path: 'categoria'
         })
         .then((resultado) => {
             let vectorSitios = [];

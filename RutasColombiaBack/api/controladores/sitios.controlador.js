@@ -11,7 +11,8 @@ function sitiosCercanos(req, res) {
 
   var punto = {
       latitud: req.body.latitud,
-      longitud: req.body.longitud
+      longitud: req.body.longitud,
+      distancia: req.body.distancia
   }
 
   console.log('entro',punto);

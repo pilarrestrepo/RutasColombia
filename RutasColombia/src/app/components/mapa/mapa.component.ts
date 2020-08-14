@@ -19,7 +19,7 @@ export class MapaComponent implements OnInit {
   public sitosCercanos = [];
   public infoWindow = null
   public idioma = "es";
-  address: string;
+  direccionBusqueda: string;
   private geoCoder;
 
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
@@ -66,18 +66,20 @@ export class MapaComponent implements OnInit {
         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
         console.log(place)
         //verify result
-        if (place.geometry === undefined || place.geometry === null) {
+        if (place.geometry === undefined || place.geometry === null) {          
           return;
         }
-
+        console.log("enteee" + place.geometry.location.lat())
         //set latitude, longitude and zoom
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
+        this.lat = this.latitude;
+        this.lng = this.longitude;        
         this.zoom = 12;
       });
     });
   });
-    navigator.geolocation.getCurrentPosition(position => {
+   /*  navigator.geolocation.getCurrentPosition(position => {
       this.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -86,7 +88,7 @@ export class MapaComponent implements OnInit {
       this.lng = position.coords.longitude;
     })
 
-    this.obtenerPosicion();
+    this.obtenerPosicion(); */
     
   }
 // Get Current Location Coordinates
@@ -116,7 +118,7 @@ getAddress(latitude, longitude) {
     if (status === 'OK') {
       if (results[0]) {
         this.zoom = 12;
-        this.address = results[0].formatted_address;
+        this.direccionBusqueda = results[0].formatted_address;
       } else {
         window.alert('No results found');
       }
@@ -260,6 +262,7 @@ getAddress(latitude, longitude) {
       let punto = {
         latitud: +lat,
         longitud: +lng,
+        distancia:+72000
       }
       console.log(punto);
       this.consultarSitioCercanos(punto)
