@@ -16,18 +16,48 @@ let sitios = require('../modelos/sitios');
 function sitiosCercanos(punto, callback) {
 
 
-    sitios.find({})
-        .populate({
+    /*let sit = sitios.aggregate([
+        {
+          $geoNear: {
+             near: { type: "Point", coordinates: [ -74 , 4 ] },
+             distanceField: "distancia",
+             spherical: true,
+             maxDistance: 72000 
+                
+          }
+        },
+        { $limit: 2 }
+     ]);*/
+
+    sitios.find(
+        {
+            coordenadas:
+            {
+                $near:
+                {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [-74, 4]
+                    },
+                    $maxDistance: 72000
+                }
+            }
+        }
+    ).populate({
             path: 'municipio',
+            select: { 'nombre': 1 },
             populate: {
                 path: 'departamento',
+                select: { 'nombre': 1 },
                 populate: {
-                    path: 'pais'
+                    path: 'pais',
+                    select: { 'nombre': 1 }
                 }
             }
         })
         .populate({
-            path: 'categoria'
+            path: 'categoria',
+            select: { 'nombre': 1 }
         })
         .then((resultado) => {
             let vectorSitios = [];
@@ -36,7 +66,7 @@ function sitiosCercanos(punto, callback) {
             });
             return callback(null, vectorSitios);
         }).catch((error) => {
-            console.log('error',error);
+            console.log('error', error);
             return callback(error);
         })
 }

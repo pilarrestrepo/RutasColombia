@@ -59,6 +59,9 @@ let sitiosSchema = new Schema({
             },     
         }        
             
+    },
+    coordenadas: {
+        type: [Number]
     }
 },{ collection: 'sitios'});
 
