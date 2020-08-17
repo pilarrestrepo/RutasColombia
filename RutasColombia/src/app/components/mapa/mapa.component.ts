@@ -21,7 +21,9 @@ export class MapaComponent implements OnInit {
   public idioma = "es";
   direccionBusqueda: string;
   private geoCoder;
-
+  distancia=72;
+  direccionActual="";
+  
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
   @ViewChild('search') public searchElementRef: ElementRef;

@@ -41,7 +41,7 @@
                     <!-- Sidebar Content List -->
                     <div class="sidebar-content sidebar-chat">
                       <div class="chat-list">
-                        <ng-container *ngFor="let sitio of sitosCercanos; let i = index" >
+                        <ng-container *ngFor="let sitio of sitosCercanos; let i = index">
                           <div class="chat-user animate fadeUp delay-1" *ngIf="sitio.punto.tipo ===2">
                             <div class="user-section">
                               <div class="row valign-wrapper">
@@ -55,18 +55,19 @@
                                     class="circle z-depth-2 responsive-img"> -->
                                 </div>
                                 <div class="col s11">
-                                  <p class="m-0 blue-grey-text text-darken-4 font-weight-700">{{sitosCercanos[i].punto.idiomas[idioma].nombre}}</p>
+                                  <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                    {{sitosCercanos[i].punto.idiomas[idioma].nombre}}</p>
                                   <p class="m-0 info-text">{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
-                                </div>                              
+                                </div>
                               </div>
                             </div>
                             <div class="info-section">
-                              <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow" data-badge-caption="">{{sitosCercanos[i].punto.distancia}}</span>
-                           
+                              <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                data-badge-caption="">{{sitosCercanos[i].punto.distancia}}</span>
                             </div>
                           </div>
                         </ng-container>
-                      
+
 
 
                       </div>
@@ -91,7 +92,7 @@
                   <!-- <img src="../../../app-assets/images/user/7.jpg" alt="" class="circle z-depth-2 responsive-img"> -->
                 </div>
                 <div class="col">
-                  
+
                   <p class="m-0 blue-grey-text text-darken-4 font-weight-700">{{ 'mapa.tituloMapa' | translate }}</p>
                 </div>
               </div>
@@ -110,14 +111,15 @@
               <div class="chats">
                 <div class="chats">
 
-                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
+                    >
                     <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
                       [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
                       [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
                       (markerClick)="clickedMarker(infoWindow,gm, i)"
                       [markerDraggable]="sitosCercanos[i].punto.draggable"
                       (dragEnd)="markerDragEnd(sitosCercanos[i], $event)">
-                      <agm-info-window  *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
+                      <agm-info-window *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
                         <div class="wpgmp_infowindow fc-infowindow-default">
                           <div class="wpgmp_iw_content">
                             <div class="fc-main">
@@ -143,30 +145,54 @@
                       </agm-info-window>
                     </agm-marker>
                   </agm-map>
-                  <br/>
-                
-                  <div *ngIf="direccionBusqueda" class="chat">                   
+                  <br />
+
+                  <div *ngIf="direccionActual" class="chat">
                     <div class="chat-body">
                       <div class="chat-text">
-                        <p>{{direccionBusqueda}}</p>
+                        <p>{{direccionActual}}</p>
                       </div>
                     </div>
-                  </div>              
+                  </div>
                 </div>
               </div>
             </div>
             <!--/ Chat content area -->
 
             <!-- Chat footer <-->
-            <div class="chat-footer">
+            <!--       <div class="chat-footer">
               <div class="chat-input">
                 <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
                   type="button" (click)="obtenerSitioCercanos()">
                   {{ 'mapa.botonConsultarSitios' | translate }}
                 </button>
                 <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'mapa.buscarSitio' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
-                <!-- <input type="text" placeholder="{{ 'mapa.buscarSitio' | translate }}" class="message mb-0" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search> -->
                 <a class="waves-effect waves-light btn gradient-45deg-red-pink z-depth-4 mr-1 mb-2">{{ 'mapa.buscar' | translate }}</a>                
+              </div>
+            </div> -->
+
+            <div class="chat-footer">
+              <div class="row">
+                <div class="input-field col m2 s12">
+                  <input id="name" type="text" class="validate" [(ngModel)]="distancia">
+                  <label for="name">{{ 'mapa.distancia' | translate }}</label>
+                </div>
+                <div class="input-field col m2 s12">
+                  <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
+                    type="button" (click)="obtenerSitioCercanos()">{{ 'mapa.botonConsultarSitios' | translate }}
+                  </button>
+                </div>
+                <div class="input-field col m6 s12">
+                  <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()" autocorrect="off"
+                    autocapitalize="off" spellcheck="off" #search id="direccionBusqueda"
+                    [(ngModel)]="direccionBusqueda">
+                  <label for="direccionBusqueda">{{ 'mapa.buscarSitio' | translate }}</label>
+                </div>
+                <div class="input-field col m2 s12">
+                  <button class="waves-effect waves-light btn gradient-45deg-red-pink z-depth-4 mr-1 mb-2" type="button"
+                    (click)="obtenerSitioCercanos()">{{ 'mapa.buscar' | translate }}
+                  </button>
+                </div>
               </div>
             </div>
             <!--/ Chat footer -->
