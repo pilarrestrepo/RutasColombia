@@ -25,6 +25,7 @@
     "@angular/service-worker": "~10.0.5",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "agm-direction": "^0.8.6",
     "install": "^0.13.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

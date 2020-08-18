@@ -13,8 +13,10 @@
         "botonConsultarSitios":"Places around me",
         "tituloListaSitios":"your sites",        
         "tituloMapa":"We show you interesting places to visit very close to you",
-        "buscar":"Search",
-        "buscarSitio":"Find a travel distination...",
+        "buscar":"Search",        
+        "ingresarDestino":"Find a travel distination...",
+        "buscarSitioInicio":"Enter start location",
+        "buscarSitioFin":"Enter end location",
         "distance":"Distance  (Km)"        
     }    
 }

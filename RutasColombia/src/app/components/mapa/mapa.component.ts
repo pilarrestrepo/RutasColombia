@@ -11,25 +11,24 @@ import { MapsAPILoader } from '@agm/core';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
-  lat = 0;
-  lng = 0;
-  public error = "";
+  private geoCoder;
+
+  public lat = 0;
+  public lng = 0;
+  public error = "";  
   public cargando = false;
   public suscribirEventoCambiarIdioma: any
   public sitosCercanos = [];
   public infoWindow = null
   public idioma = "es";
-  direccionBusqueda: string;
-  private geoCoder;
-  distancia=72;
-  direccionActual="";
-  
-  @ViewChild(GoogleMap, { static: false }) map: GoogleMap
-  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
-  @ViewChild('search') public searchElementRef: ElementRef;
+  public direccionBusquedaOrigen: string;
+  public direccionBusquedaDestino: string;
+  public distancia = 72;
+  public direccionActual = "";
+  public zoom = 11;
 
-  zoom = 11
-  center: google.maps.LatLngLiteral
+  //center: google.maps.LatLngLiteral
+  /*
   options: google.maps.MapOptions = {
     zoomControl: false,
     scrollwheel: false,
@@ -37,14 +36,23 @@ export class MapaComponent implements OnInit {
     mapTypeId: 'hybrid',
     maxZoom: 15,
     minZoom: 8,
-  }
-  markers = []
-  infoContent = ''
-  iconBase = '../../../assets/icons/mapa/'
-  urlImagenBase = '../../../assets/images/sitios/'
-  iconEstaAqui = 'you-are-here-2.png'
+  }*/
+  //markers = []
+  //infoContent = ''
+  private iconBase = '../../../assets/icons/mapa/'
+  private urlImagenBase = '../../../assets/images/sitios/'
+  private iconEstaAqui = 'you-are-here-2.png'
   latitude: number;
   longitude: number;
+  public origin: any;
+  public destination: any;
+
+  @ViewChild(GoogleMap, { static: false }) map: GoogleMap
+  @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
+  @ViewChild('busquedaOrigen') public busquedaOrigenElementRef: ElementRef;
+  @ViewChild('busquedaDestino') public busquedaDestinoElementRef: ElementRef;
+ 
+
   @Input() eventoCambiarIdioma: Observable<void>;
   constructor(private translateService: TranslateService,
     private sitiosService: SitiosService,
@@ -54,82 +62,111 @@ export class MapaComponent implements OnInit {
 
   ngOnInit(): void {
     this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
-   //load Places Autocomplete
-   this.mapsAPILoader.load().then(() => {
-    this.setCurrentLocation();
-    this.geoCoder = new google.maps.Geocoder;
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
 
-    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-    autocomplete.addListener("place_changed", () => {
-      this.ngZone.run(() => {
-        console.log("entre")
-        
-        //get the place result
-        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        console.log(place)
-        //verify result
-        if (place.geometry === undefined || place.geometry === null) {          
-          return;
-        }
-        console.log("enteee" + place.geometry.location.lat())
-        //set latitude, longitude and zoom
-        this.latitude = place.geometry.location.lat();
-        this.longitude = place.geometry.location.lng();
-        this.lat = this.latitude;
-        this.lng = this.longitude;        
-        this.zoom = 12;
+      let autocomplete = new google.maps.places.Autocomplete(this.busquedaOrigenElementRef.nativeElement);
+      let autocomplete2 = new google.maps.places.Autocomplete(this.busquedaDestinoElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          console.log("entre")
+
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          console.log(place)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }          
+          //set latitude, longitude and zoom          
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.destination = { lat: this.latitude, lng: this.longitude };
+          this.zoom = 12;
+        });
+      });
+      autocomplete2.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          console.log("entre")
+
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete2.getPlace();
+          console.log(place)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          console.log("enteee" + place.geometry.location.lat())
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.lat = this.latitude;
+          this.lng = this.longitude;
+          this.destination = { lat: this.latitude, lng: this.longitude };
+          this.zoom = 12;
+        });
       });
     });
-  });
-   /*  navigator.geolocation.getCurrentPosition(position => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
-      this.lat = position.coords.latitude;
-      this.lng = position.coords.longitude;
-    })
-
-    this.obtenerPosicion(); */
-    
+    /*  navigator.geolocation.getCurrentPosition(position => {
+       this.center = {
+         lat: position.coords.latitude,
+         lng: position.coords.longitude,
+       }
+       this.lat = position.coords.latitude;
+       this.lng = position.coords.longitude;
+     })
+ 
+     this.obtenerPosicion(); */
+    this.getDirection();
   }
-// Get Current Location Coordinates
-private setCurrentLocation() {
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.zoom = 8;
-      this.getAddress(this.latitude, this.longitude);
+  getDirection() {
+    this.origin = { lat: 24.799448, lng: 120.979021 };
+    this.destination = { lat: 24.799524, lng: 120.975017 };
+
+    // Location within a string
+    // this.origin = 'Taipei Main Station';
+    // this.destination = 'Taiwan Presidential Office';
+  }
+  // Get Current Location Coordinates
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 8;
+        this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
+        this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  }
+
+
+  markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.direccionBusquedaOrigen = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
     });
   }
-}
-
-
-markerDragEnd($event: any) {
-  console.log($event);
-  this.latitude = $event.coords.lat;
-  this.longitude = $event.coords.lng;
-  this.getAddress(this.latitude, this.longitude);
-}
-
-getAddress(latitude, longitude) {
-  this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-    console.log(results);
-    console.log(status);
-    if (status === 'OK') {
-      if (results[0]) {
-        this.zoom = 12;
-        this.direccionBusqueda = results[0].formatted_address;
-      } else {
-        window.alert('No results found');
-      }
-    } else {
-      window.alert('Geocoder failed due to: ' + status);
-    }
-
-  });
-}
   obtenerValorPropiedad(objeto, propiedad): string {
     let valor = Object.keys(objeto).map(key => objeto[propiedad]);
     return valor[0];
@@ -141,7 +178,39 @@ getAddress(latitude, longitude) {
 
     });
   }
+  getcoords(type, event) {
+    console.log("getcoords")
+    console.log(type)
+    console.log(event)
+    let coords = JSON.stringify(event);
+    let coords3 = JSON.parse(coords);
+    console.log(coords3);
+    console.log("updated longitude :: " + coords3.lng);
+  }
+  onChange(event) {
+    console.log("onChange")
 
+    console.log(event)
+
+    var route = event.routes[0];
+    var points = new Array();
+    var legs = route.legs;
+    for (let i = 0; i < legs.length; i++) {
+      var steps = legs[i].steps;
+      for (let j = 0; j < steps.length; j++) {
+        var nextSegment = steps[j].path;
+        for (let k = 0; k < nextSegment.length; k++) {
+          points.push(nextSegment[k]);
+        }
+      }
+    }
+    console.log(points)
+  }
+  onResponse(event) {
+    console.log("onResponse")
+
+    console.log(event)
+  }
   clickedMarker(infoWindow, gm, index: number) {
     if (this.infoWindow) {
       this.infoWindow.close();
@@ -172,11 +241,11 @@ getAddress(latitude, longitude) {
     if (this.infoWindow) {
       this.infoWindow.close();
     }
-    this.markers.push({
+/*    this.markers.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
-    });
+    });*/
   }
 
 
@@ -264,7 +333,7 @@ getAddress(latitude, longitude) {
       let punto = {
         latitud: +lat,
         longitud: +lng,
-        distancia:+72000
+        distancia: +72000
       }
       console.log(punto);
       this.consultarSitioCercanos(punto)
@@ -359,18 +428,16 @@ getAddress(latitude, longitude) {
       })
     }
     console.log(this.sitosCercanos)
+    /*
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png';
     const image = {
       url:
-        iconBase,
-      // This marker is 20 pixels wide by 32 pixels high.
-      size: new google.maps.Size(20, 32),
-      // The origin for this image is (0, 0).
-      origin: new google.maps.Point(0, 0),
-      // The anchor for this image is the base of the flagpole at (0, 32).
+        iconBase,      
+      size: new google.maps.Size(20, 32),      
+      origin: new google.maps.Point(0, 0),      
       anchor: new google.maps.Point(0, 32)
     };
-
+ 
     this.markers.push({
       position: {
         lat: punto.latitud,
@@ -382,7 +449,7 @@ getAddress(latitude, longitude) {
       options: {
         animation: google.maps.Animation.BOUNCE,
       },
-    })
+    }) */
 
 
   }

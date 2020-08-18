@@ -14,7 +14,9 @@
         "tituloListaSitios":"Tus sitios",        
         "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti",
         "buscar":"Buscar",
-        "buscarSitio":"Buscar un destino de viaje",
+        "ingresarDestino":"Ingresa una ubicación",
+        "buscarSitioInicio":"Buscar un destino de viaje",
+        "buscarSitioFin":"Buscar un destino de viaje",
         "distancia":"Distancia (Km)"
 
     }  

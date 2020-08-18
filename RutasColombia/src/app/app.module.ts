@@ -13,6 +13,7 @@ import {  TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,10 @@ import { GoogleMapsModule } from '@angular/google-maps'
     GoogleMapsModule,
     AgmCoreModule.forRoot({
      // apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14'
-     apiKey: 'AIzaSyDWkyhNLZn2zUjMJedGdXviKrDqp1NOLIw'
+     //apiKey: 'AIzaSyDWkyhNLZn2zUjMJedGdXviKrDqp1NOLIw'
+     apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc'
     }),
+    AgmDirectionModule,  
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
