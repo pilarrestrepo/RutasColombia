@@ -6,7 +6,6 @@
         <i class="material-icons">menu</i>
       </a>
       <!--/ Sidebar menu for small screen -->
-
       <div class="card card card-default scrollspy border-radius-6 fixed-width">
         <div class="card-content chat-content p-0">
           <!-- Sidebar Area -->
@@ -51,8 +50,6 @@
                                       <i class="material-icons amber-text">star</i>
                                     </div>
                                   </div>
-                                  <!-- <img [src]="sitosCercanos[i].punto.imagen" alt=""
-                                    class="circle z-depth-2 responsive-img"> -->
                                 </div>
                                 <div class="col s11">
                                   <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
@@ -67,9 +64,6 @@
                             </div>
                           </div>
                         </ng-container>
-
-
-
                       </div>
                       <div class="no-data-found">
                         <h6 class="center">No Results Found</h6>
@@ -89,10 +83,8 @@
             <div class="chat-header">
               <div class="row valign-wrapper">
                 <div class="col media-image online pr-0">
-                  <!-- <img src="../../../app-assets/images/user/7.jpg" alt="" class="circle z-depth-2 responsive-img"> -->
                 </div>
                 <div class="col">
-
                   <p class="m-0 blue-grey-text text-darken-4 font-weight-700">{{ 'mapa.tituloMapa' | translate }}</p>
                 </div>
               </div>
@@ -110,7 +102,6 @@
             <div class="chat-area">
               <div class="chats">
                 <div class="chats">
-
                   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
                     <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
                       [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
@@ -136,16 +127,11 @@
                             </div>
                           </div>
                         </div>
-                        <!-- <div>
-                          <button (click)="editarMarcador( sitio )" mat-raised-button color="primary">Editar</button>
-                          <button (click)="borrarMarcador(i)" mat-raised-button color="warn">Borrar</button>
-                        </div> -->
-
                       </agm-info-window>
                     </agm-marker>
                     <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
-                    (onResponse)="onResponse($event)"
-                    (destinationDrag)="getcoords('direction',$event)" (originDrag)="getcoords('direction',$event)">
+                      (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
+                      (originDrag)="getcoords('direction',$event)">
                     </agm-direction>
                   </agm-map>
                   <br />
@@ -163,36 +149,31 @@
             <!--/ Chat content area -->
 
             <!-- Chat footer <-->
-            <!--       <div class="chat-footer">
-              <div class="chat-input">
-                <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
-                  type="button" (click)="obtenerSitioCercanos()">
-                  {{ 'mapa.botonConsultarSitios' | translate }}
-                </button>
-                <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'mapa.buscarSitio' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
-                <a class="waves-effect waves-light btn gradient-45deg-red-pink z-depth-4 mr-1 mb-2">{{ 'mapa.buscar' | translate }}</a>                
-              </div>
-            </div> -->
-
             <div class="chat-footer">
               <div class="row">
-                <div class="input-field col m2 s12">
-                  <input id="name" type="text" class="validate" [(ngModel)]="distancia">
+                <div class="input-field col m4 s12" >
+                  <input id="name" type="text" class="validate" [(ngModel)]="distancia" style="width:50%;">                  
                   <label for="name">{{ 'mapa.distancia' | translate }}</label>
-                </div>
-                <div class="input-field col m2 s12">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
                   <button class="waves-effect waves-light btn gradient-45deg-light-blue-cyan z-depth-4 mr-1 mb-2"
-                    type="button" (click)="obtenerSitioCercanos()">{{ 'mapa.botonConsultarSitios' | translate }}
+                    type="button" (click)="obtenerSitioCercanos()">{{ 'mapa.buscar' | translate }}
                   </button>
                 </div>
+
                 <div class="input-field col m3 s12">
-                  <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'mapa.buscarSitioInicio' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" #busquedaOrigen  [(ngModel)]="direccionBusqueda">
-                  <label for="direccionBusqueda">{{ 'mapa.buscarSitioInicio' | translate }}</label>
+                  <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()"
+                    id="direccionBusquedaOrigen" placeholder="{{ 'mapa.buscarSitioInicio' | translate }}"
+                    autocorrect="off" autocapitalize="off" spellcheck="off" #busquedaOrigen
+                    [(ngModel)]="direccionBusquedaOrigen">
+                  <label for="direccionBusquedaOrigen">{{ 'mapa.buscarSitioInicio' | translate }}</label>
                 </div>
                 <div class="input-field col m3 s12">
-                  <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'mapa.buscarSitioFin' | translate }}" autocorrect="off" autocapitalize="off" spellcheck="off" #busquedaDestino  [(ngModel)]="direccionBusqueda2">
-                  <label for="direccionBusqueda2">{{ 'mapa.buscarSitioFin' | translate }}</label>
-                </div>                
+                  <input type="text" class="message mb-0" (keydown.enter)="$event.preventDefault()"
+                    id="direccionBusquedaDestino" placeholder="{{ 'mapa.buscarSitioFin' | translate }}"
+                    autocorrect="off" autocapitalize="off" spellcheck="off" #busquedaDestino
+                    [(ngModel)]="direccionBusquedaDestino">
+                  <label for="direccionBusquedaDestino">{{ 'mapa.buscarSitioFin' | translate }}</label>
+                </div>
                 <div class="input-field col m2 s12">
                   <button class="waves-effect waves-light btn gradient-45deg-red-pink z-depth-4 mr-1 mb-2" type="button"
                     (click)="obtenerSitioCercanos()">{{ 'mapa.buscar' | translate }}

@@ -17,7 +17,7 @@
         "ingresarDestino":"Ingresa una ubicación",
         "buscarSitioInicio":"Buscar un destino de viaje",
         "buscarSitioFin":"Buscar un destino de viaje",
-        "distancia":"Distancia (Km)"
+        "distancia":"Sitios cercanos a una distancia en Km de"
 
     }  
 }

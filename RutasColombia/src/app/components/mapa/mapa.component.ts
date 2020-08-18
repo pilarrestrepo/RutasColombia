@@ -15,7 +15,7 @@ export class MapaComponent implements OnInit {
 
   public lat = 0;
   public lng = 0;
-  public error = "";  
+  public error = "";
   public cargando = false;
   public suscribirEventoCambiarIdioma: any
   public sitosCercanos = [];
@@ -27,23 +27,9 @@ export class MapaComponent implements OnInit {
   public direccionActual = "";
   public zoom = 11;
 
-  //center: google.maps.LatLngLiteral
-  /*
-  options: google.maps.MapOptions = {
-    zoomControl: false,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    mapTypeId: 'hybrid',
-    maxZoom: 15,
-    minZoom: 8,
-  }*/
-  //markers = []
-  //infoContent = ''
   private iconBase = '../../../assets/icons/mapa/'
   private urlImagenBase = '../../../assets/images/sitios/'
   private iconEstaAqui = 'you-are-here-2.png'
-  latitude: number;
-  longitude: number;
   public origin: any;
   public destination: any;
 
@@ -51,7 +37,7 @@ export class MapaComponent implements OnInit {
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
   @ViewChild('busquedaOrigen') public busquedaOrigenElementRef: ElementRef;
   @ViewChild('busquedaDestino') public busquedaDestinoElementRef: ElementRef;
- 
+
 
   @Input() eventoCambiarIdioma: Observable<void>;
   constructor(private translateService: TranslateService,
@@ -67,77 +53,56 @@ export class MapaComponent implements OnInit {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.busquedaOrigenElementRef.nativeElement);
-      let autocomplete2 = new google.maps.places.Autocomplete(this.busquedaDestinoElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
+      let autocompleteOrigen = new google.maps.places.Autocomplete(this.busquedaOrigenElementRef.nativeElement);
+      let autocompleteDestino = new google.maps.places.Autocomplete(this.busquedaDestinoElementRef.nativeElement);
+      autocompleteOrigen.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          console.log("entre")
-
           //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log(place)
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }          
-          //set latitude, longitude and zoom          
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
-          this.destination = { lat: this.latitude, lng: this.longitude };
-          this.zoom = 12;
-        });
-      });
-      autocomplete2.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          console.log("entre")
-
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete2.getPlace();
+          let place: google.maps.places.PlaceResult = autocompleteOrigen.getPlace();
           console.log(place)
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          console.log("enteee" + place.geometry.location.lat())
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.lat = this.latitude;
-          this.lng = this.longitude;
-          this.destination = { lat: this.latitude, lng: this.longitude };
+          //set latitude, longitude and zoom          
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.origin = { lat: this.lat, lng: this.lng };
+          this.zoom = 12;
+        });
+      });
+      autocompleteDestino.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocompleteDestino.getPlace();
+          console.log(place)
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          //set latitude, longitude and zoom          
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.destination = { lat: this.lat, lng: this.lng };
           this.zoom = 12;
         });
       });
     });
-    /*  navigator.geolocation.getCurrentPosition(position => {
-       this.center = {
-         lat: position.coords.latitude,
-         lng: position.coords.longitude,
-       }
-       this.lat = position.coords.latitude;
-       this.lng = position.coords.longitude;
-     })
- 
-     this.obtenerPosicion(); */
     this.getDirection();
   }
   getDirection() {
-    this.origin = { lat: 24.799448, lng: 120.979021 };
+    this.origin = { lat: this.lat, lng: this.lng };
     this.destination = { lat: 24.799524, lng: 120.975017 };
-
-    // Location within a string
-    // this.origin = 'Taipei Main Station';
-    // this.destination = 'Taiwan Presidential Office';
   }
   // Get Current Location Coordinates
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
         this.zoom = 8;
         this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
-        this.getAddress(this.latitude, this.longitude);
+        this.getAddress(this.lat, this.lng);
       });
     }
   }
@@ -145,9 +110,9 @@ export class MapaComponent implements OnInit {
 
   markerDragEnd($event: any) {
     console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
+    this.lat = $event.coords.lat;
+    this.lng = $event.coords.lng;
+    this.getAddress(this.lat, this.lng);
   }
 
   getAddress(latitude, longitude) {
@@ -167,6 +132,25 @@ export class MapaComponent implements OnInit {
 
     });
   }
+
+  /* getAddress(latitude, longitude) {
+    var promesa = new Promise(function (resolve, reject) {
+      this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            this.zoom = 12;
+            resolve(results[0].formatted_address);
+            this.direccionBusquedaOrigen = results[0].formatted_address;
+          } else {
+            reject('No results found');
+          }
+        } else {
+          reject('Geocoder failed due to: ' + status);
+        }
+      });
+    });
+    return promesa;
+  } */
   obtenerValorPropiedad(objeto, propiedad): string {
     let valor = Object.keys(objeto).map(key => objeto[propiedad]);
     return valor[0];
@@ -189,9 +173,7 @@ export class MapaComponent implements OnInit {
   }
   onChange(event) {
     console.log("onChange")
-
     console.log(event)
-
     var route = event.routes[0];
     var points = new Array();
     var legs = route.legs;
@@ -216,18 +198,6 @@ export class MapaComponent implements OnInit {
       this.infoWindow.close();
     }
     this.infoWindow = infoWindow;
-
-
-
-    /*     if (this.previous_info_window == null)
-          this.previous_info_window = infoWindow;
-        else {
-          this.infoWindowOpened = infoWindow
-          this.previous_info_window.close()
-        }
-        this.previous_info_window = infoWindow */
-    //infoWindow.open();
-
     this.sitosCercanos.forEach((value, i) => {
       if (i == index) {
         this.sitosCercanos[i].punto.animation = 'BOUNCE'
@@ -241,78 +211,12 @@ export class MapaComponent implements OnInit {
     if (this.infoWindow) {
       this.infoWindow.close();
     }
-/*    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true
-    });*/
   }
 
-
-
-  /*
-    markerDragEnd(m: any, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
-  zoomIn() {
-    if (this.zoom < this.options.maxZoom) this.zoom++
-  }
-
-  zoomOut() {
-    if (this.zoom > this.options.minZoom) this.zoom--
-  }
-  click(event: google.maps.MouseEvent) {
-    console.log(event)
-  }
-
-  logCenter() {
-    console.log(JSON.stringify(this.map.getCenter()))
-  }
-
-  addMarker() {
-    this.markers.push({
-      position: {
-        lat: this.center.lat + ((Math.random() - 0.5) * 2) / 10,
-        lng: this.center.lng + ((Math.random() - 0.5) * 2) / 10,
-      },
-      label: {
-        color: 'red',
-        text: 'Marker label ' + (this.markers.length + 1),
-      },
-      icon: {
-        url: "https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png",
-        size: new google.maps.Size(7, 7),
-        anchor: new google.maps.Point(4, 4)
-      },
-      title: 'Marker title ' + (this.markers.length + 1),
-      info: 'Marker info ' + (this.markers.length + 1),
-      options: {
-        animation: google.maps.Animation.BOUNCE,
-      },
-    })
-  }
-
-  openInfo(marker: MapMarker, content) {
-    this.infoContent = content
-    this.info.open(marker)
-  }
-  */
   // Obtener la geolocalización
   obtenerPosicion() {
     console.log("obtenerPosicion");
-
-    // console.log('Botón geolocalización');
-    /*$.mdtoast('Cargando mapa...', {
-        interaction: true,
-        interactionTimeout: 2000,
-        actionText: 'Ok!'
-    });*/
-
-
-
     navigator.geolocation.getCurrentPosition(pos => {
-      console.log(pos);
-      //mostrarMapaModal( pos.coords.latitude, pos.coords.longitude );
       this.lat = +pos.coords.latitude;
       this.lng = +pos.coords.longitude;
 
@@ -324,10 +228,7 @@ export class MapaComponent implements OnInit {
   }
   obtenerSitioCercanos() {
     navigator.geolocation.getCurrentPosition(pos => {
-
       console.log(pos);
-      //mostrarMapaModal( pos.coords.latitude, pos.coords.longitude );
-
       let lat = pos.coords.latitude;
       let lng = pos.coords.longitude;
       let punto = {
@@ -337,8 +238,6 @@ export class MapaComponent implements OnInit {
       }
       console.log(punto);
       this.consultarSitioCercanos(punto)
-
-
     });
   }
   consultarSitioCercanos(punto: any) {
@@ -428,47 +327,10 @@ export class MapaComponent implements OnInit {
       })
     }
     console.log(this.sitosCercanos)
-    /*
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png';
-    const image = {
-      url:
-        iconBase,      
-      size: new google.maps.Size(20, 32),      
-      origin: new google.maps.Point(0, 0),      
-      anchor: new google.maps.Point(0, 32)
-    };
- 
-    this.markers.push({
-      position: {
-        lat: punto.latitud,
-        lng: punto.longitud
-      },
-      icon: image,
-      title: 'Estoy aquí... ',
-      info: 'Marker info ' + (this.markers.length + 1),
-      options: {
-        animation: google.maps.Animation.BOUNCE,
-      },
-    }) */
-
-
   }
   editarMarcador(marcador: any) {
     marcador.punto.animation = 'BOUNCE'
-
-
   }
-  /*
-  ngOnChanges(changes: { [property: string]: SimpleChange }) {
-    // Extract changes to the input property by its name
-    let cambio: SimpleChange = changes['lenguajeSeleccionado'];
-    console.log("ngOnChanges")
-    console.log(cambio.currentValue)
-
-
-    this.cambiarIdioma(cambio.currentValue);
-
-  }*/
   ngOnDestroy() {
     this.suscribirEventoCambiarIdioma.unsubscribe()
   }
