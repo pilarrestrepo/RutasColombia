@@ -123,6 +123,8 @@ export class MapaComponent implements OnInit {
         if (results[0]) {
           this.zoom = 12;
           this.direccionBusquedaOrigen = results[0].formatted_address;
+          this.direccionActual = results[0].formatted_address;
+          
         } else {
           window.alert('No results found');
         }

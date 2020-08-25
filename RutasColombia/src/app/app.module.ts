@@ -14,12 +14,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmDirectionModule } from 'agm-direction';
+import { SitiosRutaComponent } from './components/sitios-ruta/sitios-ruta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    MapaComponent
+    MapaComponent,
+    SitiosRutaComponent
   ],
   imports: [
     BrowserModule,

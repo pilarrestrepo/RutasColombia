@@ -17,6 +17,6 @@
         "ingresarDestino":"Find a travel distination...",
         "buscarSitioInicio":"Enter start location",
         "buscarSitioFin":"Enter end location",
-        "distance":"Places around me at a distance (Km) of"        
+        "distancia":"Places around me at a distance (Km) of"        
     }    
 }

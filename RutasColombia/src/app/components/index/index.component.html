@@ -73,7 +73,7 @@
                 <img class="hide-on-med-and-down" src="../../../assets/images/logo/materialize-logo-color.png"
                     alt="materialize logo" /><img class="show-on-medium-and-down hide-on-med-and-up"
                     src="../../../assets/images/logo/materialize-logo.png" alt="materialize logo" />
-                     <span class="logo-text hide-on-med-and-down">Rutas Colombia</span> 
+                <span class="logo-text hide-on-med-and-down">Rutas Colombia</span>
             </a><a class="navbar-toggler" href="#">
             </a>
         </h1>
@@ -81,11 +81,11 @@
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li class="bold">
-            <a class="waves-effect waves-cyan " href="app-file-manager.html"><i
-                    class="material-icons">content_paste</i><span class="menu-title">
+            <a class="waves-effect waves-cyan " href="#"><i class="material-icons">content_paste</i><span
+                    class="menu-title">
                     {{ 'index.menuInicio' | translate }}</span></a>
         </li>
-        <li class="active bold"><a class="waves-effect waves-cyan active " href="app-contacts.html"><i
+        <li class="active bold"><a class="waves-effect waves-cyan active " href="#"><i
                     class="material-icons">import_contacts</i><span
                     class="menu-title">{{ 'index.menuRuta' | translate }}</span></a>
         </li>
@@ -109,34 +109,11 @@
                                 {{ 'index.titulo' | translate }}</h5>
                         </div>
                     </div>
+                    <!-- <router-outlet></router-outlet> -->
                     <app-mapa [eventoCambiarIdioma]="eventoCambiarIdioma.asObservable()">
                     </app-mapa>
                 </div>
                 <!--fin nuevo-->
-
-
-
-                <!--             <div class="section">
-                    
-                    <div class="row vertical-modern-dashboard">
-                        <div class="col s12 m12 l12 animate fadeRight">
-      
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="total-transaction-container">
-                                        <div id="total-transaction-line-chart" class="total-transaction-shadow">
-                                
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    
-
-
-                </div>-->
-
             </div>
         </div>
     </div>
