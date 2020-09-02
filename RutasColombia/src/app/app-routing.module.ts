@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '', component: IndexComponent,
     children: [
       { path: '', component: MapaComponent },
+      { path: 'mapa', component: MapaComponent },
       { path: 'sitiosRuta', component: SitiosRutaComponent }
     ]
   },

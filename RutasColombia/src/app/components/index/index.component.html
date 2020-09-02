@@ -80,14 +80,17 @@
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="menu-accordion">
-        <li class="bold">
-            <a class="waves-effect waves-cyan " href="#"><i class="material-icons">content_paste</i><span
-                    class="menu-title">
-                    {{ 'index.menuInicio' | translate }}</span></a>
+        <li [ngClass]="[menuActual == 'Inicio' ? 'active bold':'bold' ]">
+            <a  [ngClass]="[menuActual == 'Inicio' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]" (click)="cambiarMenu('Inicio')"><i
+                    class="material-icons">content_paste</i><span class="menu-title">
+                    {{ 'index.menuInicio' | translate }}</span>
+            </a>
         </li>
-        <li class="active bold"><a class="waves-effect waves-cyan active " href="#"><i
-                    class="material-icons">import_contacts</i><span
-                    class="menu-title">{{ 'index.menuRuta' | translate }}</span></a>
+        <li [ngClass]="[menuActual == 'Ruta' ? 'active bold':'bold' ]">
+            <a [ngClass]="[menuActual == 'Ruta' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]" (click)="cambiarMenu('Ruta')">
+                <i class="material-icons">import_contacts</i>
+                <span class="menu-title">{{ 'index.menuRuta' | translate }}</span>
+            </a>
         </li>
     </ul>
     <div class="navigation-background"></div><a
