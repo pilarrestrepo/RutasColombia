@@ -64,6 +64,28 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /listarSitios:
+    x-swagger-router-controller: sitios.controlador
+    post:
+      description: Devuelve todos los sitios
+      operationId: listarSitios
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
   /swagger:
     x-swagger-pipe: swagger_raw
 

@@ -70,13 +70,36 @@ function sitiosCercanos(punto, callback) {
         })
 }
 
-/*function initDefaultAutenticacion(autenticacionSet) {
-    autenticacion = autenticacionSet.slice();
-}*/
+function listarSitios(callback) {
+    sitios.find({}).populate({
+            path: 'municipio',
+            select: { 'nombre': 1 },
+            populate: {
+                path: 'departamento',
+                select: { 'nombre': 1 },
+                populate: {
+                    path: 'pais',
+                    select: { 'nombre': 1 }
+                }
+            }
+        })
+        .populate({
+            path: 'categoria'
+        })
+        .then((resultado) => {
+            let vectorSitios = [];
+            resultado.forEach(element => {
+                vectorSitios.push(element.toCleanObject());
+            });
+            return callback(null, vectorSitios);
+        }).catch((error) => {
+            console.log('error', error);
+            return callback(error);
+        })
+}
 
 module.exports = {
-    sitiosCercanos
-    // getAutenticacion,
-    // initDefaultAutenticacion
+    sitiosCercanos,
+    listarSitios    
 }
 

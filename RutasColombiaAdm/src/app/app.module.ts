@@ -10,14 +10,20 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {  TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
-import { GoogleMapsModule } from '@angular/google-maps'
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ListarSitiosComponent } from './components/listar-sitios/listar-sitios.component'
+import { InicioComponent } from './components/inicio/inicio.component';
+import { LoginComponent } from './components/login/login.component'
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent
+    IndexComponent,    
+    InicioComponent,
+    ListarSitiosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

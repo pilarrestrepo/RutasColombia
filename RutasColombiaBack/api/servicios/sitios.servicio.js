@@ -95,6 +95,16 @@ function sitiosCercanos(punto, callback) {
   });*/
 }
 
+function listarSitios(callback) {
+  sitiosRepositorio.listarSitios(function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
 module.exports = {
-  sitiosCercanos
+  sitiosCercanos,
+  listarSitios
 }

@@ -3,27 +3,26 @@
         <nav
             class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
             <div class="nav-wrapper">
-                <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
-                    <input class="header-search-input z-depth-2" type="text" name="Search"
-                        placeholder="{{ 'index.buscarEnRutasColombia' | translate }}" placeholder="Explore Materialize"
-                        data-search="template-list">
-                    <ul class="search-list collection display-none"></ul>
-                </div>
                 <ul class="navbar-list right">
                     <li class="dropdown-language"><a class="waves-effect waves-block waves-light translation-button"
-                            href="#" data-target="translation-dropdown"><span class="flag-icon flag-icon-es"></span></a>
+                            href="#" data-target="profile-dropdown"><span class="flag-icon flag-icon-es"></span></a>
                     </li>
-                    <!--                 <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen"
-                            href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
-                    <li class="hide-on-large-only search-input-wrapper"><a
-                            class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i
-                                class="material-icons">search</i></a></li>
-                    <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);"
-                            data-target="notifications-dropdown"><i class="material-icons">notifications_none<small
-                                    class="notification-badge">5</small></i></a></li> -->
                 </ul>
 
                 <!-- translation-button-->
+                <ul class="dropdown-content" id="profile-dropdown">
+                    <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i
+                                class="material-icons">person_outline</i> Profile</a></li>
+                    <li><a class="grey-text text-darken-1" href="app-chat.html"><i
+                                class="material-icons">chat_bubble_outline</i> Chat</a></li>
+                    <li><a class="grey-text text-darken-1" href="page-faq.html"><i
+                                class="material-icons">help_outline</i> Help</a></li>
+                    <li class="divider"></li>
+                    <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i
+                                class="material-icons">lock_outline</i> Lock</a></li>
+                    <li><a class="grey-text text-darken-1" href="user-login.html"><i
+                                class="material-icons">keyboard_tab</i> Logout</a></li>
+                </ul>
                 <ul class="dropdown-content" id="translation-dropdown">
                     <li class="dropdown-item">
                         <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')">
@@ -81,13 +80,15 @@
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li [ngClass]="[menuActual == 'Inicio' ? 'active bold':'bold' ]">
-            <a  [ngClass]="[menuActual == 'Inicio' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]" (click)="cambiarMenu('Inicio')"><i
+            <a [ngClass]="[menuActual == 'Inicio' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
+                (click)="cambiarMenu('Inicio')" [routerLink]="['/sitios']"><i
                     class="material-icons">content_paste</i><span class="menu-title">
-                    {{ 'index.menuInicio' | translate }}</span>
+                    Sitios</span>
             </a>
         </li>
         <li [ngClass]="[menuActual == 'Ruta' ? 'active bold':'bold' ]">
-            <a [ngClass]="[menuActual == 'Ruta' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]" (click)="cambiarMenu('Ruta')">
+            <a [ngClass]="[menuActual == 'Ruta' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
+                (click)="cambiarMenu('Ruta')">
                 <i class="material-icons">import_contacts</i>
                 <span class="menu-title">{{ 'index.menuRuta' | translate }}</span>
             </a>
@@ -98,24 +99,4 @@
         href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
 </aside>
 <!-- END: SideNav-->
-<div id="main">
-    <div class="row">
-        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
-        <div class="col s12">
-            <div class="container">
-                <!--inicio nuevo-->
-                <div class="chat-application">
-                    <div class="chat-content-head">
-                        <div class="header-details">
-                            <h5 class="m-0 sidebar-title">
-                                <i class="material-icons app-header-icon text-top">photo_library</i>
-                                {{ 'index.titulo' | translate }}</h5>
-                        </div>
-                    </div>
-                    <router-outlet></router-outlet>                     
-                </div>
-                <!--fin nuevo-->
-            </div>
-        </div>
-    </div>
-</div>
+<router-outlet></router-outlet>
