@@ -104,7 +104,30 @@ function listarSitios(callback) {
     }
   });
 }
+
+function crearSitio(sitio, callback) {
+  sitiosRepositorio.crearSitio(sitio, function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
+
+function editarSitio(sitio, callback) {
+  sitiosRepositorio.editarSitio(sitio, function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
+
 module.exports = {
   sitiosCercanos,
-  listarSitios
+  listarSitios,
+  crearSitio,
+  editarSitio
 }

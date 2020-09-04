@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ListarSitiosComponent } from './components/listar-sitios/listar-sitios.component'
 import { InicioComponent } from './components/inicio/inicio.component';
-import { LoginComponent } from './components/login/login.component'
+import { LoginComponent } from './components/login/login.component';
+import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.component'
 
 
 
@@ -23,7 +24,8 @@ import { LoginComponent } from './components/login/login.component'
     IndexComponent,    
     InicioComponent,
     ListarSitiosComponent,
-    LoginComponent
+    LoginComponent,
+    CrearSitioComponent
   ],
   imports: [
     BrowserModule,

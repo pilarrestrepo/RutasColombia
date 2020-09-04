@@ -98,8 +98,73 @@ function listarSitios(callback) {
         })
 }
 
+function crearSitio(sitio, callback) {
+
+    let nuevoSitio = new sitios(sitio);
+  
+    nuevoSitio.save(function (err, result) {
+      if (err) {
+        return callback(err);
+      } else if (result) {
+        return callback(null, result.toCleanObject());
+      } else {
+        return callback();
+      }
+    });
+  
+  }
+
+  function editarSitio(sitio, callback) {
+
+    sitios.findOneAndUpdate(
+      {
+        _id: sitio.id
+      },
+      {
+        $set: {
+            nombre: sitio.nombre,    
+            direccion: sitio.direccion,      
+            telefono: sitio.telefono,     
+            categoria: sitio.categoria,
+            municipio: sitio.municipio,
+            punto: {
+                latitud: sitio.punto.latitud,
+                longitud: sitio.punto.longitud
+            },        
+            icono: sitio.icono,        
+            urlImagen: sitio.urlImagen,     
+            url: sitio.url,
+            idiomas:{
+                es:
+                {
+                    nombre: sitio.idiomas.es.nombre,     
+                    descripcion: sitio.idiomas.es.descripcion,     
+                },
+                en:
+                {
+                    nombre: sitio.idiomas.en.nombre,     
+                    descripcion: sitio.idiomas.en.descripcion     
+                }        
+                    
+            },
+            coordenadas: sitio.coordenadas
+        }
+      },
+      {
+        new: true
+      })
+      .then((result) => {
+        return callback(null, result.toCleanObject);
+      }).catch((err) => {
+        return callback(err);
+      })
+  
+  }
+
 module.exports = {
     sitiosCercanos,
-    listarSitios    
+    listarSitios,
+    crearSitio,
+    editarSitio    
 }
 
