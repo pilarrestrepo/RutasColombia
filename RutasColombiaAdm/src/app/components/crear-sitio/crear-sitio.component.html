@@ -37,7 +37,7 @@
                                         </div>
                                         <div class="col m6 s12 pull-m6">
                                             <h4 class="indigo-text">Sitio</h4>
-                                            <input type="text" placeholder="Nombre">
+                                            <input type="text" placeholder="Nombre"  [(ngModel)]="model.nombre" id="nombre" name="nombre" #nombre="ngModel">
                                         </div>
                                     </div>
                                     <!-- invoice address and contact -->
@@ -45,12 +45,25 @@
                                         <div class="col l6 s12">
                                             <h6>Ubicación</h6>
                                             <div class="input-field">
-                                                <input type="text" placeholder="House no.">
-                                            </div>
-                                            <div class="input-field">
                                                 <textarea class="materialize-textarea" rows="4"
-                                                    placeholder="Dirección"></textarea>
+                                                    placeholder="Dirección" [(ngModel)]="model.direccion" id="direccion" name="direccion" #direccion="ngModel" ></textarea>
+                                            </div>                                            
+                                            <div class="input-field">
+                                                <select class="invoice-item-select browser-default" 
+                                                    [(ngModel)]="model.municipio" id="municipio" name="municipio" #municipio="ngModel">
+                                                    <option value="Frest Admin Template">Frest Admin
+                                                        Template</option>
+                                                    <option value="Stack Admin Template">Stack Admin
+                                                        Template</option>
+                                                    <option value="Robust Admin Template">Robust Admin
+                                                        Template</option>
+                                                    <option value="Apex Admin Template">Apex Admin
+                                                        Template</option>
+                                                    <option value="Modern Admin Template">Modern Admin
+                                                        Template</option>
+                                                </select>
                                             </div>
+                                         
                                             <div class="input-field">
                                                 <input type="email" placeholder="Ciudad">
                                             </div>

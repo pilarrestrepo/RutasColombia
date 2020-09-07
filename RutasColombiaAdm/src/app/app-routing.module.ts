@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       { path: '', component: InicioComponent },
       { path: 'sitios', component: ListarSitiosComponent },
-      { path: 'crearSitio', component: CrearSitioComponent }
+      { path: 'crearSitio/:id', component: CrearSitioComponent }
 
     ] 
   },
