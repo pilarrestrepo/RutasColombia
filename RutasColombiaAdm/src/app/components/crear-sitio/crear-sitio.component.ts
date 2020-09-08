@@ -11,6 +11,7 @@ export class CrearSitioComponent implements OnInit {
   private navigationSubscription;
   private navigationSubscriptionParams;
   public idSitio: any;
+  public imagen = null;
 
   public model = {
     "nombre": null,
