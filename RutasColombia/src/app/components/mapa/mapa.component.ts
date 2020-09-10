@@ -210,6 +210,8 @@ export class MapaComponent implements OnInit {
   }
 
   mapClicked($event: any) {
+    console.log("mapClicked")
+    console.log($event)
     if (this.infoWindow) {
       this.infoWindow.close();
     }

@@ -5,6 +5,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { ListarSitiosComponent } from './components/listar-sitios/listar-sitios.component';
 import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.component';
 import { LoginComponent } from './components/login/login.component';
+import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usuarios.component';
 
 
 const routes: Routes = [
@@ -15,8 +16,8 @@ const routes: Routes = [
     children: [
       { path: '', component: InicioComponent },
       { path: 'sitios', component: ListarSitiosComponent },
+      { path: 'usuarios', component: ListarUsuariosComponent },
       { path: 'crearSitio/:id', component: CrearSitioComponent }
-
     ] 
   },
   { path: '**', pathMatch: 'full', redirectTo: '' }

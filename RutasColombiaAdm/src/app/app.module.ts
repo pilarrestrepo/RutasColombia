@@ -14,7 +14,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { ListarSitiosComponent } from './components/listar-sitios/listar-sitios.component'
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
-import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.component'
+import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.component';
+import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usuarios.component'
 
 
 
@@ -25,7 +26,8 @@ import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.compon
     InicioComponent,
     ListarSitiosComponent,
     LoginComponent,
-    CrearSitioComponent
+    CrearSitioComponent,
+    ListarUsuariosComponent
   ],
   imports: [
     BrowserModule,

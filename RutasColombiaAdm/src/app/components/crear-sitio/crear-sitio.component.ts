@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, NgZone, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-
+import { MapsAPILoader } from '@agm/core';
 @Component({
   selector: 'app-crear-sitio',
   templateUrl: './crear-sitio.component.html',
@@ -10,9 +10,12 @@ export class CrearSitioComponent implements OnInit {
 
   private navigationSubscription;
   private navigationSubscriptionParams;
-  public idSitio: any;
+  public idSitio: any;  
+  public buscarSitio = null;
   public imagen = null;
-
+  public lat = 0;
+  public lng = 0;
+  public zoom = 12;  
   public model = {
     "nombre": null,
     "direccion": null,
@@ -21,7 +24,7 @@ export class CrearSitioComponent implements OnInit {
     "municipio": null,
     "punto": {
       "latitud": null,
-      "longitud": ""
+      "longitud": null
     },
     "icono": null,
     "urlImagen": null,
@@ -41,21 +44,55 @@ export class CrearSitioComponent implements OnInit {
     },
     "coordenadas": null
   }
-
+  @ViewChild('busquedaSitio') public busquedaSitioElementRef: ElementRef;
   constructor(private router: Router,
-              private route: ActivatedRoute) { 
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {      
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });    
+              private route: ActivatedRoute,
+              private ngZone: NgZone,
+              private mapsAPILoader: MapsAPILoader) { 
+
+    this.lat = 51.678418;
+    this.lng = 7.809007;
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit")
+    console.log(this.busquedaSitioElementRef)
+  
   }
   initialiseInvites() {
     this.navigationSubscriptionParams = this.route.params.subscribe(params => {
       this.idSitio = params.id;
     });
   }
+  ngAfterViewInit() {
+    let autocompleteSitio = new google.maps.places.Autocomplete(this.busquedaSitioElementRef.nativeElement);
+    autocompleteSitio.addListener("place_changed", () => {
+      this.ngZone.run(() => {
+        //get the place result
+        let place: google.maps.places.PlaceResult = autocompleteSitio.getPlace();
+        console.log(place)
+        //verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+        //set latitude, longitude and zoom          
+        this.lat = place.geometry.location.lat();
+        this.lng = place.geometry.location.lng();        
+        this.zoom = 12;
+        this.model.punto.latitud = this.lat;
+        this.model.punto.longitud = this.lng;
+      });
+    });  
+  }
+
+  mapClicked(map: any) {
+    map.addListener('click', (e) => {
+      console.log("clickMapa")
+      console.log(e)
+      this.lat = e.coords.lat;
+      this.lng = e.coords.lng;      
+    });    
+
+  }   
+ 
 }

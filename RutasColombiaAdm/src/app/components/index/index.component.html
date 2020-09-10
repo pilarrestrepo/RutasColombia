@@ -79,13 +79,20 @@
     </div>
     <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out"
         data-menu="menu-navigation" data-collapsible="menu-accordion">
-        <li [ngClass]="[menuActual == 'Inicio' ? 'active bold':'bold' ]">
-            <a [ngClass]="[menuActual == 'Inicio' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
-                (click)="cambiarMenu('Inicio')" [routerLink]="['/sitios']"><i
+        <li [ngClass]="[menuActual == 'Sitios' ? 'active bold':'bold' ]">
+            <a [ngClass]="[menuActual == 'Sitios' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
+                (click)="cambiarMenu('Sitios')" [routerLink]="['/sitios']"><i
                     class="material-icons">content_paste</i><span class="menu-title">
                     Sitios</span>
             </a>
         </li>
+        <li [ngClass]="[menuActual == 'Usuarios' ? 'active bold':'bold' ]">
+            <a [ngClass]="[menuActual == 'Usuarios' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
+                (click)="cambiarMenu('Usuarios')" [routerLink]="['/usuarios']"><i
+                    class="material-icons">content_paste</i><span class="menu-title">
+                    Usuarios</span>
+            </a>
+        </li>        
         <li [ngClass]="[menuActual == 'Ruta' ? 'active bold':'bold' ]">
             <a [ngClass]="[menuActual == 'Ruta' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
                 (click)="cambiarMenu('Ruta')">
@@ -93,6 +100,7 @@
                 <span class="menu-title">{{ 'index.menuRuta' | translate }}</span>
             </a>
         </li>
+      
     </ul>
     <div class="navigation-background"></div><a
         class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
