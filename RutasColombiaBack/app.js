@@ -4,11 +4,19 @@ var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
 require('./config/db');
 
-module.exports = app; // for testing
+//module.exports = app; // for testing
+
+const YAML = require('yamljs');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = YAML.load('./api/swagger/swagger.yaml');
+
+// module.exports = app; // for testing
 
 var config = {
   appRoot: __dirname // required config
 };
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }

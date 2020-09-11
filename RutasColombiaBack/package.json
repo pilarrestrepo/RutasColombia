@@ -15,7 +15,9 @@
     "mongoose": "^5.9.10",
     "mongoose-snake-to-camel": "^0.3.0",
     "swagger-express-mw": "^0.7.0",
-    "wait-until": "0.0.2"
+    "swagger-ui-express": "^4.1.4",
+    "wait-until": "0.0.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "should": "^7.1.0",

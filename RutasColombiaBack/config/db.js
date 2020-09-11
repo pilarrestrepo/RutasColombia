@@ -36,3 +36,7 @@ require('../api/modelos/municipios');
 require('../api/modelos/paises');
 require('../api/modelos/sitios');
 require('../api/modelos/sitiosCategorias');
+require('../api/modelos/administradores');
+require('../api/modelos/generos');
+require('../api/modelos/personas');
+require('../api/modelos/tiposDocumentos');

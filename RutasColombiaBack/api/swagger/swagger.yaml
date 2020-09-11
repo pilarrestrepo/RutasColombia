@@ -152,10 +152,140 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"          
+  /listarPersonas:
+    x-swagger-router-controller: personas.controlador
+    post:
+      description: Devuelve todos los personas
+      operationId: listarPersonas
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"     
+  /crearPersona:
+    x-swagger-router-controller: personas.controlador
+    post:
+      description: Creación de un persona
+      operationId: crearPersona
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                 
+  /editarPersona:
+    x-swagger-router-controller: personas.controlador
+    post:
+      description: Edición de un persona
+      operationId: editarPersona
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"        
+  /listarAdministradores:
+    x-swagger-router-controller: administradores.controlador
+    post:
+      description: Devuelve todos los administradores
+      operationId: listarAdministradores
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"     
+  /crearAdministrador:
+    x-swagger-router-controller: administradores.controlador
+    post:
+      description: Creación de un administrador
+      operationId: crearAdministrador
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                 
+  /editarAdministrador:
+    x-swagger-router-controller: administradores.controlador
+    post:
+      description: Edición de un administrador
+      operationId: editarAdministrador
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                    
   /swagger:
     x-swagger-pipe: swagger_raw
-
-
 
 
 

@@ -3,32 +3,7 @@
 let _ = require('lodash');
 let sitios = require('../modelos/sitios');
 
-
-////////////////////////////////////////////////////////////////////////////////
-// PROPERTIES
-////////////////////////////////////////////////////////////////////////////////
-
-
-////////////////////////////////////////////////////////////////////////////////
-// PUBLIC FUNCTIONS
-////////////////////////////////////////////////////////////////////////////////
-
 function sitiosCercanos(punto, callback) {
-
-
-    /*let sit = sitios.aggregate([
-        {
-          $geoNear: {
-             near: { type: "Point", coordinates: [ -74 , 4 ] },
-             distanceField: "distancia",
-             spherical: true,
-             maxDistance: 72000 
-                
-          }
-        },
-        { $limit: 2 }
-     ]);*/
-
     sitios.find(
         {
             coordenadas:

@@ -16,8 +16,9 @@ const routes: Routes = [
     children: [
       { path: '', component: InicioComponent },
       { path: 'sitios', component: ListarSitiosComponent },
-      { path: 'usuarios', component: ListarUsuariosComponent },
-      { path: 'crearSitio/:id', component: CrearSitioComponent }
+      { path: 'crearSitio/:id', component: CrearSitioComponent },
+      { path: 'usuarios', component: ListarUsuariosComponent }
+     
     ] 
   },
   { path: '**', pathMatch: 'full', redirectTo: '' }
