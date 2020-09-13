@@ -16,10 +16,10 @@
                         </div> -->
                     <!-- create invoice button-->
                     <div class="invoice-create-btn">
-                        <a href="app-invoice-add.html" [routerLink]="['/crearSitio',0]"
+                        <a href="app-invoice-add.html" [routerLink]="['/crearUsuario',0]"
                             class="btn waves-effect waves-light invoice-create border-round z-depth-4">
                             <i class="material-icons">add</i>
-                            <span class="hide-on-small-only">Crear Sitio</span>
+                            <span class="hide-on-small-only">Crear Usuario</span>
                         </a>
                     </div>
                     <div class="filter-btn">
@@ -43,36 +43,32 @@
                                     <th></th>
                                     <!-- data table checkbox -->
                                     <th></th>
-                                    <th>
-                                        <span>Sitio</span>
-                                    </th>
-                                    <th>Categoría</th>
-                                    <th>Descripción</th>
-                                    <th>Dirección</th>
-                                    <th>Teléfono</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Usuario</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Celular</th>
                                     <th>Estado</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <ng-container *ngFor="let sitio of sitos; let i = index">
+                                <ng-container *ngFor="let usuario of usuarios; let i = index">
                                     <tr>
 
                                         <td></td>
                                         <td>
-                                            {{sitio.nombre}}
+                                            {{usuario.persona.nombre}}
                                         </td>
-                                        <td><small>{{sitio.categoria.nombre}}</small></td>
-                                        <td><span class="invoice-amount">{{sitio.idiomas.es.descripcion}}</span></td>
+                                        <td><small>{{usuario.persona.apellido}}</small></td>
+                                        <td><span class="invoice-amount">{{usuario.usuario}}</span></td>
 
-                                        <td><span class="invoice-customer">{{sitio.direccion}}</span></td>
+                                        <td><span class="invoice-customer">{{usuario.persona.correoElectronico}}</span></td>
                                         <td>
-                                            <small>{{sitio.telefono}}</small>
+                                            <small>{{usuario.persona.telefonoCelular}}</small>
                                         </td>
-                                        <td>
-                                            <span class="chip lighten-5 red red-text">UNPAID</span>
-                                        </td>
+                                        <td><span class="chip lighten-5 green green-text">Activo</span></td>
                                         <td>
                                             <div class="invoice-action">
                                                 <a href="app-invoice-view.html" class="invoice-action-view mr-4">

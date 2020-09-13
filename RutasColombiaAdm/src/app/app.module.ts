@@ -15,7 +15,8 @@ import { ListarSitiosComponent } from './components/listar-sitios/listar-sitios.
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.component';
-import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usuarios.component'
+import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usuarios.component';
+import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component'
 
 
 
@@ -27,7 +28,8 @@ import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usu
     ListarSitiosComponent,
     LoginComponent,
     CrearSitioComponent,
-    ListarUsuariosComponent
+    ListarUsuariosComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,

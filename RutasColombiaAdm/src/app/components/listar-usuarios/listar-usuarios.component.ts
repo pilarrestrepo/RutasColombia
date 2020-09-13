@@ -9,7 +9,7 @@ import { UsuariosService } from '../../services/usuarios.service'
 export class ListarUsuariosComponent implements OnInit {
   public error = "";
   public cargando = false;
-  public sitos = [];
+  public usuarios = [];
   constructor( private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
@@ -23,8 +23,8 @@ export class ListarUsuariosComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data)
-          this.sitos = JSON.parse(JSON.stringify(data));
-          console.log(this.sitos)
+          this.usuarios = JSON.parse(JSON.stringify(data));
+          console.log(this.usuarios)
           this.cargando = false;
         },
         error => {
