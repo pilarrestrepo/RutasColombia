@@ -7,6 +7,7 @@ import { CrearSitioComponent } from './components/crear-sitio/crear-sitio.compon
 import { LoginComponent } from './components/login/login.component';
 import { ListarUsuariosComponent } from './components/listar-usuarios/listar-usuarios.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
+import { DashBoardComponent } from './components/dash-board/dash-board.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },    
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'crearSitio/:id', component: CrearSitioComponent },
       { path: 'usuarios', component: ListarUsuariosComponent },
       { path: 'crearUsuario/:id', component: CrearUsuarioComponent },
+      { path: 'dashboard', component: DashBoardComponent }
      
     ] 
   },

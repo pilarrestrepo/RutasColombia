@@ -82,22 +82,22 @@
         <li [ngClass]="[menuActual == 'Sitios' ? 'active bold':'bold' ]">
             <a [ngClass]="[menuActual == 'Sitios' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
                 (click)="cambiarMenu('Sitios')" [routerLink]="['/sitios']"><i
-                    class="material-icons">content_paste</i><span class="menu-title">
+                    class="material-icons">nature_people</i><span class="menu-title">
                     Sitios</span>
             </a>
         </li>
         <li [ngClass]="[menuActual == 'Usuarios' ? 'active bold':'bold' ]">
             <a [ngClass]="[menuActual == 'Usuarios' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
                 (click)="cambiarMenu('Usuarios')" [routerLink]="['/usuarios']"><i
-                    class="material-icons">content_paste</i><span class="menu-title">
+                    class="material-icons">supervisor_account</i><span class="menu-title">
                     Usuarios</span>
             </a>
         </li>        
         <li [ngClass]="[menuActual == 'Ruta' ? 'active bold':'bold' ]">
             <a [ngClass]="[menuActual == 'Ruta' ? 'waves-effect waves-cyan active':'waves-effect waves-cyan' ]"
-                (click)="cambiarMenu('Ruta')">
-                <i class="material-icons">import_contacts</i>
-                <span class="menu-title">{{ 'index.menuRuta' | translate }}</span>
+                (click)="cambiarMenu('Ruta')"  [routerLink]="['/dashboard']">
+                <i class="material-icons">show_chart</i>
+                <span class="menu-title">Dashboard</span>
             </a>
         </li>
       
