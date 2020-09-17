@@ -3,7 +3,8 @@
         "titulo": "Your travel friend",
         "buscarEnRutasColombia":"Explore Rutas por Colombia",
         "menuInicio":"Home",        
-        "menuRuta":"Travel Route"
+        "menuRuta":"Travel Route",
+        "registro":"Register"
     },
     "mapa": {
         "titulo": "Map",

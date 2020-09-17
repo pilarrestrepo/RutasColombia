@@ -15,13 +15,15 @@ import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmDirectionModule } from 'agm-direction';
 import { SitiosRutaComponent } from './components/sitios-ruta/sitios-ruta.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     MapaComponent,
-    SitiosRutaComponent
+    SitiosRutaComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,

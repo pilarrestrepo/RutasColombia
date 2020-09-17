@@ -3,7 +3,8 @@
         "titulo": "Tu compañero de ruta",
         "buscarEnRutasColombia":"Explora Rutas por Colombia",
         "menuInicio":"Inicio",        
-        "menuRuta":"Ruta de Viaje"
+        "menuRuta":"Ruta de Viaje",
+        "registro":"Registro"
     },
     "mapa": {
         "titulo": "Mapa",
