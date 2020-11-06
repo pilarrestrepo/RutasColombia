@@ -14,7 +14,7 @@
                             <div class="card">
                                 <div class="card-content px-36">
                                     <!-- header section -->
-                                    <div class="row mb-3">
+                                    <div class="row">
                                         <div class="col xl4 m12 display-flex align-items-center">
                                             <h6 class="invoice-number mr-4 mb-5">Id</h6>
                                             <input type="text" placeholder="000">
@@ -34,116 +34,136 @@
                                     <div class="row mb-3">
                                         <div id="Form-advance" class="card card card-default scrollspy">
                                             <div class="card-content">
-                                                <h4 class="indigo-text">Usuario</h4>
+                                                <h4 class="indigo-text">Registro</h4>
                                                 <form>
                                                     <div class="row">
                                                         <div class="input-field col m3 s12">
-                                                            <input type="text" placeholder="Digíte el nombre"
-                                                                [(ngModel)]="model.persona.nombre" id="nombre" name="nombre"
-                                                                #nombre="ngModel">
-                                                            <label for="nombre">Nombre</label>
-                                                        </div>
-                                                        <div class="input-field col m3 s12">
-                                                            <input type="text" placeholder="Digíte el apellido"
-                                                                [(ngModel)]="model.persona.apellido" id="apellido" name="apellido"
-                                                                #apellido="ngModel">
-                                                            <label for="apellido">Apellido</label>
-                                                        </div>                                                        
-                                                        <div class="input-field col m3 s12">
                                                             <select>
-                                                                <option value="" disabled selected>Seleccione Tipo documento
+                                                                <option value="" disabled selected>Seleccione Tipo
+                                                                    documento
                                                                 </option>
                                                                 <option value="5f5ab294083d021f4cf1bc54">Cédula</option>
                                                                 <option value="5f5ab294083d021f4cf1bc55">NUIP</option>
-                                                                <option value="5f5ab294083d021f4cf1bc56">Pasaporte</option>
+                                                                <option value="5f5ab294083d021f4cf1bc56">Pasaporte
+                                                                </option>
                                                             </select>
                                                             <label>Tipo documento</label>
                                                         </div>
                                                         <div class="input-field col m3 s12">
                                                             <input type="text" placeholder="Digíte numero de documento"
-                                                                [(ngModel)]="model.persona.numeroDocumento" id="numeroDocumento" name="numeroDocumento"
+                                                                [(ngModel)]="model.persona.numeroDocumento"
+                                                                id="numeroDocumento" name="numeroDocumento"
                                                                 #numeroDocumento="ngModel">
                                                             <label for="numeroDocumento">Número de documento</label>
-                                                        </div>                                                         
+                                                        </div>                                                        
+                                                        <div class="input-field col m3 s12">
+                                                            <input type="text" placeholder="Digíte el nombre"
+                                                                [(ngModel)]="model.persona.nombre" id="nombre"
+                                                                name="nombre" #nombre="ngModel">
+                                                            <label for="nombre">Nombre</label>
+                                                        </div>
+                                                        <div class="input-field col m3 s12">
+                                                            <input type="text" placeholder="Digíte el apellido"
+                                                                [(ngModel)]="model.persona.apellido" id="apellido"
+                                                                name="apellido" #apellido="ngModel">
+                                                            <label for="apellido">Apellido</label>
+                                                        </div>
+                                             
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col m3 s12">
-                                                            <select class="select2 browser-default">
-                                                                <option value="" disabled selected>Seleccione Género
+                                                            <select>
+                                                                <option value="" disabled selected>Seleccione País
                                                                 </option>
-                                                                <option value="square">Femenino</option>
-                                                                <option value="rectangle">Masculino</option>
+                                                                <option value="5f5ab294083d021f4cf1bc54">Colombia</option>
+                                                                <option value="5f5ab294083d021f4cf1bc55">NUIP</option>
+                                                                <option value="5f5ab294083d021f4cf1bc56">Pasaporte
+                                                                </option>
                                                             </select>
-                                                            <label for="url">Género</label>
-                                                        </div>                                                        
+                                                            <label>País</label>
+                                                        </div>
+                                                        <div class="input-field col m3 s12">
+                                                            <select>
+                                                                <option value="" disabled selected>Seleccione Departamento
+                                                                </option>
+                                                                <option value="5f5ab294083d021f4cf1bc54">Colombia</option>
+                                                                <option value="5f5ab294083d021f4cf1bc55">NUIP</option>
+                                                                <option value="5f5ab294083d021f4cf1bc56">Pasaporte
+                                                                </option>
+                                                            </select>
+                                                            <label>Departamento</label>
+                                                        </div>   
+                                                        <div class="input-field col m3 s12">
+                                                            <select>
+                                                                <option value="" disabled selected>Seleccione Ciudad
+                                                                </option>
+                                                                <option value="5f5ab294083d021f4cf1bc54">Colombia</option>
+                                                                <option value="5f5ab294083d021f4cf1bc55">NUIP</option>
+                                                                <option value="5f5ab294083d021f4cf1bc56">Pasaporte
+                                                                </option>
+                                                            </select>
+                                                            <label>Ciudad</label>
+                                                        </div>                                                                                                                
                                                         <div class="input-field col m3 s12">
                                                             <div class="display-flex ml-4">
                                                                 <input type="text" class="datepicker mr-2 mb-1"
                                                                     placeholder="Fecha de nacimiento">
                                                             </div>
-                                                           <!--  <label for="url">Fecha de nacimiento</label> -->
+                                                            <!--  <label for="url">Fecha de nacimiento</label> -->
                                                         </div>
-                                                        <div class="input-field col m6 s12">
-                                                            <input type="text" placeholder="Direccion"
-                                                                [(ngModel)]="model.persona.correoElectronico" id="direccion"
-                                                                name="direccion" #direccion="ngModel">
-                                                            <label for="direccion">Dirección de correo electrónico</label>
-                                                        </div>
+                                             
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col m3 s12">
-                                                            <input type="text" [(ngModel)]="model.persona.telefonoCelular" placeholder="Digíte el número de teléfono"
-                                                                id="telefonoCelular" name="telefonoCelular" #telefonoCelular="ngModel">
+                                                            <input type="text"
+                                                                [(ngModel)]="model.persona.telefonoCelular"
+                                                                placeholder="Digíte el número de teléfono"
+                                                                id="telefonoCelular" name="telefonoCelular"
+                                                                #telefonoCelular="ngModel">
                                                             <label for="telefonoCelular">Teléfono celular</label>
                                                         </div>
                                                         <div class="input-field col m3 s12">
-                                                            <input type="text" [(ngModel)]="model.persona.telefonoFijo" placeholder="Digíte el número de teléfono"
-                                                                id="telefonoFijo" name="telefonoFijo" #telefonoFijo="ngModel">
+                                                            <input type="text" [(ngModel)]="model.persona.telefonoFijo"
+                                                                placeholder="Digíte el número de teléfono"
+                                                                id="telefonoFijo" name="telefonoFijo"
+                                                                #telefonoFijo="ngModel">
                                                             <label for="telefonoFijo">Teléfono fijo</label>
                                                         </div>
                                                         <div class="input-field col m6 s12">
                                                             <select>
-                                                                <option value="" disabled selected>Seleccione Rol
+                                                                <option value="" disabled selected>Seleccione Pasatiempo
                                                                 </option>
                                                                 <option value="restaurant_chinese.png">Administrador
                                                                 </option>
-                                                                <option value="tree.png">Analista</option>                                                                
+                                                                <option value="tree.png">Analista</option>
                                                             </select>
-                                                            <label>Rol</label>
-                                                        </div>                                                        
+                                                            <label>Pasatiempo</label>
+                                                        </div>
                                                     </div>
-                                                  
+
                                                     <div class="row">
                                                         <h4 class="card-title">Datos Usuairo</h4>
                                                         <div class="input-field col m6 s12">
-                                                            <input type="text" [(ngModel)]="model.usuario"
-                                                                id="nombre_es" name="nombre_es" #nombre_es="ngModel">
-                                                            <label for="nombre_es">Usuario</label>
+                                                            <input type="text" placeholder="Direccion"
+                                                                [(ngModel)]="model.persona.correoElectronico"
+                                                                id="direccion" name="direccion" #direccion="ngModel">
+                                                            <label for="direccion">Dirección de correo
+                                                                electrónico</label>
                                                         </div>
                                                         <div class="input-field col m6 s12">
-                                                            <textarea type="text"
-                                                                [(ngModel)]="model.clave"
+                                                            <textarea type="text" [(ngModel)]="model.clave"
                                                                 class="materialize-textarea" id="descripcion_es"
                                                                 name="descripcion_es"
                                                                 #descripcion_es="ngModel"></textarea>
                                                             <label for="descripcion_es">Contraseña</label>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="row">
-                                                        <div class="input-field m6 s12">
-                                                            <div class="switch">
-                                                                <label>
-                                                                    Inactivo
-                                                                    <input type="checkbox">
-                                                                    <span class="lever"></span>
-                                                                    Activo
-                                                                </label>
-                                                            </div>
-                                                        </div>
+                                               
                                                         <div class="input-field m6 s12">
                                                             <button class="btn cyan waves-effect waves-light right"
-                                                                type="submit" name="action">Guardar
+                                                                type="submit" name="action">Registrar
                                                                 <i class="material-icons right">send</i>
                                                             </button>
                                                         </div>
@@ -159,7 +179,7 @@
                         </div>
                         <!-- invoice action  -->
                         <div class="col xl1 m4 s12">
-                            
+
 
                         </div>
                     </div>

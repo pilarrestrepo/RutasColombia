@@ -8,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class GenerarEstadisticasComponent implements OnInit {
   public model = {
     "id": null,
-    "usuario": null,
-    "clave": null,
+
     "fechaInicio": null,
     "fechaFin": null,
 

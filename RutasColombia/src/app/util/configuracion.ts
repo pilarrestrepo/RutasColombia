@@ -1,7 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 export var configuracionServicio = {
-    "DominioServicio": "http://127.0.0.1:10010/"
+    "DominioServicio": environment.dominioServicio // "http://127.0.0.1:10010/"
 }
 export var httpOptions = {
     headers: new HttpHeaders({

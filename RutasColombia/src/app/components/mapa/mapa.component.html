@@ -110,7 +110,8 @@
             <div class="chat-area">
               <div class="chats">
                 <div class="chats">
-                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
+                  (mapReady)="mapReadyHandler($event)">
                     <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
                       [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
                       [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"

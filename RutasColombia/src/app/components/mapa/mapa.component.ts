@@ -33,6 +33,11 @@ export class MapaComponent implements OnInit {
   public origin: any;
   public destination: any;
 
+  private mapa: any;
+  private mapClickListener: any;
+  private zone: any;
+  
+
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
   @ViewChild('busquedaOrigen') public busquedaOrigenElementRef: ElementRef;
@@ -47,8 +52,10 @@ export class MapaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
     //load Places Autocomplete
+    
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -102,6 +109,9 @@ export class MapaComponent implements OnInit {
         this.lng = position.coords.longitude;
         this.zoom = 8;
         this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+        this.sitosCercanos = [];
+        this.mostrarEstoyAqui(position.coords.latitude, position.coords.longitude);
         this.getAddress(this.lat, this.lng);
       });
     }
@@ -211,7 +221,7 @@ export class MapaComponent implements OnInit {
 
   mapClicked($event: any) {
     console.log("mapClicked")
-    console.log($event)
+
     if (this.infoWindow) {
       this.infoWindow.close();
     }
@@ -267,8 +277,7 @@ export class MapaComponent implements OnInit {
   borrarSitiosCercanos() {
     this.sitosCercanos = [];
   }
-  mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
-    this.sitosCercanos = [];
+  mostrarEstoyAqui(latitud, longitud) {    
     let idiomas = {
       es: {
         nombre: "Estas aquí",
@@ -292,8 +301,8 @@ export class MapaComponent implements OnInit {
     this.sitosCercanos.push({
       punto: {
         "tipo": 1,
-        "latitud": +punto.latitud,
-        "longitud": +punto.longitud,
+        "latitud": +latitud,
+        "longitud": +longitud,
         "animation": 'BOUNCE',
         "icono": this.iconBase + this.iconEstaAqui,
         "nombre": "Estas aquí",
@@ -309,6 +318,12 @@ export class MapaComponent implements OnInit {
 
       }
     })
+  }
+
+
+  mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
+    this.sitosCercanos = [];
+    this.mostrarEstoyAqui(punto.latitud, punto.longitud);
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
         punto: {
@@ -337,7 +352,17 @@ export class MapaComponent implements OnInit {
   }
   ngOnDestroy() {
     this.suscribirEventoCambiarIdioma.unsubscribe()
+    if (this.mapClickListener) {
+      this.mapClickListener.remove();
+    }
   }
-
+  public mapReadyHandler(map: google.maps.Map): void {
+    this.mapa = map;
+    this.mapClickListener = this.mapa.addListener('click', (e: google.maps.MouseEvent) => {
+      console.log(e.latLng.lat(), e.latLng.lng());
+    });
+  }
+  
+ 
 }
 
