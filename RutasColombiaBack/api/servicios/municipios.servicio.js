@@ -13,3 +13,7 @@ function listarMunicipios(callback) {
       }
     });
   }
+
+  module.exports = {
+    listarMunicipios
+  } 

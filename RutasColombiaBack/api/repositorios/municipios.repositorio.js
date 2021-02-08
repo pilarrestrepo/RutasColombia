@@ -30,3 +30,6 @@ function listarMunicipios(callback) {
             return callback(error);
         })
 }
+module.exports = {
+    listarMunicipios 
+}

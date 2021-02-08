@@ -23,8 +23,7 @@
                                                 <div class="display-flex align-items-center">
                                                     <small>Fecha de registro: </small>
                                                     <div class="display-flex ml-4">
-                                                        <input type="text" class="datepicker mr-2 mb-1"
-                                                            placeholder="">
+                                                        <input type="text" class="datepicker mr-2 mb-1" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -36,13 +35,13 @@
                                                 <h4 class="indigo-text">Sitio</h4>
                                                 <form>
                                                     <div class="row">
-                                                        <div class="input-field col m6 s12">
+                                                        <div class="input-field col m4 s12">
                                                             <input type="text" placeholder="Digíte el nombre"
                                                                 [(ngModel)]="model.nombre" id="nombre" name="nombre"
                                                                 #nombre="ngModel">
                                                             <label for="nombre">Nombre</label>
                                                         </div>
-                                                        <div class="input-field col m6 s12">
+                                                        <div class="input-field col m4 s12">
                                                             <select>
                                                                 <option value="" disabled selected>Seleccione Categoría
                                                                 </option>
@@ -52,76 +51,70 @@
                                                             </select>
                                                             <label>Categoría</label>
                                                         </div>
+                                                        <div class="input-field col m4 s12">
+                                                            <select>
+                                                                <option value="" disabled selected>Seleccione Empresa
+                                                                </option>
+                                                                <option value="1">Manager</option>
+                                                                <option value="2">Developer</option>
+                                                                <option value="3">Business</option>
+                                                            </select>
+                                                            <label>Empresa</label>
+                                                        </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="input-field col m3 s12">
-                                                            <select class="select2 browser-default">
-                                                                <option value="" disabled selected>Seleccione País
+                                                            <select class="select2 browser-default" id="idDepartamento" (click)='seleccionDepartamento("$event")'
+                                                                #idDepartamento="ngModel" name="idDepartamento"
+                                                                [(ngModel)]="departamentoSeleccionado" >
+                                                                <option value="" disabled selected>Seleccione
+                                                                    Departamento
                                                                 </option>
-                                                                <option value="square">Square</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
+                                                                <option
+                                                                    *ngFor="let departamento of departamentos ; let i = index"
+                                                                    [value]="departamento.id">
+                                                                    {{departamento.nombre}} </option>
                                                             </select>
-                                                            <label for="url">País</label>
-                                                        </div>                                                        
-                                                        <div class="input-field col m3 s12">
+                                                            <label for="url">Depatamento {{departamentoSeleccionado }}</label>
+                                                        </div>
+                                                        <!--<div class="input-field col m3 s12">
                                                             <select class="select2 browser-default">
-                                                                <option value="" disabled selected>Seleccione Ciudad
-                                                                </option>                                                                
-                                                                <option value="square">Square</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
+                                                                <option value="" disabled selected>Seleccione Municipio
+                                                                </option>
+                                                                <option *ngFor="let mucipio of departamentoSeleccionado.mucipios ; let i = index"
+                                                                    value="mucipio.id">
+                                                                    {{mucipio.nombre}}</option>
                                                             </select>
                                                             <label for="url">Ciudad</label>
-                                                        </div>
-                                                        <div class="input-field col m6 s12">
+                                                        </div>-->
+                                                        <div class="input-field col m3 s12">
                                                             <input type="text" placeholder="Direccion"
                                                                 [(ngModel)]="model.direccion" id="direccion"
                                                                 name="direccion" #direccion="ngModel">
                                                             <label for="direccion">Dirección</label>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="input-field col m6 s12">
-                                                            <input type="text" [(ngModel)]="model.telefono" placeholder="Digíte el número de teléfono"
-                                                                id="telefono" name="telefono" #telefono="ngModel">
+                                                        <div class="input-field col m3 s12">
+                                                            <input type="text" [(ngModel)]="model.telefono"
+                                                                placeholder="Digíte el número de teléfono" id="telefono"
+                                                                name="telefono" #telefono="ngModel">
                                                             <label for="telefono">Teléfono</label>
                                                         </div>
-                                                        <div class="input-field col m6 s12">
-                                                            <input type="text" [(ngModel)]="model.url" id="url" placeholder="Digíte la URL"
-                                                                name="url" #url="ngModel">
-                                                            <label for="url">URL</label>
-                                                        </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col m6 s12 file-field input-field">
-                                                            <div class="btn float-right">
-                                                                <span>Imagen</span>
-                                                                <input type="file" [(ngModel)]="imagen" id="arc_imagen"
-                                                                    name="arc_imagen" #arc_imagen="ngModel">
-                                                            </div>
-                                                            <div class="file-path-wrapper">
-                                                                <input class="file-path validate" type="text">
-                                                            </div>
+                                                        <div class="input-field col m4 s12">
+                                                            <input type="text" [(ngModel)]="model.url" id="url"
+                                                                placeholder="Digíte la URL" name="url" #url="ngModel">
+                                                            <label for="url">URL WEB</label>
                                                         </div>
-                                                        <div class="input-field col m6 s12">
-                                                            <select>
-                                                                <option value="" disabled selected>Seleccione Icono
-                                                                </option>
-                                                                <option value="restaurant_chinese.png">Restaurante Chino
-                                                                </option>
-                                                                <option value="tree.png">Arbol</option>
-                                                                <option value="3">Business</option>
-                                                            </select>
-                                                            <label>Icono</label>
+                                                        <div class="input-field col m4 s12">
+                                                            <input type="text" [(ngModel)]="model.url" id="url"
+                                                                placeholder="Digíte la URL" name="url" #url="ngModel">
+                                                            <label for="url">URL Reserva</label>
+                                                        </div>
+                                                        <div class="input-field col m4 s12">
+                                                            <input type="text" [(ngModel)]="model.url" id="url"
+                                                                placeholder="Digíte la URL" name="url" #url="ngModel">
+                                                            <label for="url">URL Relacionada</label>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -154,6 +147,27 @@
                                                                 name="descripcion_en"
                                                                 #descripcion_en="ngModel"></textarea>
                                                             <label for="descripcion_en">Description</label>
+                                                        </div>
+                                                    </div>
+                                                    <!--  <div class="row">
+                                                        Cargar archivo
+                                                        <app-upload-files></app-upload-files>
+                                                    </div> -->
+                                                    <div class="row">
+                                                        <!--  <p>
+                                                            <label>Subir archivo</label>
+                                                            <input type="file" (change)='fileChangeEvent($event)' />
+                                                        </p> -->
+                                                        <div class="col m12 s12 file-field input-field">
+                                                            <div class="btn float-right">
+                                                                <span>Imagen</span>
+                                                                <input type="file" [(ngModel)]="imagen" id="arc_imagen"
+                                                                    name="arc_imagen" #arc_imagen="ngModel"
+                                                                    (change)='fileChangeEvent($event)'>
+                                                            </div>
+                                                            <div class="file-path-wrapper">
+                                                                <input class="file-path validate" type="text">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -208,15 +222,20 @@
                                 <div class="card-content">
                                     <div class="row">
                                         <h4 class="card-title">Punto</h4>
-                                        <div class="input-field col m6 s12">
+                                        <div class="input-field col m4 s12">
                                             <input type="text" [(ngModel)]="model.punto.latitud" id="latitud"
                                                 placeholder="Coordenada" name="latitud" #latitud="ngModel">
                                             <label for="latitud">Latitud</label>
                                         </div>
-                                        <div class="input-field col m6 s12">
+                                        <div class="input-field col m4 s12">
                                             <input type="text" [(ngModel)]="model.punto.longitud" id="longitud"
                                                 placeholder="Coordenada" name="longitud" #longitud="ngModel">
                                             <label for="longitud">Longitud</label>
+                                        </div>
+                                        <div class="input-field col m4 s12">
+                                            <input type="text" [(ngModel)]="model.punto.longitud" id="longitud"
+                                                placeholder="Coordenada" name="longitud" #longitud="ngModel">
+                                            <label for="longitud">Altitud</label>
                                         </div>
                                     </div>
                                 </div>
@@ -231,5 +250,7 @@
             <div class="content-overlay"></div>
         </div>
     </div>
+
 </div>
+
 <!-- END: Page Main-->

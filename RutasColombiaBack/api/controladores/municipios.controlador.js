@@ -21,3 +21,4 @@ function listarMunicipios(req, res) {
     })
 
 }
+

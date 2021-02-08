@@ -4,6 +4,7 @@
 
 export const environment = {
   dominioServicio: "http://127.0.0.1:10010/",
+  //dominioServicio: "http://186.155.206.74:10010/",
   production: false
 };
 

@@ -1,13 +1,19 @@
 import { Component, OnInit,ViewChild, NgZone, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
+import { HttpClient} from '@angular/common/http';
+import { DepartamentosService } from '../../services/departamentos.service'
 @Component({
   selector: 'app-crear-sitio',
   templateUrl: './crear-sitio.component.html',
   styleUrls: ['./crear-sitio.component.css']
 })
 export class CrearSitioComponent implements OnInit {
-
+  public error = "";
+  public cargando = false;
+  public departamentos = [];  
+  public municipios = [];
+  public departamentoSeleccionado;  
   private navigationSubscription;
   private navigationSubscriptionParams;
   public idSitio: any;  
@@ -48,10 +54,13 @@ export class CrearSitioComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private ngZone: NgZone,
-              private mapsAPILoader: MapsAPILoader) { 
+              private mapsAPILoader: MapsAPILoader,
+              private http: HttpClient,
+              private departamentosService: DepartamentosService) { 
 
     this.lat = 51.678418;
     this.lng = 7.809007;
+    this.listarDepartamentos();
   }
 
   ngOnInit(): void {
@@ -94,5 +103,34 @@ export class CrearSitioComponent implements OnInit {
     });    
 
   }   
- 
+  public filesToUpload: Array<File>;
+
+  fileChangeEvent(fileInput:any){
+    console.log("fileChangeEvent", fileInput)
+    console.log("fileInput.target.files", fileInput.target.files)
+    
+      this.filesToUpload=<Array<File>> fileInput.target.files;
+  }
+
+  listarDepartamentos() {
+    console.log("listarDepartamentos")
+    this.error = "";
+    this.cargando = true;
+    this.departamentosService.listarDepartamentos()
+      .subscribe(
+        data => {
+          console.log(data)
+          this.departamentos = JSON.parse(JSON.stringify(data));
+          console.log(this.departamentos)
+          this.cargando = false;
+        },
+        error => {
+          this.cargando = false;
+          this.error = error;
+        });
+  }
+  public seleccionDepartamento(e) {
+    console.log("seleccionDepartamento", e)
+  }  
+  
 }

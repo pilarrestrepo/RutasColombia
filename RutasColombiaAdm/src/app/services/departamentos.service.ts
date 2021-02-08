@@ -7,13 +7,14 @@ import { configuracionServicio, httpOptions } from '../util/configuracion'
 @Injectable({
   providedIn: 'root'
 })
-export class MunicipiosService {
+export class DepartamentosService {
+
   constructor(private http: HttpClient,
     private router: Router) { }
 
-  listarMunicipios() {
+  listarDepartamentos() {
     var body = "";
-    return this.http.post<any>(configuracionServicio.DominioServicio + 'listarMunicipios', body, httpOptions)
+    return this.http.post<any>(configuracionServicio.DominioServicio + 'listarDepartamentos', body, httpOptions)
       .pipe(
         tap((respuesta: any) => {
           //Se valida que si existe un mensaje de error
