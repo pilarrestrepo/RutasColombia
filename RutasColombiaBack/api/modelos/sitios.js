@@ -62,6 +62,9 @@ let sitiosSchema = new Schema({
     },
     coordenadas: {
         type: [Number]
+    },
+    activo: {
+        type: Boolean
     }
 },{ collection: 'sitios'});
 
