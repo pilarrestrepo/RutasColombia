@@ -15,8 +15,7 @@ export class ListarSitiosComponent implements OnInit {
   ngOnInit(): void {
     this.listarSitios();
   }
-  listarSitios() {
-    console.log("listarSitios")
+  listarSitios() {    
     this.error = "";
     this.cargando = true;
     this.sitiosService.listarSitios()

@@ -18,6 +18,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ListarSitiosComponent } from 'app/listar-sitios/listar-sitios.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -38,8 +39,8 @@ import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
-    
+    MatSortModule,
+    MatAutocompleteModule
   ],
   declarations: [
     DashboardComponent,

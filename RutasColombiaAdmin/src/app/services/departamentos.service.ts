@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
 import { throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { httpOptions } from '../util/configuracion';
+import { httpOptions } from '../util/configuracion'
+import { environment } from 'environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
-export class SitiosService {
+export class DepartamentosService {
 
   constructor(private http: HttpClient) { }
 
-  listarSitios() {
+  listarDepartamentos() {
     var body = "";
-    return this.http.post<any>(environment.baseUrl + 'listarSitios', body, httpOptions)
+    return this.http.post<any>(environment.baseUrl  + 'listarDepartamentos', body, httpOptions)
       .pipe(
-        tap((respuesta: any) => {
-          //Se valida que si existe un mensaje de error
+        tap((respuesta: any) => {          
           if (respuesta.error) {
             throw (respuesta.error);
           }
