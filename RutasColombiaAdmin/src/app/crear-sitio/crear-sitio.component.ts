@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DepartamentosService } from 'app/services/departamentos.service';
 import { SitiosCategoriasService } from 'app/services/sitios-categorias.service';
+import { SitiosEmpresasService } from 'app/services/sitios-empresas.service';
 
 @Component({
   selector: 'app-crear-sitio',
@@ -42,49 +43,56 @@ export class CrearSitioComponent implements OnInit {
   }
   public error = "";
   public cargando = false;
-    
+
   form: FormGroup;
 
-  formControlDepartamento = new FormControl();  
+  formControlDepartamento = new FormControl();
   public departamentos = [];
   departamentosFiltrados: Observable<string[]>;
 
-  formControlCiudad = new FormControl();  
-  public ciudades = [];  
-  ciudadesFiltradas: Observable<string[]>;  
-  
+  formControlCiudad = new FormControl();
+  public ciudades = [];
+  ciudadesFiltradas: Observable<string[]>;
+
 
   formControlSitioCategoria = new FormControl();
-  public sitiosCategorias= [];
+  public sitiosCategorias = [];
   sitiosCategoriasFiltradas: Observable<string[]>;
-  
+
+  formControlSitioEmpresa = new FormControl();
+  public sitiosEmpresas = [];
+  sitiosEmpresasFiltradas: Observable<string[]>;
 
   constructor(private departamentosService: DepartamentosService,
-    private sitiosCategoriasService: SitiosCategoriasService) {
+    private sitiosCategoriasService: SitiosCategoriasService,
+    private sitiosEmpresasService: SitiosEmpresasService
+    ) {
 
   }
 
   ngOnInit() {
     this.agregarValidadores();
-    this.listarDepartamentos();    
-    this.listarSitiosCategorias();    
+    this.listarDepartamentos();
+    this.listarSitiosCategorias();
+    this.listarSitiosEmpresas();
   }
   private agregarValidadores() {
     this.form = new FormGroup({
       formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
       formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
-      formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch])
-    }); 
+      formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch]),
+      formControlSitioEmpresa: new FormControl('', [Validators.required, RequireMatch])      
+    });
   }
 
   /**Departamentos */
-  listarDepartamentos() {    
+  listarDepartamentos() {
     this.error = "";
     this.cargando = true;
     this.departamentosService.listarDepartamentos()
       .subscribe(
-        data => {          
-          this.departamentos = JSON.parse(JSON.stringify(data));          
+        data => {
+          this.departamentos = JSON.parse(JSON.stringify(data));
           this.filtrarDepartamentos();
           this.cargando = false;
         },
@@ -118,7 +126,7 @@ export class CrearSitioComponent implements OnInit {
   /**Ciudades */
   public cargarCiudades(val: any) {
     this.ciudades = val.option.value.municipios;
-    this.formControlCiudad.reset(); 
+    this.formControlCiudad.reset();
     this.filtrarCiudades();
   }
   private filtrarCiudades() {
@@ -128,30 +136,30 @@ export class CrearSitioComponent implements OnInit {
         map(valor => this.filtrarListaCiudades(valor, this.ciudades))
       );
   }
-  private filtrarListaCiudades(value: any, lista: any[]): string[] {    
+  private filtrarListaCiudades(value: any, lista: any[]): string[] {
     let val = "";
     if (typeof value === "string") {
       val = value.toLowerCase();
     } else {
-      if (value){
+      if (value) {
         val = value.nombre.toLowerCase();
-      }      
+      }
     }
     const filterValue = val;
     return lista.filter(option => option.nombre.toLowerCase().includes(filterValue));
   }
-  seleccionarCiudad(ciudad?: any): string | undefined {    
+  seleccionarCiudad(ciudad?: any): string | undefined {
     return ciudad ? ciudad.nombre : undefined;
   }
 
-/**SitiosCategorias */
-  listarSitiosCategorias() {    
+  /**SitiosCategorias */
+  listarSitiosCategorias() {
     this.error = "";
     this.cargando = true;
     this.sitiosCategoriasService.listarSitiosCategorias()
       .subscribe(
-        data => {          
-          this.sitiosCategorias = JSON.parse(JSON.stringify(data));          
+        data => {
+          this.sitiosCategorias = JSON.parse(JSON.stringify(data));
           this.filtrarSitiosCategorias();
           this.cargando = false;
         },
@@ -181,6 +189,42 @@ export class CrearSitioComponent implements OnInit {
   seleccionarSitioCategoria(sitioCategoria?: any): string | undefined {
     return sitioCategoria ? sitioCategoria.nombre : undefined;
   }
+  /**SitiosEmpresas */
+  listarSitiosEmpresas() {
+    this.error = "";
+    this.cargando = true;
+    this.sitiosEmpresasService.listarSitiosEmpresas()
+      .subscribe(
+        data => {
+          this.sitiosEmpresas = JSON.parse(JSON.stringify(data));
+          this.filtrarSitiosEmpresas();
+          this.cargando = false;
+        },
+        error => {
+          this.cargando = false;
+          this.error = error;
+        });
+  }
 
+  private filtrarSitiosEmpresas() {
+    this.sitiosEmpresasFiltradas = this.formControlSitioEmpresa.valueChanges
+      .pipe(
+        startWith(''),
+        map(valor => this.filtrarListaSitiosEmpresas(valor, this.sitiosEmpresas))
+      );
+  }
+  private filtrarListaSitiosEmpresas(value: any, lista: any[]): string[] {
+    let val = "";
+    if (typeof value === "string") {
+      val = value.toLowerCase();
+    } else {
+      val = value.nombre.toLowerCase();
+    }
+    const filterValue = val;
+    return lista.filter(option => option.nombre.toLowerCase().includes(filterValue));
+  }
+  seleccionarSitioEmpresa(sitioEmpresa?: any): string | undefined {
+    return sitioEmpresa ? sitioEmpresa.nombre : undefined;
+  }
 }
 

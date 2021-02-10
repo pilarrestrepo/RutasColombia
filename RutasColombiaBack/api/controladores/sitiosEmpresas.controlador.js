@@ -1,19 +1,19 @@
 'use strict';
 
 var util = require('util');
-var sitiosCategorias = require('../servicios/sitiosCategorias.servicio');
+var sitiosEmpresas = require('../servicios/sitiosEmpresas.servicio');
 
 module.exports = {  
-  listarSitiosCategorias: listarSitiosCategorias,
-  crearSitioCategoria: crearSitioCategoria,
-  editarSitioCategoria: editarSitioCategoria
+  listarSitiosEmpresas: listarSitiosEmpresas,
+  crearSitioEmpresa: crearSitioEmpresa,
+  editarSitioEmpresa: editarSitioEmpresa
 };
 
-function listarSitiosCategorias(req, res) {
+function listarSitiosEmpresas(req, res) {
 
-  console.log('entro listarSitiosCategorias');
+  console.log('entro listarSitiosEmpresas');
 
-  sitiosCategorias.listarSitiosCategorias(function (error, resultado) {
+  sitiosEmpresas.listarSitiosEmpresas(function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -23,8 +23,8 @@ function listarSitiosCategorias(req, res) {
   })
 
 }
-function crearSitioCategoria(req, res) {
-  var sitioCategoria = {
+function crearSitioEmpresa(req, res) {
+  var sitioEmpresa = {
     nombre: req.body.nombre,   
     idiomas: {
       es:
@@ -39,7 +39,7 @@ function crearSitioCategoria(req, res) {
     }
   }
 
-  sitiosCategorias.crearSitioCategoria(sitioCategoria, function (error, resultado) {
+  sitiosEmpresas.crearSitioEmpresa(sitioEmpresa, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -50,7 +50,7 @@ function crearSitioCategoria(req, res) {
 
 }
 
-function editarSitioCategoria(req, res) {
+function editarSitioEmpresa(req, res) {
   console.log('entro editarSitio ' + req);
 
   var sitio = {
@@ -69,7 +69,7 @@ function editarSitioCategoria(req, res) {
     }
   }
 
-  sitiosCategorias.editarSitioCategoria(sitio, function (error, resultado) {
+  sitiosEmpresas.editarSitioEmpresa(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {

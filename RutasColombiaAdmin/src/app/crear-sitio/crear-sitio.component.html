@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <input type="text" placeholder="Categoria" matInput
+                                        <input type="text" placeholder="Categoría" matInput
                                             [formControl]="formControlSitioCategoria"
                                             formControlName="formControlSitioCategoria"
                                             [matAutocomplete]="idSitioCategoriaAutoComplete">
@@ -37,14 +37,38 @@
                                             *ngIf="form.controls['formControlSitioCategoria'].hasError('required')">
                                             Debe seleccionar un valor
                                         </mat-error>
-
                                         <mat-error
                                             *ngIf="form.controls['formControlSitioCategoria'].hasError('incorrect')">
                                             Por favor seleccione un elemento de la lista
                                         </mat-error>
                                     </mat-form-field>
                                 </div>
-                                
+                                <div class="col-md-4">
+                                    <mat-form-field class="full-width">
+                                        <input type="text" placeholder="Empresa" matInput
+                                            [formControl]="formControlSitioEmpresa"
+                                            formControlName="formControlSitioEmpresa"
+                                            [matAutocomplete]="idSitioEmpresaAutoComplete">
+                                        <mat-autocomplete #idSitioEmpresaAutoComplete="matAutocomplete"
+                                            [displayWith]="seleccionarSitioEmpresa">
+                                            <mat-option *ngFor="let sitioEmpresa of sitiosEmpresasFiltradas | async"
+                                                [value]="sitioEmpresa">
+                                                {{ sitioEmpresa.nombre }}
+                                            </mat-option>
+                                        </mat-autocomplete>                                        
+                                        <mat-error *ngIf="formControlSitioEmpresa.invalid">
+                                            Error
+                                        </mat-error>
+                                        <mat-error
+                                            *ngIf="form.controls['formControlSitioEmpresa'].hasError('required')">
+                                            Debe seleccionar un valor
+                                        </mat-error>
+                                        <mat-error
+                                            *ngIf="form.controls['formControlSitioEmpresa'].hasError('incorrect')">
+                                            Por favor seleccione un elemento de la lista
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>                                
                             </div>
 
                             <div class="row">
