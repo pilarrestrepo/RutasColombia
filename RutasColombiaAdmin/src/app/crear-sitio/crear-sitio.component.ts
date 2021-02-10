@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DepartamentosService } from 'app/services/departamentos.service';
 import { RequireMatch as RequireMatch } from '../util/requireMatch';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { DepartamentosService } from 'app/services/departamentos.service';
+import { SitiosCategoriasService } from 'app/services/sitios-categorias.service';
+
 @Component({
   selector: 'app-crear-sitio',
   templateUrl: './crear-sitio.component.html',
@@ -40,17 +42,42 @@ export class CrearSitioComponent implements OnInit {
   }
   public error = "";
   public cargando = false;
-  public departamentos = [];
-  public ciudades = [];
+    
   form: FormGroup;
-  formControlDepartamento = new FormControl();
-  formControlCiudad = new FormControl();
-  ciudadesFiltradas: Observable<string[]>;
+
+  formControlDepartamento = new FormControl();  
+  public departamentos = [];
   departamentosFiltrados: Observable<string[]>;
 
-  constructor(private departamentosService: DepartamentosService) {
+  formControlCiudad = new FormControl();  
+  public ciudades = [];  
+  ciudadesFiltradas: Observable<string[]>;  
+  
+
+  formControlSitioCategoria = new FormControl();
+  public sitiosCategorias= [];
+  sitiosCategoriasFiltradas: Observable<string[]>;
+  
+
+  constructor(private departamentosService: DepartamentosService,
+    private sitiosCategoriasService: SitiosCategoriasService) {
 
   }
+
+  ngOnInit() {
+    this.agregarValidadores();
+    this.listarDepartamentos();    
+    this.listarSitiosCategorias();    
+  }
+  private agregarValidadores() {
+    this.form = new FormGroup({
+      formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
+      formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
+      formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch])
+    }); 
+  }
+
+  /**Departamentos */
   listarDepartamentos() {    
     this.error = "";
     this.cargando = true;
@@ -66,22 +93,33 @@ export class CrearSitioComponent implements OnInit {
           this.error = error;
         });
   }
-  ngOnInit() {
-    this.listarDepartamentos();
-    this.agregarValidadores();
-  }
-  private agregarValidadores() {
-    this.form = new FormGroup({
-      formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
-      formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
-    }); 
-  }
+
   private filtrarDepartamentos() {
     this.departamentosFiltrados = this.formControlDepartamento.valueChanges
       .pipe(
         startWith(''),
         map(valor => this.filtrarListaDepartamentos(valor, this.departamentos))
       );
+  }
+  private filtrarListaDepartamentos(value: any, lista: any[]): string[] {
+    let val = "";
+    if (typeof value === "string") {
+      val = value.toLowerCase();
+    } else {
+      val = value.nombre.toLowerCase();
+    }
+    const filterValue = val;
+    return lista.filter(option => option.nombre.toLowerCase().includes(filterValue));
+  }
+  seleccionarDepartamento(departamento?: any): string | undefined {
+    return departamento ? departamento.nombre : undefined;
+  }
+
+  /**Ciudades */
+  public cargarCiudades(val: any) {
+    this.ciudades = val.option.value.municipios;
+    this.formControlCiudad.reset(); 
+    this.filtrarCiudades();
   }
   private filtrarCiudades() {
     this.ciudadesFiltradas = this.formControlCiudad.valueChanges
@@ -101,9 +139,36 @@ export class CrearSitioComponent implements OnInit {
     }
     const filterValue = val;
     return lista.filter(option => option.nombre.toLowerCase().includes(filterValue));
-
   }
-  private filtrarListaDepartamentos(value: any, lista: any[]): string[] {
+  seleccionarCiudad(ciudad?: any): string | undefined {    
+    return ciudad ? ciudad.nombre : undefined;
+  }
+
+/**SitiosCategorias */
+  listarSitiosCategorias() {    
+    this.error = "";
+    this.cargando = true;
+    this.sitiosCategoriasService.listarSitiosCategorias()
+      .subscribe(
+        data => {          
+          this.sitiosCategorias = JSON.parse(JSON.stringify(data));          
+          this.filtrarSitiosCategorias();
+          this.cargando = false;
+        },
+        error => {
+          this.cargando = false;
+          this.error = error;
+        });
+  }
+
+  private filtrarSitiosCategorias() {
+    this.sitiosCategoriasFiltradas = this.formControlSitioCategoria.valueChanges
+      .pipe(
+        startWith(''),
+        map(valor => this.filtrarListaSitiosCategorias(valor, this.sitiosCategorias))
+      );
+  }
+  private filtrarListaSitiosCategorias(value: any, lista: any[]): string[] {
     let val = "";
     if (typeof value === "string") {
       val = value.toLowerCase();
@@ -113,17 +178,9 @@ export class CrearSitioComponent implements OnInit {
     const filterValue = val;
     return lista.filter(option => option.nombre.toLowerCase().includes(filterValue));
   }
-  seleccionarDepartamento(departamento?: any): string | undefined {
-    return departamento ? departamento.nombre : undefined;
-  }
-  seleccionarCiudad(ciudad?: any): string | undefined {    
-    return ciudad ? ciudad.nombre : undefined;
+  seleccionarSitioCategoria(sitioCategoria?: any): string | undefined {
+    return sitioCategoria ? sitioCategoria.nombre : undefined;
   }
 
-  public cargarCiudades(val: any) {
-    this.ciudades = val.option.value.municipios;
-    this.formControlCiudad.reset(); 
-    this.filtrarCiudades();
-  }
 }
 
