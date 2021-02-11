@@ -245,11 +245,11 @@ export class CrearSitioComponent implements OnInit {
       this.lng = e.coords.lng;      
     });    
   }
-/*
-  onChange(event: Event) {
-    
-    this.someForm.controls['file'].setValue(event.target.files[0].name);
-  }
-  */
-}
 
+
+ eventoSeleccionarArchivo(evt) {
+   console.log('Evento seleccionar archivo',evt);
+   this.model.urlImagen = evt.target.files[0].name;
+ }
+
+}
