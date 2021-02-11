@@ -22,6 +22,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ListarSitiosComponent } from 'app/listar-sitios/listar-sitios.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
 
 
@@ -40,7 +41,8 @@ import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSlideToggleModule
   ],
   declarations: [
     DashboardComponent,

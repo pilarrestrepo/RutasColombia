@@ -18,14 +18,19 @@ export class CrearSitioComponent implements OnInit {
     "direccion": null,
     "telefono": null,
     "categoria": null,
+    "empresa": null,
     "municipio": null,
+    "URLWeb": null,
+    "URLContacto": null,
+    "URLRelacionada": null,    
+    "estado": true,    
     "punto": {
       "latitud": null,
       "longitud": null
     },
     "icono": null,
     "urlImagen": null,
-    "url": null,
+
     "idiomas": {
       "es":
       {
@@ -41,6 +46,7 @@ export class CrearSitioComponent implements OnInit {
     },
     "coordenadas": null
   }
+  public nombreEstado = "Activo";
   public error = "";
   public cargando = false;
 
@@ -67,7 +73,7 @@ export class CrearSitioComponent implements OnInit {
     private sitiosCategoriasService: SitiosCategoriasService,
     private sitiosEmpresasService: SitiosEmpresasService
     ) {
-
+   
   }
 
   ngOnInit() {
@@ -226,5 +232,11 @@ export class CrearSitioComponent implements OnInit {
   seleccionarSitioEmpresa(sitioEmpresa?: any): string | undefined {
     return sitioEmpresa ? sitioEmpresa.nombre : undefined;
   }
+/*
+  onChange(event: Event) {
+    
+    this.someForm.controls['file'].setValue(event.target.files[0].name);
+  }
+  */
 }
 
