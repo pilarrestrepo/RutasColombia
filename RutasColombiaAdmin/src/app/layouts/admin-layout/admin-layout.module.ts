@@ -24,7 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
-
+import { AgmCoreModule} from '@agm/core';
 
 @NgModule({
   imports: [
@@ -42,7 +42,10 @@ import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
     MatPaginatorModule,
     MatSortModule,
     MatAutocompleteModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc'
+    })    
   ],
   declarations: [
     DashboardComponent,

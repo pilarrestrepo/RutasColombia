@@ -50,6 +50,9 @@ export class CrearSitioComponent implements OnInit {
   public direccionBuscar = "";  
   public error = "";
   public cargando = false;
+  public lat = 0;
+  public lng = 0;
+  public zoom = 12;
 
   form: FormGroup;
 
@@ -232,6 +235,15 @@ export class CrearSitioComponent implements OnInit {
   }
   seleccionarSitioEmpresa(sitioEmpresa?: any): string | undefined {
     return sitioEmpresa ? sitioEmpresa.nombre : undefined;
+  }
+
+  mapClicked(map: any) {
+    map.addListener('click', (e) => {
+      console.log("clickMapa")
+      console.log(e)
+      this.lat = e.coords.lat;
+      this.lng = e.coords.lng;      
+    });    
   }
 /*
   onChange(event: Event) {
