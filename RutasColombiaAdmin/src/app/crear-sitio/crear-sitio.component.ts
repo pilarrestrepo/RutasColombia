@@ -47,6 +47,7 @@ export class CrearSitioComponent implements OnInit {
     "coordenadas": null
   }
   public nombreEstado = "Activo";
+  public direccionBuscar = "";  
   public error = "";
   public cargando = false;
 
