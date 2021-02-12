@@ -44,7 +44,8 @@ import { AgmCoreModule} from '@agm/core';
     MatAutocompleteModule,
     MatSlideToggleModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc'
+      apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc',
+      libraries: ['places']
     })    
   ],
   declarations: [

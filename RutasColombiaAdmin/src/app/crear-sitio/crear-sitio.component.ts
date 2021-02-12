@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RequireMatch as RequireMatch } from '../util/requireMatch';
 import { Observable, of } from 'rxjs';
@@ -6,6 +6,9 @@ import { map, startWith } from 'rxjs/operators';
 import { DepartamentosService } from 'app/services/departamentos.service';
 import { SitiosCategoriasService } from 'app/services/sitios-categorias.service';
 import { SitiosEmpresasService } from 'app/services/sitios-empresas.service';
+import { ViewChild } from '@angular/core';
+import { NgZone } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-crear-sitio',
@@ -13,6 +16,8 @@ import { SitiosEmpresasService } from 'app/services/sitios-empresas.service';
   styleUrls: ['./crear-sitio.component.css']
 })
 export class CrearSitioComponent implements OnInit {
+  
+
   public model = {
     "nombre": null,
     "direccion": null,
@@ -26,11 +31,10 @@ export class CrearSitioComponent implements OnInit {
     "estado": true,    
     "punto": {
       "latitud": null,
-      "longitud": null
-    },
-    "icono": null,
+      "longitud": null,
+      "altitud": null      
+    },    
     "urlImagen": null,
-
     "idiomas": {
       "es":
       {
@@ -43,8 +47,7 @@ export class CrearSitioComponent implements OnInit {
         "descripcion": null
       }
 
-    },
-    "coordenadas": null
+    }
   }
   public nombreEstado = "Activo";
   public direccionBuscar = "";  
@@ -73,18 +76,91 @@ export class CrearSitioComponent implements OnInit {
   public sitiosEmpresas = [];
   sitiosEmpresasFiltradas: Observable<string[]>;
 
+
+  @ViewChild('buscarSitio') public buscarSitioElementRef: ElementRef;
+  private geoCoder;
+
+  
   constructor(private departamentosService: DepartamentosService,
     private sitiosCategoriasService: SitiosCategoriasService,
-    private sitiosEmpresasService: SitiosEmpresasService
+    private sitiosEmpresasService: SitiosEmpresasService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
     ) {
-   
+
   }
 
   ngOnInit() {
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+      
+      let autocomplete = new google.maps.places.Autocomplete(this.buscarSitioElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+  
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });       
+
+    });    
     this.agregarValidadores();
     this.listarDepartamentos();
     this.listarSitiosCategorias();
     this.listarSitiosEmpresas();
+    /*this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+  
+      let autocomplete = new google.maps.places.Autocomplete(this.buscarSitioElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+  
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });  */
+  }
+  private setCurrentLocation() {
+    console.log("setCurrentLocation")
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.zoom = 8;
+        this.getAddress(this.lat, this.lng);
+      });
+    }
+  }
+  
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          //this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    
+    });
   }
   private agregarValidadores() {
     this.form = new FormGroup({

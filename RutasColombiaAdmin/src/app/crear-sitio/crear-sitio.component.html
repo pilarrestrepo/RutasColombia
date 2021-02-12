@@ -218,8 +218,8 @@
                                                     <div class="card-body table-responsive">
                                                         <div class="col-md-12">
                                                             <mat-form-field class="example-full-width">
-                                                                <input matInput placeholder="Nombre en español" type="text"
-                                                                    id="nombreEspanol" name="nombreEspanol"
+                                                                <input matInput placeholder="Nombre en español"
+                                                                    type="text" id="nombreEspanol" name="nombreEspanol"
                                                                     autocomplete="nope"
                                                                     [(ngModel)]="model.idiomas.es.nombre"
                                                                     #nombreEspanol="ngModel"
@@ -301,9 +301,10 @@
                             <div class="col-md-12">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Digíte dirección" type="text" id="buscarSitio"
-                                        name="buscarSitio" autocomplete="nope" [(ngModel)]="direccionBuscar"
-                                        #buscarSitio="ngModel" [ngModelOptions]="{standalone: true}">
+                                        name="buscarSitio" autocomplete="nope" autocorrect="off" autocapitalize="off"
+                                        spellcheck="off" #buscarSitio (keydown.enter)="$event.preventDefault()">
                                 </mat-form-field>
+
                             </div>
                         </div>
                         <div class="row">
@@ -313,9 +314,9 @@
                                     <agm-marker class="mapMarker" [latitude]="lat" [longitude]="lng">
                                     </agm-marker>
                                 </agm-map>
-                            </div>                            
+                            </div>
                         </div>
-                        <br/>
+                        <br />
                         <div class="row">
                             <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
@@ -330,15 +331,15 @@
                                         autocomplete="nope" [(ngModel)]="model.punto.longitud" #longitud="ngModel"
                                         [ngModelOptions]="{standalone: true}">
                                 </mat-form-field>
-                            </div>                            
+                            </div>
                             <div class="col-md-4">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Altitud" type="text" id="altitud" name="altitud"
                                         autocomplete="nope" [(ngModel)]="model.punto.altitud" #altitud="ngModel"
                                         [ngModelOptions]="{standalone: true}">
                                 </mat-form-field>
-                            </div> 
-                        </div>             
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
