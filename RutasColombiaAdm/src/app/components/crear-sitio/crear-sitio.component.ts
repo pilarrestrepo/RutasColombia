@@ -109,7 +109,19 @@ export class CrearSitioComponent implements OnInit {
     console.log("fileChangeEvent", fileInput)
     console.log("fileInput.target.files", fileInput.target.files)
     
-      this.filesToUpload=<Array<File>> fileInput.target.files;
+    this.filesToUpload=<Array<File>> fileInput.target.files;
+
+    var blob;
+    const file = fileInput.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      //console.log(reader.result);
+      blob = new Blob([reader.result]);
+      console.log('archivo: ',blob);
+    };
+    
+    reader.readAsDataURL(blob);
   }
 
   listarDepartamentos() {
@@ -131,6 +143,6 @@ export class CrearSitioComponent implements OnInit {
   }
   public seleccionDepartamento(e) {
     console.log("seleccionDepartamento", e)
-  }  
+  } 
   
 }

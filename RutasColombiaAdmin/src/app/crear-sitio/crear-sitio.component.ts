@@ -9,6 +9,7 @@ import { SitiosEmpresasService } from 'app/services/sitios-empresas.service';
 import { ViewChild } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
+import { SitiosService } from 'app/services/sitios.service';
 
 @Component({
   selector: 'app-crear-sitio',
@@ -16,7 +17,7 @@ import { MapsAPILoader } from '@agm/core';
   styleUrls: ['./crear-sitio.component.css']
 })
 export class CrearSitioComponent implements OnInit {
-  
+
 
   public model = {
     "nombre": null,
@@ -27,14 +28,15 @@ export class CrearSitioComponent implements OnInit {
     "municipio": null,
     "URLWeb": null,
     "URLContacto": null,
-    "URLRelacionada": null,    
-    "estado": true,    
+    "URLRelacionada": null,
+    "estado": true,
     "punto": {
       "latitud": null,
       "longitud": null,
-      "altitud": null      
-    },    
+      "altitud": null
+    },
     "urlImagen": null,
+    "imagenb64": null,
     "idiomas": {
       "es":
       {
@@ -50,12 +52,13 @@ export class CrearSitioComponent implements OnInit {
     }
   }
   public nombreEstado = "Activo";
-  public direccionBuscar = "";  
+  public direccionBuscar = "";
   public error = "";
   public cargando = false;
   public lat = 0;
   public lng = 0;
-  public zoom = 12;
+  public zoom = 15;
+  private geoCoder;
 
   form: FormGroup;
 
@@ -78,99 +81,96 @@ export class CrearSitioComponent implements OnInit {
 
 
   @ViewChild('buscarSitio') public buscarSitioElementRef: ElementRef;
-  private geoCoder;
 
-  
   constructor(private departamentosService: DepartamentosService,
     private sitiosCategoriasService: SitiosCategoriasService,
     private sitiosEmpresasService: SitiosEmpresasService,
+    private sitiosService: SitiosService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
-    ) {
+  ) {
 
   }
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
+      this.obterUbicacionActual();
       this.geoCoder = new google.maps.Geocoder;
-      
+
       let autocomplete = new google.maps.places.Autocomplete(this.buscarSitioElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
+
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-  
+
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
-          this.zoom = 12;
+          this.model.punto.latitud =  this.lat;
+          this.model.punto.longitud = this.lng;          
+          this.zoom = 15;
         });
-      });       
+      });
 
-    });    
+    });
     this.agregarValidadores();
     this.listarDepartamentos();
     this.listarSitiosCategorias();
     this.listarSitiosEmpresas();
-    /*this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-  
-      let autocomplete = new google.maps.places.Autocomplete(this.buscarSitioElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-  
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });  */
   }
-  private setCurrentLocation() {
-    console.log("setCurrentLocation")
+  private obterUbicacionActual() {
+    console.log("obterUbicacionActual")
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        this.zoom = 8;
-        this.getAddress(this.lat, this.lng);
+       // this.model.punto.latitud =  this.lat;
+        //this.model.punto.longitud = this.lng;
+        this.zoom = 15;
+        //this.obterDireccion(this.lat, this.lng);
       });
     }
   }
-  
-  getAddress(latitude, longitude) {
+/*
+  obterDireccion(latitude, longitude) {
+    console.log("obterDireccion")
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 12;
-          //this.address = results[0].formatted_address;
+          console.log(results[0])   
+          this.zoom = 15;     
+
+                 
         } else {
           window.alert('No results found');
         }
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
-    
+
     });
   }
+  */
   private agregarValidadores() {
     this.form = new FormGroup({
       formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
       formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
       formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch]),
-      formControlSitioEmpresa: new FormControl('', [Validators.required, RequireMatch])      
+      formControlSitioEmpresa: new FormControl('', [Validators.required, RequireMatch])
     });
   }
-
+  mapClicked(map: any) {
+    console.log("clickMapa")
+    map.addListener('click', (e) => {      
+      console.log(e)
+      this.lat = e.Xa.y;
+      this.lng = e.Xa.x;      
+      this.model.punto.latitud =  this.lat;
+      this.model.punto.longitud = this.lng;
+    });    
+  }
   /**Departamentos */
   listarDepartamentos() {
     this.error = "";
@@ -237,7 +237,11 @@ export class CrearSitioComponent implements OnInit {
   seleccionarCiudad(ciudad?: any): string | undefined {
     return ciudad ? ciudad.nombre : undefined;
   }
+  public seleccionarItemCiudad(val: any) {
+    console.log("seleccionarItemCiudad",val)
+    this.model.municipio = val.option.value.id;    
 
+  }
   /**SitiosCategorias */
   listarSitiosCategorias() {
     this.error = "";
@@ -274,6 +278,11 @@ export class CrearSitioComponent implements OnInit {
   }
   seleccionarSitioCategoria(sitioCategoria?: any): string | undefined {
     return sitioCategoria ? sitioCategoria.nombre : undefined;
+  }
+  public seleccionarItemCategoria(val: any) {
+    console.log("seleccionarItemCategoria",val)
+    this.model.categoria = val.option.value.id;    
+
   }
   /**SitiosEmpresas */
   listarSitiosEmpresas() {
@@ -312,20 +321,27 @@ export class CrearSitioComponent implements OnInit {
   seleccionarSitioEmpresa(sitioEmpresa?: any): string | undefined {
     return sitioEmpresa ? sitioEmpresa.nombre : undefined;
   }
+  public seleccionarItemEmpresa(val: any) {
+    console.log("seleccionarIteEmpresa",val)
+    this.model.empresa = val.option.value.id;    
 
-  mapClicked(map: any) {
-    map.addListener('click', (e) => {
-      console.log("clickMapa")
-      console.log(e)
-      this.lat = e.coords.lat;
-      this.lng = e.coords.lng;      
-    });    
   }
-
-
- eventoSeleccionarArchivo(evt) {
-   console.log('Evento seleccionar archivo',evt);
-   this.model.urlImagen = evt.target.files[0].name;
- }
+  /**Archivo */
+  eventoSeleccionarArchivo(evt) {
+    console.log('Evento seleccionar archivo', evt);
+    this.model.urlImagen = evt.target.files[0].name;
+    this.convertirArchivoBase64(evt.target.files[0]);
+  }
+  convertirArchivoBase64(file:any){
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      // console.log('Imagen cargada: ', reader.result);
+      this.model.imagenb64 = reader.result;
+    };
+  }
+  guardarSitio() {
+    this.sitiosService.guardarSitio(this.model);
+  }
 
 }

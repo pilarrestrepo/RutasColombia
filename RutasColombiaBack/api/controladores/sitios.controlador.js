@@ -122,6 +122,9 @@ function editarSitio(req, res) {
     coordenadas: req.body.coordenadas
   }
 
+  var imagenb64 = req.body.imagenb64;
+  console.log('imagen: ', imagenb64);
+
   sitiosServicio.editarSitio(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);

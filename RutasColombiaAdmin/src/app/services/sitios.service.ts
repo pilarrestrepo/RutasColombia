@@ -25,6 +25,22 @@ export class SitiosService {
         catchError(this.handleError)
       );
   }
+
+  guardarSitio(sitio: any) {
+    var body = sitio;
+    return this.http.post<any>(environment.baseUrl + 'crearSitio', body, httpOptions)
+      .pipe(
+        tap((respuesta: any) => {
+          //Se valida que si existe un mensaje de error
+          if (respuesta.error) {
+            throw (respuesta.error);
+          }
+          return respuesta;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   };
