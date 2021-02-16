@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,8 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
 import { AgmCoreModule} from '@agm/core';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,11 +44,14 @@ import { AgmCoreModule} from '@agm/core';
     MatSortModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
+    MatCardModule,
+    MatDialogModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc',
       libraries: ['places']
     })    
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,

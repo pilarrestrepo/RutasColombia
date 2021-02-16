@@ -11,6 +11,9 @@ import { ViewChild } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { SitiosService } from 'app/services/sitios.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { imagenSitioComponent } from './imagen-sitio.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-crear-sitio',
@@ -93,7 +96,8 @@ export class CrearSitioComponent implements OnInit {
     private sitiosService: SitiosService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get("id")
@@ -392,7 +396,7 @@ export class CrearSitioComponent implements OnInit {
     this.model.URLWeb = this.sitio.URLWeb
     this.model.URLContacto = this.sitio.URLContacto
     this.model.URLRelacionada = this.sitio.URLRelacionada
-    this.model.correo = this.sitio.correo    
+    this.model.correo = this.sitio.correo
     this.model.activo = this.sitio.activo
     this.model.punto = this.sitio.punto
 
@@ -431,4 +435,21 @@ export class CrearSitioComponent implements OnInit {
     console.log("asignarSitioModel", this.model, this.sitio, this.sitiosCategorias)
 
   }
+  verImagen() {
+    const dialogConfig = new MatDialogConfig();
+
+    //dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      urlImagen: environment.baseUrl + this.sitio.urlImagen,
+      titulo: 'Imagen: ' + this.sitio.nombreArchivo
+    };
+    const dialogRef = this.dialog.open(imagenSitioComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
+

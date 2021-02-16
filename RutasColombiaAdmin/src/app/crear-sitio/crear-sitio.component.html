@@ -18,7 +18,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
-                                   <!--  <mat-form-field appearance="fill">
+                                    <!--  <mat-form-field appearance="fill">
                                         <mat-label>Categoría</mat-label>
                                         <mat-select>
                                             <mat-option>Ninguno</mat-option>
@@ -26,7 +26,7 @@
                                                 [value]="sitioCategoria.id">{{sitioCategoria.nombre}}</mat-option>
                                         </mat-select>
                                     </mat-form-field> -->
-                                           <mat-form-field class="full-width">
+                                    <mat-form-field class="full-width">
                                         <input matInput type="text" placeholder="Categoría"
                                             [formControl]="formControlSitioCategoria"
                                             formControlName="formControlSitioCategoria"
@@ -42,8 +42,8 @@
                                         <mat-error *ngIf="this.model.categoria === null">
                                             Debe seleccionar un valor
                                         </mat-error>
-                                  
-                                    </mat-form-field> 
+
+                                    </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
@@ -174,17 +174,21 @@
                                 <div class="col m8 s8 file-field input-field">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="seleccionar archivo" type="text" id="nombreArchivo"
-                                            name="nombreArchivo" autocomplete="nope" [(ngModel)]="model.urlImagen"
+                                            name="nombreArchivo" autocomplete="nope" [(ngModel)]="model.nombreArchivo"
                                             #nombreArchivo="ngModel" [ngModelOptions]="{standalone: true}">
                                     </mat-form-field>
-
                                 </div>
-                                <div class="col m4 s4 file-field input-field">
+                                <div class="col m2 s2 file-field input-field">
                                     <label class="custom-file-upload">
                                         <input type="file" (change)="eventoSeleccionarArchivo($event)"
                                             accept="image/*" />
                                         Seleccionar archivo
                                     </label>
+                                </div>
+                                <div *ngIf="model.id" class="col m2 s2 file-field input-field text-center">
+                                    <button mat-fab color="warn" (click)="verImagen()">
+                                        <span class="material-icons">image_search</span>
+                                    </button>                                    
                                 </div>
                             </div>
                             <div class="row">
@@ -343,17 +347,6 @@
                                         [ngModelOptions]="{standalone: true}">
                                 </mat-form-field>
                             </div>
-                        </div>
-                        <div class="row">
-                        <mat-card class="example-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title>Shiba Inu</mat-card-title>
-                              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                            </mat-card-header>
-                            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                          
-                          </mat-card>
                         </div>
                     </div>
                 </div>
