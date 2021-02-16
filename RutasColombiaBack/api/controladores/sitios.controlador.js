@@ -79,11 +79,12 @@ function crearSitio(req, res) {
     URLWeb: req.body.URLWeb,
     URLContacto: req.body.URLContacto,
     URLRelacionada: req.body.URLRelacionada,
+    correo: req.body.correo,
     punto: req.body.punto,
     nombreArchivo: req.body.nombreArchivo,
     urlImagen: urlImagen,
     idiomas: req.body.idiomas,    
-    estado: req.body.estado
+    activo: req.body.activo
   }
   sitiosServicio.crearSitio(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
@@ -97,40 +98,40 @@ function crearSitio(req, res) {
 }
 
 function editarSitio(req, res) {
-  console.log('entro editarSitio ' + req);
+  console.log('entro editarSitio ' , req.body.nombre, req.body.id);
+  var urlImagen = "";
+  if (req.body.imagenb64){
+    const fs = require('fs');
 
+    var base64result = req.body.imagenb64.substr(req.body.imagenb64.indexOf(',') + 1);  
+    const imageBufferData = Buffer.from(base64result, 'base64')
+    urlImagen = "/assets/imagenesSitios/"+ req.body.nombreArchivo;
+  
+    fs.writeFileSync(__dirname + "../../../public/assets/imagenesSitios/" + req.body.nombreArchivo, imageBufferData, function (err) {
+      if (err) {
+        return console.log(err);
+      }    
+    });
+  
+  }
   var sitio = {
     id: req.body.id,
     nombre: req.body.nombre,
     direccion: req.body.direccion,
     telefono: req.body.telefono,
     categoria: req.body.categoria,
+    empresa: req.body.empresa,
     municipio: req.body.municipio,
-    punto: {
-      latitud: req.body.punto.latitud,
-      longitud: req.body.punto.longitud
-    },
-    icono: req.body.icono,
-    urlImagen: req.body.urlImagen,
-    url: req.body.url,
-    idiomas: {
-      es:
-      {
-        nombre: req.body.es.nombre,
-        descripcion: req.body.es.descripcion,
-      },
-      en:
-      {
-        nombre: req.body.idiomas.en.nombre,
-        descripcion: req.body.idiomas.en.descripcion
-      }
-
-    },
-    coordenadas: req.body.coordenadas
+    URLWeb: req.body.URLWeb,
+    URLContacto: req.body.URLContacto,
+    URLRelacionada: req.body.URLRelacionada,
+    correo: req.body.correo,
+    punto: req.body.punto,
+    nombreArchivo: req.body.nombreArchivo,
+    urlImagen: urlImagen,
+    idiomas: req.body.idiomas,    
+    activo: req.body.activo
   }
-
-  var imagenb64 = req.body.imagenb64;
-  console.log('imagen: ', imagenb64);
 
   sitiosServicio.editarSitio(sitio, function (error, resultado) {
     if (error || resultado == undefined) {

@@ -32,7 +32,8 @@ export class CrearSitioComponent implements OnInit {
     "URLWeb": null,
     "URLContacto": null,
     "URLRelacionada": null,
-    "estado": true,
+    "correo": null,
+    "activo": true,
     "punto": {
       "latitud": null,
       "longitud": null,
@@ -55,7 +56,7 @@ export class CrearSitioComponent implements OnInit {
 
     }
   }
-  public nombreEstado = "Activo";
+  public nombreactivo = "Activo";
   public direccionBuscar = "";
   public error = "";
   public cargando = false;
@@ -96,10 +97,6 @@ export class CrearSitioComponent implements OnInit {
   ) {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get("id")
-      console.log("id", this.id)
-      if (this.id != "0") {
-        this.obtenerSitio();
-      }
     })
 
 
@@ -130,8 +127,7 @@ export class CrearSitioComponent implements OnInit {
     });
     this.agregarValidadores();
     this.listarDepartamentos();
-    this.listarSitiosCategorias();
-    this.listarSitiosEmpresas();
+
   }
   private obterUbicacionActual() {
     if ('geolocation' in navigator) {
@@ -184,6 +180,7 @@ export class CrearSitioComponent implements OnInit {
         data => {
           this.departamentos = JSON.parse(JSON.stringify(data));
           this.filtrarDepartamentos();
+          this.listarSitiosCategorias();
           this.cargando = false;
         },
         error => {
@@ -254,6 +251,7 @@ export class CrearSitioComponent implements OnInit {
         data => {
           this.sitiosCategorias = JSON.parse(JSON.stringify(data));
           this.filtrarSitiosCategorias();
+          this.listarSitiosEmpresas();
           this.cargando = false;
         },
         error => {
@@ -295,6 +293,9 @@ export class CrearSitioComponent implements OnInit {
         data => {
           this.sitiosEmpresas = JSON.parse(JSON.stringify(data));
           this.filtrarSitiosEmpresas();
+          if (this.id != "0") {
+            this.obtenerSitio();
+          }
           this.cargando = false;
         },
         error => {
@@ -344,18 +345,90 @@ export class CrearSitioComponent implements OnInit {
     this.sitiosService.obtenerSitio(this.id)
       .subscribe(res => {
         this.sitio = JSON.parse(JSON.stringify(res));
-        console.log('respuesta obtenerSitio', this.sitio);        
+        console.log('respuesta obtenerSitio', this.sitio);
+        this.asignarSitioModel();
       }, err => {
         console.log('error respuesta obtenerSitio', err);
       })
   }
   guardarSitio() {
-    this.sitiosService.guardarSitio(this.model)
+    if (!this.model.id) {
+      this.crearSitio();
+    } else {
+      this.editarSitio();
+    }
+  }
+  crearSitio() {
+    this.sitiosService.crearSitio(this.model)
       .subscribe(res => {
         console.log('respuesta property', res);
       }, err => {
         console.log('error respuesta sitios', err);
       })
   }
+  editarSitio() {
+    this.sitiosService.editarSitio(this.model)
+      .subscribe(res => {
+        console.log('respuesta property', res);
+      }, err => {
+        console.log('error respuesta sitios', err);
+      })
+  }
+  asignarSitioModel() {
 
+    this.model.id = this.sitio.id
+    this.model.nombre = this.sitio.nombre
+    this.model.direccion = this.sitio.direccion
+    this.model.telefono = this.sitio.telefono
+    if (this.sitio.categoria) {
+      this.model.categoria = this.sitio.categoria.id
+    }
+    if (this.sitio.empresa) {
+      this.model.empresa = this.sitio.empresa.id
+    }
+    if (this.sitio.municipio) {
+      this.model.municipio = this.sitio.municipio.id
+    }
+    this.model.URLWeb = this.sitio.URLWeb
+    this.model.URLContacto = this.sitio.URLContacto
+    this.model.URLRelacionada = this.sitio.URLRelacionada
+    this.model.correo = this.sitio.correo    
+    this.model.activo = this.sitio.activo
+    this.model.punto = this.sitio.punto
+
+    /*: {
+        latitud = this.sitio.
+        longitud = this.sitio.
+        altitud = this.model.
+      },*/
+    this.model.nombreArchivo = this.sitio.nombreArchivo
+    this.model.urlImagen = this.sitio.urlImagen
+    this.model.imagenb64 = this.sitio.imagenb64
+    this.model.idiomas = this.sitio.idiomas
+    /*: {
+      es:
+      {
+        nombre = this.sitio.
+        descripcion = this.model.
+      },
+      en:
+      {
+        nombre = this.sitio.
+        descripcion = this.model.
+      }
+ 
+    }*/
+    if (this.sitio.categoria) {
+      this.formControlSitioCategoria.setValue(this.sitio.categoria)
+    }
+    if (this.sitio.empresa) {
+      this.formControlSitioEmpresa.setValue(this.sitio.empresa)
+    }
+    if (this.sitio.municipio) {
+      this.formControlDepartamento.setValue(this.sitio.municipio.departamento)
+      this.formControlCiudad.setValue(this.sitio.municipio)
+    }
+    console.log("asignarSitioModel", this.model, this.sitio, this.sitiosCategorias)
+
+  }
 }

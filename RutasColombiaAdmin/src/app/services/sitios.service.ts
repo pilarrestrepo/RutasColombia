@@ -38,13 +38,29 @@ export class SitiosService {
         catchError(this.handleError)
       );
   }
-  guardarSitio(sitio: any) {
+  crearSitio(sitio: any) {
     var body = JSON.stringify(sitio);
-    console.log("guardarSitio ",environment.baseUrl + 'crearSitio' , sitio, body)
+    console.log("crearSitio ",environment.baseUrl + 'crearSitio' , sitio, body)
     return this.http.post<any>(environment.baseUrl + 'crearSitio', body, httpOptions)
       .pipe(
         tap((respuesta: any) => {
-          console.log("guardarSitio despues", respuesta)
+          console.log("crearSitio despues", respuesta)
+          //Se valida que si existe un mensaje de error
+          if (respuesta.error) {
+            throw (respuesta.error);
+          }
+          return respuesta;
+        }),
+        catchError(this.handleError)
+      );
+  }
+  editarSitio(sitio: any) {
+    var body = JSON.stringify(sitio);
+    console.log("guardarSitio ",environment.baseUrl + 'editarSitio' , sitio, body)
+    return this.http.post<any>(environment.baseUrl + 'editarSitio', body, httpOptions)
+      .pipe(
+        tap((respuesta: any) => {
+          console.log("editarSitio despues", respuesta)
           //Se valida que si existe un mensaje de error
           if (respuesta.error) {
             throw (respuesta.error);

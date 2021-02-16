@@ -12,14 +12,21 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput type="text" placeholder="Nombre" 
-                                             formControlName="formControlNombre"
-                                            autocomplete="nope" [(ngModel)]="model.nombre" 
-                                            >
+                                        <input matInput type="text" placeholder="Nombre"
+                                            formControlName="formControlNombre" autocomplete="nope"
+                                            [(ngModel)]="model.nombre">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
-                                    <mat-form-field class="full-width">
+                                   <!--  <mat-form-field appearance="fill">
+                                        <mat-label>Categoría</mat-label>
+                                        <mat-select>
+                                            <mat-option>Ninguno</mat-option>
+                                            <mat-option *ngFor="let sitioCategoria of sitiosCategorias"
+                                                [value]="sitioCategoria.id">{{sitioCategoria.nombre}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                           <mat-form-field class="full-width">
                                         <input matInput type="text" placeholder="Categoría"
                                             [formControl]="formControlSitioCategoria"
                                             formControlName="formControlSitioCategoria"
@@ -35,11 +42,8 @@
                                         <mat-error *ngIf="this.model.categoria === null">
                                             Debe seleccionar un valor
                                         </mat-error>
-                                        <!--  <mat-error
-                                            *ngIf="form.controls['formControlSitioCategoria'].hasError('incorrect')">
-                                            Por favor seleccione un elemento de la lista
-                                        </mat-error> -->
-                                    </mat-form-field>
+                                  
+                                    </mat-form-field> 
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
@@ -272,10 +276,10 @@
 
                             <div class="row">
                                 <div class="col m12 s12 file-field input-field">
-                                    <mat-slide-toggle id="estado" name="estado" [(ngModel)]="model.estado"
-                                        #estado="ngModel" [ngModelOptions]="{standalone: true}">
-                                        <span *ngIf="model.estado">Activo</span>
-                                        <span *ngIf="!model.estado">Inactivo</span>
+                                    <mat-slide-toggle id="activo" name="activo" [(ngModel)]="model.activo"
+                                        #activo="ngModel" [ngModelOptions]="{standalone: true}">
+                                        <span *ngIf="model.activo">Activo</span>
+                                        <span *ngIf="!model.activo">Inactivo</span>
                                     </mat-slide-toggle>
                                 </div>
                             </div>

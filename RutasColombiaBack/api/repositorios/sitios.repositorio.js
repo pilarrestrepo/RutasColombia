@@ -93,11 +93,11 @@ function obtenerSitio(idSitio, callback) {
         path: 'empresa'
     })
     .then((resultado) => {
-        let vectorSitios = [];
+        let sitio = null;
         resultado.forEach(element => {
-            vectorSitios.push(element.toCleanObject());
+            sitio =element.toCleanObject();            
         });
-        return callback(null, vectorSitios);
+        return callback(null, sitio);
     }).catch((error) => {
         console.log('error', error);
         return callback(error);
@@ -121,7 +121,7 @@ function crearSitio(sitio, callback) {
   }
 
   function editarSitio(sitio, callback) {
-
+    console.log("editarSitio", sitio)
     sitios.findOneAndUpdate(
       {
         _id: sitio.id
@@ -132,14 +132,24 @@ function crearSitio(sitio, callback) {
             direccion: sitio.direccion,      
             telefono: sitio.telefono,     
             categoria: sitio.categoria,
+            empresa: sitio.empresa,
             municipio: sitio.municipio,
-            punto: {
+            URLWeb: sitio.URLWeb,
+            uURLContactorl: sitio.URLContacto,
+            URLRelacionada: sitio.URLRelacionada,
+            correo: sitio.correo,
+            punto: sitio.punto,
+            nombreArchivo: sitio.nombreArchivo,
+            urlImagen: sitio.urlImagen,
+            idiomas: sitio.idiomas,    
+            activo: sitio.activo
+           /* punto: {
                 latitud: sitio.punto.latitud,
                 longitud: sitio.punto.longitud
             },        
             icono: sitio.icono,        
             urlImagen: sitio.urlImagen,     
-            url: sitio.url,
+           
             idiomas:{
                 es:
                 {
@@ -153,7 +163,7 @@ function crearSitio(sitio, callback) {
                 }        
                     
             },
-            coordenadas: sitio.coordenadas
+            coordenadas: sitio.coordenadas*/
         }
       },
       {

@@ -22,23 +22,37 @@ let sitiosSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'sitiosCategorias'
     },
+    empresa: {
+        type: Schema.ObjectId,
+        ref: 'sitiosEmpresas'
+    },    
     municipio: {
         type: Schema.ObjectId,
         ref: 'municipios'
-    },
+    },       
+    URLWeb: {
+        type: String
+    },    
+    URLContacto: {
+        type: String
+    },    
+    URLRelacionada: {
+        type: String
+    },    
+    correo: {
+        type: String
+    },    
     punto: {
         latitud: {type: Number},
-        longitud: {type: Number}
-    },        
-    icono: {
-        type: String
-    },        
+        longitud: {type: Number},
+        altitud: {type: Number}
+    },         
     urlImagen: {
         type: String
     },     
-    url: {
+    nombreArchivo: {
         type: String
-    },
+    }, 
     idiomas:{
         es:
         {
@@ -59,9 +73,6 @@ let sitiosSchema = new Schema({
             },     
         }        
             
-    },
-    coordenadas: {
-        type: [Number]
     },
     activo: {
         type: Boolean
