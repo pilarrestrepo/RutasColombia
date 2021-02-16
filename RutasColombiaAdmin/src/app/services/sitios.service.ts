@@ -25,12 +25,26 @@ export class SitiosService {
         catchError(this.handleError)
       );
   }
-
+  obtenerSitio(idSitio: any) {
+    var body = JSON.stringify({"id":idSitio});    
+    return this.http.post<any>(environment.baseUrl + 'obtenerSitio', body, httpOptions)
+      .pipe(
+        tap((respuesta: any) => {
+          if (respuesta.error) {
+            throw (respuesta.error);
+          }
+          return respuesta;
+        }),
+        catchError(this.handleError)
+      );
+  }
   guardarSitio(sitio: any) {
-    var body = sitio;
+    var body = JSON.stringify(sitio);
+    console.log("guardarSitio ",environment.baseUrl + 'crearSitio' , sitio, body)
     return this.http.post<any>(environment.baseUrl + 'crearSitio', body, httpOptions)
       .pipe(
         tap((respuesta: any) => {
+          console.log("guardarSitio despues", respuesta)
           //Se valida que si existe un mensaje de error
           if (respuesta.error) {
             throw (respuesta.error);

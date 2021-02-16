@@ -12,15 +12,15 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre" type="text" id="nombre" name="nombre"
-                                            autocomplete="nope" [(ngModel)]="model.nombre" #nombre="ngModel"
-                                            [ngModelOptions]="{standalone: true}">
+                                        <input matInput type="text" placeholder="Nombre" 
+                                             formControlName="formControlNombre"
+                                            autocomplete="nope" [(ngModel)]="model.nombre" 
+                                            >
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
-                                        <input matInput type="text" 
-                                            placeholder="Categoría" 
+                                        <input matInput type="text" placeholder="Categoría"
                                             [formControl]="formControlSitioCategoria"
                                             formControlName="formControlSitioCategoria"
                                             [matAutocomplete]="idSitioCategoriaAutoComplete">
@@ -31,11 +31,11 @@
                                                 [value]="sitioCategoria">
                                                 {{ sitioCategoria.nombre }}
                                             </mat-option>
-                                        </mat-autocomplete>                                       
+                                        </mat-autocomplete>
                                         <mat-error *ngIf="this.model.categoria === null">
                                             Debe seleccionar un valor
                                         </mat-error>
-                                       <!--  <mat-error
+                                        <!--  <mat-error
                                             *ngIf="form.controls['formControlSitioCategoria'].hasError('incorrect')">
                                             Por favor seleccione un elemento de la lista
                                         </mat-error> -->
@@ -54,11 +54,11 @@
                                                 [value]="sitioEmpresa">
                                                 {{ sitioEmpresa.nombre }}
                                             </mat-option>
-                                        </mat-autocomplete>                                       
+                                        </mat-autocomplete>
                                         <mat-error *ngIf="this.model.empresa === null">
                                             Debe seleccionar un valor
                                         </mat-error>
-                                      <!--   <mat-error
+                                        <!--   <mat-error
                                             *ngIf="form.controls['formControlSitioEmpresa'].hasError('required')">
                                             Debe seleccionar un valor
                                         </mat-error>
@@ -84,7 +84,7 @@
                                                 [value]="departamento">
                                                 {{ departamento.nombre }}
                                             </mat-option>
-                                        </mat-autocomplete>                                       
+                                        </mat-autocomplete>
                                         <!-- <mat-error
                                             *ngIf="form.controls['formControlDepartamento'].hasError('required')">
                                             Debe seleccionar un valor
@@ -113,7 +113,7 @@
                                             Debe seleccionar un valor
                                         </mat-error>
 
-                                      <!--   <mat-error *ngIf="form.controls['formControlCiudad'].hasError('required')">
+                                        <!--   <mat-error *ngIf="form.controls['formControlCiudad'].hasError('required')">
                                             Debe seleccionar un valor
                                         </mat-error>
                                         <mat-error *ngIf="form.controls['formControlCiudad'].hasError('incorrect')">
@@ -279,7 +279,8 @@
                                     </mat-slide-toggle>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="guardarSitio()">Guardar</button>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right"
+                                (click)="guardarSitio()">Guardar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

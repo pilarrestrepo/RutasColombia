@@ -72,7 +72,38 @@ function listarSitios(callback) {
             return callback(error);
         })
 }
-
+function obtenerSitio(idSitio, callback) {
+    console.log("obtenerSitio", idSitio)
+    sitios.find({_id: idSitio}).populate({
+        path: 'municipio',
+        select: { 'nombre': 1 },
+        populate: {
+            path: 'departamento',
+            select: { 'nombre': 1 },
+            populate: {
+                path: 'pais',
+                select: { 'nombre': 1 }
+            }
+        }
+    })
+    .populate({
+        path: 'categoria'
+    })
+    .populate({
+        path: 'empresa'
+    })
+    .then((resultado) => {
+        let vectorSitios = [];
+        resultado.forEach(element => {
+            vectorSitios.push(element.toCleanObject());
+        });
+        return callback(null, vectorSitios);
+    }).catch((error) => {
+        console.log('error', error);
+        return callback(error);
+    })
+  
+  }
 function crearSitio(sitio, callback) {
 
     let nuevoSitio = new sitios(sitio);
@@ -139,6 +170,7 @@ function crearSitio(sitio, callback) {
 module.exports = {
     sitiosCercanos,
     listarSitios,
+    obtenerSitio,
     crearSitio,
     editarSitio    
 }

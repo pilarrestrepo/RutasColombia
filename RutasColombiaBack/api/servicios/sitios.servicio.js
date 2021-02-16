@@ -105,6 +105,16 @@ function listarSitios(callback) {
   });
 }
 
+
+function obtenerSitio(idSitio, callback) {
+  sitiosRepositorio.obtenerSitio(idSitio, function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
 function crearSitio(sitio, callback) {
   sitiosRepositorio.crearSitio(sitio, function (error, resultado) {
     if (error) {
@@ -128,6 +138,7 @@ function editarSitio(sitio, callback) {
 module.exports = {
   sitiosCercanos,
   listarSitios,
+  obtenerSitio,
   crearSitio,
   editarSitio
 }

@@ -130,6 +130,28 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"     
+  /obtenerSitio:
+    x-swagger-router-controller: sitios.controlador
+    post:
+      description: Obtener un sitio
+      operationId: obtenerSitio
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                   
   /crearSitio:
     x-swagger-router-controller: sitios.controlador
     post:

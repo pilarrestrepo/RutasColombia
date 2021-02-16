@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RequireMatch as RequireMatch } from '../util/requireMatch';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -18,8 +19,10 @@ import { SitiosService } from 'app/services/sitios.service';
 })
 export class CrearSitioComponent implements OnInit {
 
-
+  public id = null;
+  public sitio = null;
   public model = {
+    "id": null,
     "nombre": null,
     "direccion": null,
     "telefono": null,
@@ -35,6 +38,7 @@ export class CrearSitioComponent implements OnInit {
       "longitud": null,
       "altitud": null
     },
+    "nombreArchivo": null,
     "urlImagen": null,
     "imagenb64": null,
     "idiomas": {
@@ -87,8 +91,17 @@ export class CrearSitioComponent implements OnInit {
     private sitiosEmpresasService: SitiosEmpresasService,
     private sitiosService: SitiosService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private activatedRoute: ActivatedRoute
   ) {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.id = params.get("id")
+      console.log("id", this.id)
+      if (this.id != "0") {
+        this.obtenerSitio();
+      }
+    })
+
 
   }
 
@@ -108,8 +121,8 @@ export class CrearSitioComponent implements OnInit {
 
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
-          this.model.punto.latitud =  this.lat;
-          this.model.punto.longitud = this.lng;          
+          this.model.punto.latitud = this.lat;
+          this.model.punto.longitud = this.lng;
           this.zoom = 15;
         });
       });
@@ -121,40 +134,33 @@ export class CrearSitioComponent implements OnInit {
     this.listarSitiosEmpresas();
   }
   private obterUbicacionActual() {
-    console.log("obterUbicacionActual")
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-       // this.model.punto.latitud =  this.lat;
-        //this.model.punto.longitud = this.lng;
         this.zoom = 15;
-        //this.obterDireccion(this.lat, this.lng);
       });
     }
   }
-/*
-  obterDireccion(latitude, longitude) {
-    console.log("obterDireccion")
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      if (status === 'OK') {
-        if (results[0]) {
-          console.log(results[0])   
-          this.zoom = 15;     
-
-                 
+  /*
+    obterDireccion(latitude, longitude) {    
+      this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {          
+            this.zoom = 15;                      
+          } else {
+            window.alert('No results found');
+          }
         } else {
-          window.alert('No results found');
+          window.alert('Geocoder failed due to: ' + status);
         }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
-  */
+  
+      });
+    }
+    */
   private agregarValidadores() {
     this.form = new FormGroup({
+      formControlNombre: new FormControl('', [Validators.required]),
       formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
       formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
       formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch]),
@@ -162,14 +168,12 @@ export class CrearSitioComponent implements OnInit {
     });
   }
   mapClicked(map: any) {
-    console.log("clickMapa")
-    map.addListener('click', (e) => {      
-      console.log(e)
-      this.lat = e.Xa.y;
-      this.lng = e.Xa.x;      
-      this.model.punto.latitud =  this.lat;
+    map.addListener('click', (e) => {
+      this.lat = e.latLng.lat();
+      this.lng = e.latLng.lng();
+      this.model.punto.latitud = this.lat;
       this.model.punto.longitud = this.lng;
-    });    
+    });
   }
   /**Departamentos */
   listarDepartamentos() {
@@ -238,8 +242,7 @@ export class CrearSitioComponent implements OnInit {
     return ciudad ? ciudad.nombre : undefined;
   }
   public seleccionarItemCiudad(val: any) {
-    console.log("seleccionarItemCiudad",val)
-    this.model.municipio = val.option.value.id;    
+    this.model.municipio = val.option.value.id;
 
   }
   /**SitiosCategorias */
@@ -280,8 +283,7 @@ export class CrearSitioComponent implements OnInit {
     return sitioCategoria ? sitioCategoria.nombre : undefined;
   }
   public seleccionarItemCategoria(val: any) {
-    console.log("seleccionarItemCategoria",val)
-    this.model.categoria = val.option.value.id;    
+    this.model.categoria = val.option.value.id;
 
   }
   /**SitiosEmpresas */
@@ -322,26 +324,38 @@ export class CrearSitioComponent implements OnInit {
     return sitioEmpresa ? sitioEmpresa.nombre : undefined;
   }
   public seleccionarItemEmpresa(val: any) {
-    console.log("seleccionarIteEmpresa",val)
-    this.model.empresa = val.option.value.id;    
+    this.model.empresa = val.option.value.id;
 
   }
   /**Archivo */
   eventoSeleccionarArchivo(evt) {
-    console.log('Evento seleccionar archivo', evt);
-    this.model.urlImagen = evt.target.files[0].name;
+    this.model.nombreArchivo = evt.target.files[0].name;
     this.convertirArchivoBase64(evt.target.files[0]);
   }
-  convertirArchivoBase64(file:any){
+  convertirArchivoBase64(file: any) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      // console.log('Imagen cargada: ', reader.result);
       this.model.imagenb64 = reader.result;
     };
   }
+  /**Sitios */
+  obtenerSitio() {
+    this.sitiosService.obtenerSitio(this.id)
+      .subscribe(res => {
+        this.sitio = JSON.parse(JSON.stringify(res));
+        console.log('respuesta obtenerSitio', this.sitio);        
+      }, err => {
+        console.log('error respuesta obtenerSitio', err);
+      })
+  }
   guardarSitio() {
-    this.sitiosService.guardarSitio(this.model);
+    this.sitiosService.guardarSitio(this.model)
+      .subscribe(res => {
+        console.log('respuesta property', res);
+      }, err => {
+        console.log('error respuesta sitios', err);
+      })
   }
 
 }
