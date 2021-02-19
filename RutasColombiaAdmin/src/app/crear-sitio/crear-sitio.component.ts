@@ -440,6 +440,8 @@ export class CrearSitioComponent implements OnInit {
 
     //dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.width = '25%';
+    dialogConfig.height = '40%';
 
     dialogConfig.data = {
       urlImagen: environment.baseUrl + this.sitio.urlImagen,
