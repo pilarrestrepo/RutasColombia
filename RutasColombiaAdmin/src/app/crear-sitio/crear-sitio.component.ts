@@ -97,7 +97,8 @@ export class CrearSitioComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get("id")
@@ -361,6 +362,7 @@ export class CrearSitioComponent implements OnInit {
     } else {
       this.editarSitio();
     }
+    this.router.navigate(['/listar-sitios']);
   }
   crearSitio() {
     this.sitiosService.crearSitio(this.model)
