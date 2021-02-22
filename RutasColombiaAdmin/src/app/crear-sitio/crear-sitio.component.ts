@@ -14,6 +14,7 @@ import { SitiosService } from 'app/services/sitios.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { imagenSitioComponent } from './imagen-sitio.component';
 import { environment } from 'environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crear-sitio',
@@ -98,7 +99,8 @@ export class CrearSitioComponent implements OnInit {
     private ngZone: NgZone,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get("id")
@@ -111,7 +113,6 @@ export class CrearSitioComponent implements OnInit {
     this.mapsAPILoader.load().then(() => {
       this.obterUbicacionActual();
       this.geoCoder = new google.maps.Geocoder;
-
       let autocomplete = new google.maps.places.Autocomplete(this.buscarSitioElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -133,6 +134,12 @@ export class CrearSitioComponent implements OnInit {
     this.agregarValidadores();
     this.listarDepartamentos();
 
+  }
+  private agregarValidadores() {
+    this.form = new FormGroup({
+      formControlNombre: new FormControl('', [Validators.required])
+
+    });
   }
   private obterUbicacionActual() {
     if ('geolocation' in navigator) {
@@ -159,15 +166,7 @@ export class CrearSitioComponent implements OnInit {
       });
     }
     */
-  private agregarValidadores() {
-    this.form = new FormGroup({
-      formControlNombre: new FormControl('', [Validators.required]),
-      formControlDepartamento: new FormControl('', [Validators.required, RequireMatch]),
-      formControlCiudad: new FormControl('', [Validators.required, RequireMatch]),
-      formControlSitioCategoria: new FormControl('', [Validators.required, RequireMatch]),
-      formControlSitioEmpresa: new FormControl('', [Validators.required, RequireMatch])
-    });
-  }
+
   mapClicked(map: any) {
     map.addListener('click', (e) => {
       this.lat = e.latLng.lat();
@@ -284,8 +283,8 @@ export class CrearSitioComponent implements OnInit {
   }
   seleccionarSitioCategoria(sitioCategoria?: any): string | undefined {
     return sitioCategoria ? sitioCategoria.nombre : undefined;
-  }
-  public seleccionarItemCategoria(val: any) {
+  } 
+  public seleccionarItemCategoria(val: any) {    
     this.model.categoria = val.option.value.id;
 
   }
@@ -329,6 +328,7 @@ export class CrearSitioComponent implements OnInit {
   seleccionarSitioEmpresa(sitioEmpresa?: any): string | undefined {
     return sitioEmpresa ? sitioEmpresa.nombre : undefined;
   }
+
   public seleccionarItemEmpresa(val: any) {
     this.model.empresa = val.option.value.id;
 
@@ -356,13 +356,24 @@ export class CrearSitioComponent implements OnInit {
         console.log('error respuesta obtenerSitio', err);
       })
   }
+  
+  public onCancel = () => {
+    this.location.back();
+  }
+  
+  public guardar = () => {
+    if (this.form.valid) {
+      this.guardarSitio ();
+    }
+  }
   guardarSitio() {
     if (!this.model.id) {
       this.crearSitio();
     } else {
       this.editarSitio();
-    }
+    } 
     this.router.navigate(['/listar-sitios']);
+
   }
   crearSitio() {
     this.sitiosService.crearSitio(this.model)
@@ -401,29 +412,10 @@ export class CrearSitioComponent implements OnInit {
     this.model.correo = this.sitio.correo
     this.model.activo = this.sitio.activo
     this.model.punto = this.sitio.punto
-
-    /*: {
-        latitud = this.sitio.
-        longitud = this.sitio.
-        altitud = this.model.
-      },*/
     this.model.nombreArchivo = this.sitio.nombreArchivo
     this.model.urlImagen = this.sitio.urlImagen
     this.model.imagenb64 = this.sitio.imagenb64
     this.model.idiomas = this.sitio.idiomas
-    /*: {
-      es:
-      {
-        nombre = this.sitio.
-        descripcion = this.model.
-      },
-      en:
-      {
-        nombre = this.sitio.
-        descripcion = this.model.
-      }
- 
-    }*/
     if (this.sitio.categoria) {
       this.formControlSitioCategoria.setValue(this.sitio.categoria)
     }
@@ -439,7 +431,6 @@ export class CrearSitioComponent implements OnInit {
   }
   verImagen() {
     const dialogConfig = new MatDialogConfig();
-
     //dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '25%';

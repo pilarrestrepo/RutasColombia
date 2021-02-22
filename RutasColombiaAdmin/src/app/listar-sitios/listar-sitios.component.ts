@@ -48,7 +48,7 @@ export class ListarSitiosComponent implements OnInit {
           this.sitos.forEach(sitio => {
             let estado = "Activo"
             if (!sitio.activo) { estado = "Inactivo"; }
-            this.listaSitos.push({ 'id': sitio.id,'sitio': sitio.nombre, 'ciudad': sitio.municipio.nombre, 'categoria': sitio.categoria.nombre, 'descripcion': sitio.idiomas.es.descripcion, 'estado': estado })
+            this.listaSitos.push({ 'id': sitio.id,'sitio': sitio.nombre, 'ciudad': sitio.municipio?.nombre, 'categoria': sitio.categoria?.nombre, 'descripcion': sitio.idiomas?.es?.descripcion, 'estado': estado })
           });
           this.dataSource = new MatTableDataSource(this.listaSitos);
           this.dataSource.paginator = this.paginator;

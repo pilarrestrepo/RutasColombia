@@ -8,28 +8,19 @@
                         <p class="card-category">Registrar la información del sitio</p>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="form">
+                        <form [formGroup]="form" autocomplete="off" novalidate (ngSubmit)="guardar()">
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput type="text" placeholder="Nombre"
+                                        <input matInput type="text" placeholder="Nombre*"
                                             formControlName="formControlNombre" autocomplete="nope"
                                             [(ngModel)]="model.nombre">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
-                                    <!--  <mat-form-field appearance="fill">
-                                        <mat-label>Categoría</mat-label>
-                                        <mat-select>
-                                            <mat-option>Ninguno</mat-option>
-                                            <mat-option *ngFor="let sitioCategoria of sitiosCategorias"
-                                                [value]="sitioCategoria.id">{{sitioCategoria.nombre}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field> -->
+                                <div class="col-md-4">             
                                     <mat-form-field class="full-width">
-                                        <input matInput type="text" placeholder="Categoría"
-                                            [formControl]="formControlSitioCategoria"
-                                            formControlName="formControlSitioCategoria"
+                                        <input type="text" placeholder="Categoría" matInput
+                                            [formControl]="formControlSitioCategoria"                                            
                                             [matAutocomplete]="idSitioCategoriaAutoComplete">
                                         <mat-autocomplete #idSitioCategoriaAutoComplete="matAutocomplete"
                                             [displayWith]="seleccionarSitioCategoria"
@@ -39,17 +30,19 @@
                                                 {{ sitioCategoria.nombre }}
                                             </mat-option>
                                         </mat-autocomplete>
-                                        <mat-error *ngIf="this.model.categoria === null">
+                                        <!--      <mat-error *ngIf="form.controls['formControlSitioCategoria'].hasError('required')">
                                             Debe seleccionar un valor
-                                        </mat-error>
-
+                                        </mat-error> 
+                                        <mat-error
+                                            *ngIf="form.controls['formControlSitioCategoria'].hasError('incorrect')">
+                                            Debe seleccionar un valor valido
+                                        </mat-error>-->
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="full-width">
                                         <input type="text" placeholder="Empresa" matInput
                                             [formControl]="formControlSitioEmpresa"
-                                            formControlName="formControlSitioEmpresa"
                                             [matAutocomplete]="idSitioEmpresaAutoComplete">
                                         <mat-autocomplete #idSitioEmpresaAutoComplete="matAutocomplete"
                                             [displayWith]="seleccionarSitioEmpresa"
@@ -58,18 +51,7 @@
                                                 [value]="sitioEmpresa">
                                                 {{ sitioEmpresa.nombre }}
                                             </mat-option>
-                                        </mat-autocomplete>
-                                        <mat-error *ngIf="this.model.empresa === null">
-                                            Debe seleccionar un valor
-                                        </mat-error>
-                                        <!--   <mat-error
-                                            *ngIf="form.controls['formControlSitioEmpresa'].hasError('required')">
-                                            Debe seleccionar un valor
-                                        </mat-error>
-                                        <mat-error
-                                            *ngIf="form.controls['formControlSitioEmpresa'].hasError('incorrect')">
-                                            Por favor seleccione un elemento de la lista
-                                        </mat-error> -->
+                                        </mat-autocomplete>                                 
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -79,7 +61,6 @@
                                     <mat-form-field class="full-width">
                                         <input type="text" placeholder="Departamento" matInput
                                             [formControl]="formControlDepartamento"
-                                            formControlName="formControlDepartamento"
                                             [matAutocomplete]="idDepartamentoAutoComplete">
                                         <mat-autocomplete #idDepartamentoAutoComplete="matAutocomplete"
                                             [displayWith]="seleccionarDepartamento"
@@ -88,22 +69,13 @@
                                                 [value]="departamento">
                                                 {{ departamento.nombre }}
                                             </mat-option>
-                                        </mat-autocomplete>
-                                        <!-- <mat-error
-                                            *ngIf="form.controls['formControlDepartamento'].hasError('required')">
-                                            Debe seleccionar un valor
-                                        </mat-error>
-
-                                        <mat-error
-                                            *ngIf="form.controls['formControlDepartamento'].hasError('incorrect')">
-                                            Por favor seleccione un elemento de la lista
-                                        </mat-error> -->
+                                        </mat-autocomplete>                   
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="full-width">
                                         <input type="text" placeholder="Ciudad" matInput
-                                            [formControl]="formControlCiudad" autocomplete="nope"
+                                            [formControl]="formControlCiudad" autocomplete="nope"                                            
                                             [matAutocomplete]="idCiudadAutoComplete">
                                         <mat-autocomplete #idCiudadAutoComplete="matAutocomplete"
                                             [displayWith]="seleccionarCiudad"
@@ -188,7 +160,7 @@
                                 <div *ngIf="model.id" class="col m2 s2 file-field input-field text-center">
                                     <button mat-fab color="warn" (click)="verImagen()">
                                         <span class="material-icons">image_search</span>
-                                    </button>                                    
+                                    </button>
                                 </div>
                             </div>
                             <div class="row">
@@ -287,8 +259,9 @@
                                     </mat-slide-toggle>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right"
-                                (click)="guardarSitio()">Guardar</button>
+
+                            <button mat-raised-button class="btn  pull-right" color="accent" (click)="onCancel()">Cancelar</button>                            
+                            <button mat-raised-button class="btn btn-danger pull-right">Guardar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
