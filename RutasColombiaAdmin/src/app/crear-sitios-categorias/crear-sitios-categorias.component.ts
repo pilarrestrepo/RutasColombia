@@ -133,7 +133,7 @@ export class CrearSitiosCategoriasComponent implements OnInit {
   asignarCategoriaModel() {
     this.model.id = this.categoria.id
     this.model.nombre = this.categoria.nombre
-    this.model.descripcion = this.categoria.direccion
+    this.model.descripcion = this.categoria.descripcion
     this.model.nombreArchivo = this.categoria.nombreArchivo
     this.model.urlImagen = this.categoria.urlImagen
     this.model.imagenb64 = this.categoria.imagenb64

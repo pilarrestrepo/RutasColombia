@@ -1,10 +1,11 @@
 'use strict';
 
 var util = require('util');
-var sitiosEmpresas = require('../servicios/sitiosEmpresas.servicio');
+var sitiosEmpresasServicio = require('../servicios/sitiosEmpresas.servicio');
 
 module.exports = {  
   listarSitiosEmpresas: listarSitiosEmpresas,
+  obtenerSitioEmpresa: obtenerSitioEmpresa,
   crearSitioEmpresa: crearSitioEmpresa,
   editarSitioEmpresa: editarSitioEmpresa
 };
@@ -13,7 +14,7 @@ function listarSitiosEmpresas(req, res) {
 
   console.log('entro listarSitiosEmpresas');
 
-  sitiosEmpresas.listarSitiosEmpresas(function (error, resultado) {
+  sitiosEmpresasServicio.listarSitiosEmpresas(function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -23,23 +24,28 @@ function listarSitiosEmpresas(req, res) {
   })
 
 }
-function crearSitioEmpresa(req, res) {
-  var sitioEmpresa = {
-    nombre: req.body.nombre,   
-    idiomas: {
-      es:
-      {
-        nombre: req.body.es.nombre
-      },
-      en:
-      {
-        nombre: req.body.idiomas.en.nombre
-      }
 
+function obtenerSitioEmpresa(req, res) {
+  console.log('entro obtenerSitioEmpresa ' + req);  
+  sitiosEmpresasServicio.obtenerSitioEmpresa(req.body.id, function (error, resultado) {
+    if (error || resultado == undefined) {
+      return res.status(500).json(error);
+    } else {
+      return res.status(200).json(resultado);
     }
-  }
 
-  sitiosEmpresas.crearSitioEmpresa(sitioEmpresa, function (error, resultado) {
+  })
+
+}
+
+function crearSitioEmpresa(req, res) {
+  console.log('entro crearSitioEmpresa ' + req.body);
+
+  var empresa = {
+    nombre: req.body.nombre,
+    descripcion: req.body.descripcion   
+  }
+  sitiosEmpresasServicio.crearSitioEmpresa(empresa, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -51,25 +57,16 @@ function crearSitioEmpresa(req, res) {
 }
 
 function editarSitioEmpresa(req, res) {
-  console.log('entro editarSitio ' + req);
+  console.log('entro editarSitioEmpresa ' , req.body.nombre, req.body.id);
 
-  var sitio = {
+  
+  var empresa = {
     id: req.body.id,
     nombre: req.body.nombre,
-    idiomas: {
-      es:
-      {
-        nombre: req.body.es.nombre
-      },
-      en:
-      {
-        nombre: req.body.idiomas.en.nombre
-      }
-
-    }
+    descripcion: req.body.descripcion 
   }
 
-  sitiosEmpresas.editarSitioEmpresa(sitio, function (error, resultado) {
+  sitiosEmpresasServicio.editarSitioEmpresa(empresa, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {

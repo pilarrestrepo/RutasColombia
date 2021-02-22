@@ -11,7 +11,10 @@ let sitiosEmpresasSchema = new Schema({
     },
     nombre: {
         type: String
-    }
+    },
+    descripcion: {
+        type: String
+    }    
 }, { collection: 'sitios_empresas' });
 
 sitiosEmpresasSchema.plugin(snakeToCamel);

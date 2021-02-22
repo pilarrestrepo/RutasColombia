@@ -15,6 +15,15 @@ function listarSitiosEmpresas(callback) {
   });
 }
 
+function obtenerSitioEmpresa(idSitioEmpresa, callback) {
+  sitiosEmpresasRepositorio.obtenerSitioEmpresa(idSitioEmpresa, function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
 function crearSitioEmpresa(sitioEmpresa, callback) {
   sitiosEmpresasRepositorio.crearSitioEmpresa(sitioEmpresa, function (error, resultado) {
     if (error) {
@@ -34,9 +43,9 @@ function editarSitioEmpresa(sitioEmpresa, callback) {
     }
   });
 }
-
 module.exports = {  
   listarSitiosEmpresas,
+  obtenerSitioEmpresa,
   crearSitioEmpresa,
   editarSitioEmpresa
 }

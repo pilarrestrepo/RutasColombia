@@ -16,8 +16,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyHttpInterceptor } from './common/interceptors/http.interceptor';
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,

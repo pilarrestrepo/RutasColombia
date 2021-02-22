@@ -55,14 +55,14 @@ function crearSitioCategoria(req, res) {
     });
   
   }
-  var sitio = {
+  var categoria = {
     nombre: req.body.nombre,
     descripcion: req.body.descripcion,
     nombreArchivo: req.body.nombreArchivo,
     urlImagen: urlImagen,
     idiomas: req.body.idiomas
   }
-  sitiosCategoriasServicio.crearSitioCategoria(sitio, function (error, resultado) {
+  sitiosCategoriasServicio.crearSitioCategoria(categoria, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -90,7 +90,7 @@ function editarSitioCategoria(req, res) {
     });
   
   }
-  var sitio = {
+  var categoria = {
     id: req.body.id,
     nombre: req.body.nombre,
     descripcion: req.body.descripcion,
@@ -99,7 +99,7 @@ function editarSitioCategoria(req, res) {
     idiomas: req.body.idiomas
   }
   console.log('SITIO', sitio);
-  sitiosCategoriasServicio.editarSitioCategoria(sitio, function (error, resultado) {
+  sitiosCategoriasServicio.editarSitioCategoria(categoria, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {

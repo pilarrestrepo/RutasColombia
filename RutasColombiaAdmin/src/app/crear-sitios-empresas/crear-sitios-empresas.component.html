@@ -1,0 +1,42 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Administrar Empresa</h4>
+                        <p class="card-category">Registrar la información de la empresa</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="form" autocomplete="off" novalidate (ngSubmit)="guardar()">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput type="text" placeholder="Nombre*"
+                                            formControlName="formControlNombre" autocomplete="nope"
+                                            [(ngModel)]="model.nombre">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-8">             
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput type="text" placeholder="Descripción"
+                                            formControlName="formControlDescripcion"
+                                            autocomplete="nope"
+                                            [(ngModel)]="model.descripcion">
+                                    </mat-form-field>
+                                </div>                     
+                            </div>                       
+                         
+                                   
+                            <button mat-raised-button class="btn  pull-right" color="accent" (click)="onCancel()">Cancelar</button>                            
+                            <button mat-raised-button class="btn btn-danger pull-right">Guardar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>

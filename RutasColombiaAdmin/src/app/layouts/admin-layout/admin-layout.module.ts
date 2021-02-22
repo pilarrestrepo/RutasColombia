@@ -29,6 +29,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/listar-sitios-categorias.component';
 import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crear-sitios-categorias.component';
+import { ListarSitiosEmpresasComponent } from 'app/listar-sitios-empresas/listar-sitios-empresas.component';
+import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-sitios-empresas.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -59,8 +61,10 @@ import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crea
     UserProfileComponent,
     ListarSitiosComponent,
     ListarSitiosCategoriasComponent,
+    ListarSitiosEmpresasComponent,
     CrearSitioComponent,
     CrearSitiosCategoriasComponent,
+    CrearSitiosEmpresasComponent,
     TableListComponent,
     TypographyComponent,
     IconsComponent,
