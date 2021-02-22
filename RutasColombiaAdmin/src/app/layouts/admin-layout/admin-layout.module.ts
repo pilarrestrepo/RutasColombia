@@ -27,6 +27,7 @@ import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
 import { AgmCoreModule} from '@agm/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/listar-sitios-categorias.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -56,6 +57,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DashboardComponent,
     UserProfileComponent,
     ListarSitiosComponent,
+    ListarSitiosCategoriasComponent,
     CrearSitioComponent,
     TableListComponent,
     TypographyComponent,
