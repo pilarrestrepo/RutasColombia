@@ -3,11 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SitiosCategoriasService } from 'app/services/sitios-categorias.service';
+import { environment } from 'environments/environment';
 
-export interface SitioElement {
+export interface CateroriaElement {
   id: string;
   nombre: string;
   descripcion: string;  
+  imagenUrl: string;  
 }
 @Component({
   selector: 'app-listar-sitios-categorias',
@@ -15,12 +17,12 @@ export interface SitioElement {
   styleUrls: ['./listar-sitios-categorias.component.css']
 })
 export class ListarSitiosCategoriasComponent implements OnInit {
-  public displayedColumns: string[] = ['nombre','descripcion', "editar"];
-  public dataSource: MatTableDataSource<SitioElement>;
+  public displayedColumns: string[] = ['imagenUrl','nombre','descripcion', "editar"];
+  public dataSource: MatTableDataSource<CateroriaElement>;
   public error = "";
   public cargando = false;
   public categorias = [];
-  public listaCategorias: SitioElement[] = [];
+  public listaCategorias: CateroriaElement[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -39,8 +41,9 @@ export class ListarSitiosCategoriasComponent implements OnInit {
       .subscribe(
         data => {          
           this.categorias = JSON.parse(JSON.stringify(data));
-          this.categorias.forEach(categoria => {
-            this.listaCategorias.push({ 'id': categoria.id,'nombre': categoria.nombre,'descripcion': categoria.descripcion })
+          this.categorias.forEach(categoria => {            
+            let imagenUrl = environment.baseUrl + categoria.urlImagen
+            this.listaCategorias.push({ 'id': categoria.id,'nombre': categoria.nombre,'descripcion': categoria.descripcion,'imagenUrl': imagenUrl })
           });
           this.dataSource = new MatTableDataSource(this.listaCategorias);
           this.dataSource.paginator = this.paginator;

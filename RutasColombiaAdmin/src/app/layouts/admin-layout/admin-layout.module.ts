@@ -28,6 +28,7 @@ import { AgmCoreModule} from '@agm/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/listar-sitios-categorias.component';
+import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crear-sitios-categorias.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -59,6 +60,7 @@ import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/li
     ListarSitiosComponent,
     ListarSitiosCategoriasComponent,
     CrearSitioComponent,
+    CrearSitiosCategoriasComponent,
     TableListComponent,
     TypographyComponent,
     IconsComponent,

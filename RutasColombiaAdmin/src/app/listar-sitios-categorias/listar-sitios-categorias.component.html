@@ -21,6 +21,10 @@
                                 <input matInput (keyup)="applyFilter($event)" placeholder="Texto" #input>
                             </mat-form-field>
                             <table mat-table [dataSource]="dataSource" class="table table-hover" matSort>
+                                <ng-container matColumnDef="imagenUrl">
+                                    <th mat-header-cell *matHeaderCellDef> Imagen  </th>
+                                    <td mat-cell *matCellDef="let element"> <img *ngIf="element.imagenUrl" [src]="element.imagenUrl" alt="" /> </td>
+                                </ng-container>
 
                                 <ng-container matColumnDef="nombre">
                                     <th class=" text-primary" mat-header-cell *matHeaderCellDef mat-sort-header> Nombre
@@ -33,12 +37,12 @@
                                         Descripción </th>
                                     <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
                                 </ng-container>
-                             
+
                                 <ng-container matColumnDef="editar">
                                     <th mat-header-cell class=" text-primary" *matHeaderCellDef> Editar </th>
                                     <td mat-cell *matCellDef="let element">
                                         <a mat-button class="nav-link active text-center" matTooltip="Editar"
-                                            [routerLink]="['/crear-sitio',element.id]" data-toggle="tab">
+                                            [routerLink]="['/crear-categoria',element.id]" data-toggle="tab">
                                             <i class="material-icons">edit</i>
                                             <div class="ripple-container"></div>
                                         </a>

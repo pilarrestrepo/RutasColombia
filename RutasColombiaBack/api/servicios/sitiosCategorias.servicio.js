@@ -13,7 +13,15 @@ function listarSitiosCategorias(callback) {
     }
   });
 }
-
+function obtenerSitioCategoria(idSitioCategoria, callback) {
+  sitiosCategoriasRepositorio.obtenerSitioCategoria(idSitioCategoria, function (error, resultado) {
+    if (error) {
+      return callback(error);
+    } else if (resultado) {
+      return callback(null, resultado);
+    }
+  });
+}
 function crearSitioCategoria(sitioCategoria, callback) {
   sitiosCategoriasRepositorio.crearSitioCategoria(sitioCategoria, function (error, resultado) {
     if (error) {
@@ -36,6 +44,7 @@ function editarSitioCategoria(sitioCategoria, callback) {
 
 module.exports = {  
   listarSitiosCategorias,
+  obtenerSitioCategoria,
   crearSitioCategoria,
   editarSitioCategoria
 }

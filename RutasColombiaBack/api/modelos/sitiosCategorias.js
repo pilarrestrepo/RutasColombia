@@ -12,18 +12,36 @@ let sitiosCategoriasSchema = new Schema({
     nombre: {
         type: String
     },
-    idiomas: {
-        es: {
-            nombre: {
+    descripcion: {
+        type: String
+    },    
+    urlImagen: {
+        type: String
+    },     
+    nombreArchivo: {
+        type: String
+    }, 
+    idiomas:{
+        es:
+        {
+            nombre:{
                 type: String
-            }
+            },     
+            descripcion:{
+                type: String
+            },     
         },
-        en: {
+        en:
+        {
             nombre: {
                 type: String
-            }
-        }
-    }
+            },     
+            descripcion:{
+                type: String
+            },     
+        }        
+            
+    },
 }, { collection: 'sitios_categorias' });
 
 sitiosCategoriasSchema.plugin(snakeToCamel);

@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { ListarSitiosComponent } from 'app/listar-sitios/listar-sitios.component';
 import { CrearSitioComponent } from 'app/crear-sitio/crear-sitio.component';
 import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/listar-sitios-categorias.component';
+import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crear-sitios-categorias.component';
 
 export const AdminLayoutRoutes: Routes = [    
     { path: 'dashboard',      component: DashboardComponent },
@@ -18,6 +19,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listar-sitios',   component: ListarSitiosComponent },
     { path: 'listar-categorias',   component: ListarSitiosCategoriasComponent },    
     { path: 'crear-sitio/:id', component: CrearSitioComponent },
+    { path: 'crear-categoria/:id', component: CrearSitiosCategoriasComponent },    
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },

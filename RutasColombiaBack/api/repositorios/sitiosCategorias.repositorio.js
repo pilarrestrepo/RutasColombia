@@ -16,58 +16,66 @@ function listarSitiosCategorias(callback) {
             return callback(error);
         })
 }
+function obtenerSitioCategoria(idSitioCategoria, callback) {
+  console.log("obtenerSitioCategoria", idSitioCategoria)
+  sitiosCategorias.find({ _id: idSitioCategoria })
+      .then((resultado) => {
+          let sitioCategoria = null;
+          resultado.forEach(element => {
+            sitioCategoria = element.toCleanObject();
+          });
+          return callback(null, sitioCategoria);
+      }).catch((error) => {
+          console.log('error', error);
+          return callback(error);
+      })
 
-function crearSitioCategoria(sitioCategoria, callback) {
+}
+function crearSitioCategoria(sitio, callback) {
 
-    let nuevoSitioCategoria = new sitiosCategorias(sitioCategoria);
-  
-    nuevoSitioCategoria.save(function (err, result) {
+  let nuevoSitioCategoria = new sitiosCategorias(sitio);
+
+  nuevoSitioCategoria.save(function (err, result) {
       if (err) {
-        return callback(err);
+          return callback(err);
       } else if (result) {
-        return callback(null, result.toCleanObject());
+          return callback(null, result.toCleanObject());
       } else {
-        return callback();
+          return callback();
       }
-    });
-  
-  }
+  });
 
-  function editarSitioCategoria(sitioCategoria, callback) {
+}
 
-    sitiosCategorias.findOneAndUpdate(
+function editarSitioCategoria(sitioCategoria, callback) {
+  console.log("editarSitioCategoria", sitioCategoria)
+  sitiosCategorias.findOneAndUpdate(
       {
-        _id: sitioCategoria.id
+          _id: sitioCategoria.id
       },
       {
-        $set: {
-            nombre: sitioCategoria.nombre,
-            idiomas:{
-                es:
-                {
-                    nombre: sitioCategoria.idiomas.es.nombre
-                },
-                en:
-                {
-                    nombre: sitioCategoria.idiomas.en.nombre
-                }        
-                    
-            }
-        }
+          $set: {
+              nombre: sitioCategoria.nombre,
+              descripcion: sitioCategoria.descripcion,              
+              nombreArchivo: sitioCategoria.nombreArchivo,
+              urlImagen: sitioCategoria.urlImagen,
+              idiomas: sitioCategoria.idiomas
+          }
       },
       {
-        new: true
+          new: true
       })
       .then((result) => {
-        return callback(null, result.toCleanObject);
+          return callback(null, result.toCleanObject());
       }).catch((err) => {
-        return callback(err);
+          return callback(err);
       })
-  
-  }
+
+}
 
 module.exports = {    
     listarSitiosCategorias,
+    obtenerSitioCategoria,
     crearSitioCategoria,
     editarSitioCategoria    
 }

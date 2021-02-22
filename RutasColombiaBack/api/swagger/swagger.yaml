@@ -218,6 +218,28 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"     
+  /obtenerSitioCategoria:
+    x-swagger-router-controller: sitiosCategorias.controlador
+    post:
+      description: Obtener una categoría de un sitio
+      operationId: obtenerSitioCategoria
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
   /crearSitioCategoria:
     x-swagger-router-controller: sitiosCategorias.controlador
     post:

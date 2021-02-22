@@ -1,10 +1,11 @@
 'use strict';
 
 var util = require('util');
-var sitiosCategorias = require('../servicios/sitiosCategorias.servicio');
+var sitiosCategoriasServicio = require('../servicios/sitiosCategorias.servicio');
 
 module.exports = {  
   listarSitiosCategorias: listarSitiosCategorias,
+  obtenerSitioCategoria:obtenerSitioCategoria,
   crearSitioCategoria: crearSitioCategoria,
   editarSitioCategoria: editarSitioCategoria
 };
@@ -13,7 +14,7 @@ function listarSitiosCategorias(req, res) {
 
   console.log('entro listarSitiosCategorias');
 
-  sitiosCategorias.listarSitiosCategorias(function (error, resultado) {
+  sitiosCategoriasServicio.listarSitiosCategorias(function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -23,23 +24,45 @@ function listarSitiosCategorias(req, res) {
   })
 
 }
-function crearSitioCategoria(req, res) {
-  var sitioCategoria = {
-    nombre: req.body.nombre,   
-    idiomas: {
-      es:
-      {
-        nombre: req.body.es.nombre
-      },
-      en:
-      {
-        nombre: req.body.idiomas.en.nombre
-      }
 
+function obtenerSitioCategoria(req, res) {
+  console.log('entro obtenerSitioCategoria ' + req);  
+  sitiosCategoriasServicio.obtenerSitioCategoria(req.body.id, function (error, resultado) {
+    if (error || resultado == undefined) {
+      return res.status(500).json(error);
+    } else {
+      return res.status(200).json(resultado);
     }
-  }
 
-  sitiosCategorias.crearSitioCategoria(sitioCategoria, function (error, resultado) {
+  })
+
+}
+
+function crearSitioCategoria(req, res) {
+  console.log('entro crearSitioCategoria ' + req.body);
+  var urlImagen = "";
+  if (req.body.imagenb64){
+    const fs = require('fs');
+
+    var base64result = req.body.imagenb64.substr(req.body.imagenb64.indexOf(',') + 1);  
+    const imageBufferData = Buffer.from(base64result, 'base64')
+    urlImagen = "/assets/imagenesSitioCategorias/"+ req.body.nombreArchivo;
+  
+    fs.writeFileSync(__dirname + "../../../public/assets/imagenesSitioCategorias/" + req.body.nombreArchivo, imageBufferData, function (err) {
+      if (err) {
+        return console.log(err);
+      }    
+    });
+  
+  }
+  var sitio = {
+    nombre: req.body.nombre,
+    descripcion: req.body.descripcion,
+    nombreArchivo: req.body.nombreArchivo,
+    urlImagen: urlImagen,
+    idiomas: req.body.idiomas
+  }
+  sitiosCategoriasServicio.crearSitioCategoria(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
@@ -51,25 +74,32 @@ function crearSitioCategoria(req, res) {
 }
 
 function editarSitioCategoria(req, res) {
-  console.log('entro editarSitio ' + req);
+  console.log('entro editarSitioCategoria ' , req.body.nombre, req.body.id);
+  var urlImagen = "";
+  if (req.body.imagenb64){
+    const fs = require('fs');
 
+    var base64result = req.body.imagenb64.substr(req.body.imagenb64.indexOf(',') + 1);  
+    const imageBufferData = Buffer.from(base64result, 'base64')
+    urlImagen = "/assets/imagenesSitioCategorias/"+ req.body.nombreArchivo;
+  
+    fs.writeFileSync(__dirname + "../../../public/assets/imagenesSitioCategorias/" + req.body.nombreArchivo, imageBufferData, function (err) {
+      if (err) {
+        return console.log(err);
+      }    
+    });
+  
+  }
   var sitio = {
     id: req.body.id,
     nombre: req.body.nombre,
-    idiomas: {
-      es:
-      {
-        nombre: req.body.es.nombre
-      },
-      en:
-      {
-        nombre: req.body.idiomas.en.nombre
-      }
-
-    }
+    descripcion: req.body.descripcion,
+    nombreArchivo: req.body.nombreArchivo,
+    urlImagen: urlImagen,
+    idiomas: req.body.idiomas
   }
-
-  sitiosCategorias.editarSitioCategoria(sitio, function (error, resultado) {
+  console.log('SITIO', sitio);
+  sitiosCategoriasServicio.editarSitioCategoria(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {
