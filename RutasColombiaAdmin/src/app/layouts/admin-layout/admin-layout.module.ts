@@ -31,11 +31,11 @@ import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/li
 import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crear-sitios-categorias.component';
 import { ListarSitiosEmpresasComponent } from 'app/listar-sitios-empresas/listar-sitios-empresas.component';
 import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-sitios-empresas.component';
+// import { LoginComponent } from 'app/login/login.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatRippleModule,
@@ -50,6 +50,7 @@ import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-si
     MatSlideToggleModule,
     MatCardModule,
     MatDialogModule,    
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc',
       libraries: ['places']
@@ -59,6 +60,7 @@ import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-si
   declarations: [
     DashboardComponent,
     UserProfileComponent,
+    // LoginComponent,
     ListarSitiosComponent,
     ListarSitiosCategoriasComponent,
     ListarSitiosEmpresasComponent,

@@ -371,7 +371,29 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"                        
+            $ref: "#/definitions/ErrorResponse"                    
+  /autenticarUsuario:
+    x-swagger-router-controller: usuarios.controlador
+    post:
+      description: Valida las credenciales de un usuario
+      operationId: autenticarUsuario
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                
   /listarPersonas:
     x-swagger-router-controller: personas.controlador
     post:

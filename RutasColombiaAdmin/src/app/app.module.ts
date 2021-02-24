@@ -16,9 +16,13 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyHttpInterceptor } from './common/interceptors/http.interceptor';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -33,7 +37,8 @@ import { MyHttpInterceptor } from './common/interceptors/http.interceptor';
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }

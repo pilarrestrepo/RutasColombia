@@ -1,10 +1,9 @@
 import { AbstractControl } from '@angular/forms';
 
-export function RequireMatch(control: AbstractControl) {    
-    console.log("RequireMatch",control.value)
+export function RequireMatch(control: AbstractControl) {   
+  
     const selection: any = control.value;
-    if (typeof selection === 'string') {
-        console.log("RequireMatch entreee")
+    if (typeof selection === 'string') {       
         return { incorrect: true };
     }
     return null;
