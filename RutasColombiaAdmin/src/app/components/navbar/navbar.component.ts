@@ -33,7 +33,12 @@ export class NavbarComponent implements OnInit {
          }
      });
     }
-
+    public cerrarSesion(){
+        console.log("cerrarSesion")        
+        sessionStorage.removeItem('usuarioActual');
+        this.router.navigate(["/login"]);
+        
+    }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];

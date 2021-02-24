@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
   usuario=null;
   ngOnInit() {
-
+    sessionStorage.removeItem('usuarioActual');
   }
 
   login(): void {        
