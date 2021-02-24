@@ -6,12 +6,13 @@ var usuariosServicio = require('../servicios/usuarios.servicio');
 function autenticarUsuario(req, res) {
   console.log('entro autenticarUsuario');
 
-  console.log(req )
+  console.log(req.body);
 
   var usuario = {
-    usuario: req.body.latitud,
-    clave: req.body.longitud
-  }
+    usuario: req.body.usuario,
+    clave: req.body.clave
+  };
+  
   usuariosServicio.autenticarUsuario(usuario, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);

@@ -23,19 +23,18 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {        
-    console.log("login")
-    this.router.navigate(["dashboard"]);
-   // this.autenticarUsuario();
+    console.log("login")    
+    this.autenticarUsuario();
   }
   autenticarUsuario() {        
     console.log("autenticarUsuario", this.model)
     this.usuariosService.autenticarUsuario(this.model)
       .subscribe(res => {
         this.usuario = JSON.parse(JSON.stringify(res));
-        if (!this.usuario){
+        if (!this.usuario || !this.usuario.usuario){
           alert("Error en la autenticación");
         }else{
-          sessionStorage.SetItem('usuarioActual',this.usuario)          
+          sessionStorage.setItem('usuarioActual', JSON.stringify(this.usuario));          
           this.router.navigate(["dashboard"]);
         }
              

@@ -4,9 +4,11 @@ let _ = require('lodash');
 let usuarios = require('../modelos/usuarios');
 
 function autenticarUsuario(usuario, callback) {
-    usuarios.find({ usuario: usuario.usuario, clave: usuario.usuario, activo: true })
+    console.log('autenticarUsuario repository');
+    usuarios.find({ usuario: usuario.usuario, clave: usuario.clave, activo: true })
         .then((resultado) => {
-            let usuario = null;
+            console.log('respuesta', resultado);
+            let usuario = {usuario:null};
             resultado.forEach(element => {
                 usuario = element.toCleanObject();
             });

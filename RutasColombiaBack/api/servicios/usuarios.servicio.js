@@ -6,6 +6,7 @@ var usuariosRepositorio = require('../repositorios/usuarios.repositorio');
 
 function autenticarUsuario(usuario, callback) {
 
+    console.log('autenticarUsuario service');
     usuariosRepositorio.autenticarUsuario(usuario, function (error, resultado) {
         if (error) {
             return callback(error);
