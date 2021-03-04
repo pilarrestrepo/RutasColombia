@@ -52,7 +52,7 @@ import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-si
     MatDialogModule,    
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc',
+      apiKey: 'AIzaSyBpE16AXpVJ53SYngJSI6_SJ-VSBB_W4pc',
       libraries: ['places']
     })    
   ],

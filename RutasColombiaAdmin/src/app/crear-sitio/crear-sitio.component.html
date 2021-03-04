@@ -8,7 +8,7 @@
                         <p class="card-category">Registrar la información del sitio</p>
                     </div>
                     <div class="card-body">
-                        <form [formGroup]="form" autocomplete="off" novalidate (ngSubmit)="guardar()">
+                        <form [formGroup]="form" autocomplete="off" >
                             <div class="row">
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
@@ -261,7 +261,7 @@
                             </div>
 
                             <button mat-raised-button class="btn  pull-right" color="accent" (click)="onCancel()">Cancelar</button>                            
-                            <button mat-raised-button class="btn btn-danger pull-right">Guardar</button>
+                            <button mat-raised-button class="btn btn-danger pull-right" (click)="guardar()">Guardar</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>

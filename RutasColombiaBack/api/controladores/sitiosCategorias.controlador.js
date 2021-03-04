@@ -98,7 +98,7 @@ function editarSitioCategoria(req, res) {
     urlImagen: urlImagen,
     idiomas: req.body.idiomas
   }
-  console.log('SITIO', sitio);
+  console.log('categoria', categoria);
   sitiosCategoriasServicio.editarSitioCategoria(categoria, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
