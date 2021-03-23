@@ -11,7 +11,7 @@ function sitiosCercanos(req, res) {
     distancia: req.body.distancia
   }
 
-  console.log('entro', punto);
+  console.log('entro sitiosCercanos', punto);
 
   sitiosServicio.sitiosCercanos(punto, function (error, resultado) {
     if (error || resultado == undefined) {
@@ -53,7 +53,7 @@ function obtenerSitio(req, res) {
 }
 
 function crearSitio(req, res) {
-  console.log('entro crearSitio ' + req.body);
+  console.log('entro crearSitio ' , req.body);
   var urlImagen = "";
   if (req.body.imagenb64){
     const fs = require('fs');
@@ -68,7 +68,7 @@ function crearSitio(req, res) {
       }    
     });
   
-  }
+  }  
   var sitio = {
     nombre: req.body.nombre,
     direccion: req.body.direccion,
@@ -79,13 +79,14 @@ function crearSitio(req, res) {
     URLWeb: req.body.URLWeb,
     URLContacto: req.body.URLContacto,
     URLRelacionada: req.body.URLRelacionada,
-    correo: req.body.correo,
-    punto: req.body.punto,
+    correo: req.body.correo,       
+    punto: {type: "Point", coordinates: [req.body.punto.longitud, req.body.punto.latitud ]},
     nombreArchivo: req.body.nombreArchivo,
     urlImagen: urlImagen,
     idiomas: req.body.idiomas,    
     activo: req.body.activo
   }
+  console.log('var sitio ' , sitio);
   sitiosServicio.crearSitio(sitio, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);

@@ -31,7 +31,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     NgxSpinnerModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBpE16AXpVJ53SYngJSI6_SJ-VSBB_W4pc',
+      apiKey: 'AIzaSyBXtArR0GzW4Y_EezVpjGdvjrlwsQBcayw',
       libraries: ['places']
     })
   ],

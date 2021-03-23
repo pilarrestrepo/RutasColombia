@@ -2,7 +2,17 @@ let mongoose = require('mongoose');
 let snakeToCamel = require('mongoose-snake-to-camel');
 
 let Schema = mongoose.Schema;
-
+const pointSchema = new mongoose.Schema({
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  });
 //Schema for Usuario
 let sitiosSchema = new Schema({
     _id: {
@@ -42,11 +52,15 @@ let sitiosSchema = new Schema({
     correo: {
         type: String
     },    
-    punto: {
-        latitud: {type: Number},
-        longitud: {type: Number},
-        altitud: {type: Number}
-    },         
+    punto: { 
+        type: { type: String, 
+            enum: "Point", default: "Point" 
+        }, 
+        coordinates: { 
+            type: [Number], 
+            default: [0,0] 
+        } 
+    },
     urlImagen: {
         type: String
     },     

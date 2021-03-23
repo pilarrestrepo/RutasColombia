@@ -6,7 +6,7 @@ let sitios = require('../modelos/sitios');
 function sitiosCercanos(punto, callback) {
     sitios.find(
         {
-            coordenadas:
+            punto:
             {
                 $near:
                 {
@@ -105,11 +105,12 @@ function obtenerSitio(idSitio, callback) {
 
 }
 function crearSitio(sitio, callback) {
-
+    console.log("repositirio crearSitio ",sitio)
     let nuevoSitio = new sitios(sitio);
 
     nuevoSitio.save(function (err, result) {
         if (err) {
+            console.log("error", err)
             return callback(err);
         } else if (result) {
             return callback(null, result.toCleanObject());
