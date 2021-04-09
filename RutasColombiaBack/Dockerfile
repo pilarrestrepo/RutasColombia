@@ -8,8 +8,10 @@ COPY package*.json ./
 
 RUN npm install
 
+ENV SITIO=/usr/src/RutasColombiaBack/
+
 COPY . .
 
-EXPOSE 10010
+EXPOSE 11001
 
 CMD ["npm", "start"]

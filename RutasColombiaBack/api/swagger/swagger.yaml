@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Hello World App
 # during dev, should point to your local machine
-host: localhost:10010
+host: 186.155.206.74:11001
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -43,7 +43,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
   /listarDepartamentos:
-      x-swagger-router-controller: Departamentos.controlador
+      x-swagger-router-controller: departamentos.controlador
       post:
         description: Devuelve todos los Departamentos
         operationId: listarDepartamentos
