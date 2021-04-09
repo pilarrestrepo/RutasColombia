@@ -31,6 +31,8 @@ import { ListarSitiosCategoriasComponent } from 'app/listar-sitios-categorias/li
 import { CrearSitiosCategoriasComponent } from 'app/crear-sitios-categorias/crear-sitios-categorias.component';
 import { ListarSitiosEmpresasComponent } from 'app/listar-sitios-empresas/listar-sitios-empresas.component';
 import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-sitios-empresas.component';
+import { imagenCategoriaComponent } from 'app/crear-sitios-categorias/imagen-categoria.component';
+import { imagenSitioComponent } from 'app/crear-sitio/imagen-sitio.component';
 // import { LoginComponent } from 'app/login/login.component';
 @NgModule({
   imports: [
@@ -73,6 +75,8 @@ import { CrearSitiosEmpresasComponent } from 'app/crear-sitios-empresas/crear-si
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+    imagenCategoriaComponent,
+    imagenSitioComponent
   ]
 })
 
