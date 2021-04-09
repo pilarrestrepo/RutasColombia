@@ -108,6 +108,28 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /sitiosCercanosRutas:
+    x-swagger-router-controller: sitios.controlador
+    post:
+      description: Devuelve los sitios cercanos a una linea
+      operationId: sitiosCercanosRutas
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
   /listarSitios:
     x-swagger-router-controller: sitios.controlador
     post:

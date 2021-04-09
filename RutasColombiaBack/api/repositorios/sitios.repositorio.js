@@ -44,7 +44,52 @@ function sitiosCercanos(punto, callback) {
             return callback(error);
         })
 }
-
+function sitiosCercanosRuta(puntos, callback) {
+    let coordenadas =[];
+    puntos.coordenadas.forEach(function (valor) {
+        let coordenada =[valor.latitud, valor.longitud];
+        coordenadas.push(coordenada)        
+      }); 
+    sitios.find(
+        {
+            punto:
+            {
+                $near:
+                {
+                    $geometry: {
+                        type: "Polygon",
+                        coordinates: puntos
+                    },
+                    $maxDistance: punto.distancia
+                }
+            }
+        }
+    ).populate({
+        path: 'municipio',
+        select: { 'nombre': 1 },
+        populate: {
+            path: 'departamento',
+            select: { 'nombre': 1 },
+            populate: {
+                path: 'pais',
+                select: { 'nombre': 1 }
+            }
+        }
+    })
+        .populate({
+            path: 'categoria'
+        })
+        .then((resultado) => {
+            let vectorSitios = [];
+            resultado.forEach(element => {
+                vectorSitios.push(element.toCleanObject());
+            });
+            return callback(null, vectorSitios);
+        }).catch((error) => {
+            console.log('error', error);
+            return callback(error);
+        })
+}
 function listarSitios(callback) {
     sitios.find({}).populate({
         path: 'municipio',
@@ -138,6 +183,7 @@ function editarSitio(sitio, callback) {
                 URLWeb: sitio.URLWeb,
                 uURLContactorl: sitio.URLContacto,
                 URLRelacionada: sitio.URLRelacionada,
+                URLCalificacion: sitio.URLCalificacion,
                 correo: sitio.correo,
                 punto: sitio.punto,
                 nombreArchivo: sitio.nombreArchivo,
@@ -160,6 +206,7 @@ function editarSitio(sitio, callback) {
 
 module.exports = {
     sitiosCercanos,
+    sitiosCercanosRuta,
     listarSitios,
     obtenerSitio,
     crearSitio,

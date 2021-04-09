@@ -49,6 +49,9 @@ let sitiosSchema = new Schema({
     URLRelacionada: {
         type: String
     },    
+    URLCalificacion: {
+        type: String
+    },      
     correo: {
         type: String
     },    

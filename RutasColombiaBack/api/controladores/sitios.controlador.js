@@ -24,6 +24,25 @@ function sitiosCercanos(req, res) {
 
 }
 
+function sitiosCercanosRuta(req, res) {
+
+  var punto = {    
+    coordenadas: req.body.coordenadas,
+    distancia: req.body.distancia
+  }
+
+  console.log('entro sitiosCercanos', punto);
+
+  sitiosServicio.sitiosCercanos(punto, function (error, resultado) {
+    if (error || resultado == undefined) {
+      return res.status(500).json(error);
+    } else {
+      return res.status(200).json(resultado);
+    }
+
+  })
+
+}
 function listarSitios(req, res) {
 
   console.log('entro listarSitios');
@@ -79,6 +98,7 @@ function crearSitio(req, res) {
     URLWeb: req.body.URLWeb,
     URLContacto: req.body.URLContacto,
     URLRelacionada: req.body.URLRelacionada,
+    URLCalificacion: req.body.URLCalificacion,
     correo: req.body.correo,       
     punto: {type: "Point", coordinates: [req.body.punto.longitud, req.body.punto.latitud ]},
     nombreArchivo: req.body.nombreArchivo,
@@ -126,8 +146,9 @@ function editarSitio(req, res) {
     URLWeb: req.body.URLWeb,
     URLContacto: req.body.URLContacto,
     URLRelacionada: req.body.URLRelacionada,
+    URLCalificacion: req.body.URLCalificacion,
     correo: req.body.correo,
-    punto: req.body.punto,
+    punto: {type: "Point", coordinates: [req.body.punto.longitud, req.body.punto.latitud ]},    
     nombreArchivo: req.body.nombreArchivo,
     urlImagen: urlImagen,
     idiomas: req.body.idiomas,    
@@ -148,6 +169,7 @@ function editarSitio(req, res) {
 
 module.exports = {
   sitiosCercanos,
+  sitiosCercanosRuta,
   listarSitios,
   obtenerSitio,
   crearSitio,

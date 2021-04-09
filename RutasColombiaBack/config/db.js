@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'); 
 
 //var dbURI = 'mongodb+srv://diego:admin@cluster0.r9jrb.mongodb.net/rutas_colombia?retryWrites=true&w=majority'; 
-var dbURI = 'mongodb://186.155.206.74:80/rutas_colombia_pr?retryWrites=true&w=majority'; 
+var dbURI = 'mongodb://186.155.206.74:80/rutas_colombia?retryWrites=true&w=majority'; 
 
 mongoose.connect(dbURI,{ useNewUrlParser: true, useUnifiedTopology: true }); 
 

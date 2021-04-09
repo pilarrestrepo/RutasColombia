@@ -10,14 +10,14 @@
                     <div class="card-body">
                         <form [formGroup]="form" autocomplete="off" >
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput type="text" placeholder="Nombre*"
                                             formControlName="formControlNombre" autocomplete="nope"
                                             [(ngModel)]="model.nombre">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">             
+                                <div class="col-md-3">             
                                     <mat-form-field class="full-width">
                                         <input type="text" placeholder="Categoría" matInput
                                             [formControl]="formControlSitioCategoria"                                            
@@ -39,7 +39,7 @@
                                         </mat-error>-->
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <mat-form-field class="full-width">
                                         <input type="text" placeholder="Empresa" matInput
                                             [formControl]="formControlSitioEmpresa"
@@ -54,6 +54,13 @@
                                         </mat-autocomplete>                                 
                                     </mat-form-field>
                                 </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Correo electrónico" type="email" id="correo"
+                                            name="correo" autocomplete="nope" [(ngModel)]="model.correo"
+                                            #correo="ngModel" [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>                                
                             </div>
 
                             <div class="row">
@@ -115,13 +122,6 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Correo electrónico" type="email" id="correo"
-                                            name="correo" autocomplete="nope" [(ngModel)]="model.correo"
-                                            #correo="ngModel" [ngModelOptions]="{standalone: true}">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
                                         <input matInput placeholder="URL de Sitio Web" type="url" id="URLWeb"
                                             name="URLWeb" autocomplete="nope" [(ngModel)]="model.URLWeb"
                                             #URLWeb="ngModel" [ngModelOptions]="{standalone: true}">
@@ -141,6 +141,13 @@
                                             #URLRelacionada="ngModel" [ngModelOptions]="{standalone: true}">
                                     </mat-form-field>
                                 </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="URL Calificación" type="url" id="URLCalificacion"
+                                            name="URLCalificacion" autocomplete="nope" [(ngModel)]="model.URLCalificacion"
+                                            #URLCalificacion="ngModel" [ngModelOptions]="{standalone: true}">
+                                    </mat-form-field>
+                                </div>                               
                             </div>
                             <div class="row">
                                 <div class="col m8 s8 file-field input-field">

@@ -36,12 +36,13 @@ export class CrearSitioComponent implements OnInit {
     "URLWeb": null,
     "URLContacto": null,
     "URLRelacionada": null,
+    "URLCalificacion": null,    
     "correo": null,
     "activo": true,
     "punto": {
-      "latitud": null,
-      "longitud": null,
-      "altitud": null
+      "latitud": 0,
+      "longitud": 0,
+      "altitud": 0
     },
     "nombreArchivo": null,
     "urlImagen": null,
@@ -409,9 +410,11 @@ export class CrearSitioComponent implements OnInit {
     this.model.URLWeb = this.sitio.URLWeb
     this.model.URLContacto = this.sitio.URLContacto
     this.model.URLRelacionada = this.sitio.URLRelacionada
+    this.model.URLCalificacion = this.sitio.URLCalificacion    
     this.model.correo = this.sitio.correo
     this.model.activo = this.sitio.activo
-    this.model.punto = this.sitio.punto
+    this.model.punto.latitud = this.sitio.punto.coordinates[1]
+    this.model.punto.longitud = this.sitio.punto.coordinates[0]
     this.model.nombreArchivo = this.sitio.nombreArchivo
     this.model.urlImagen = this.sitio.urlImagen
     this.model.imagenb64 = this.sitio.imagenb64
