@@ -31,9 +31,9 @@ function sitiosCercanosRuta(req, res) {
     distancia: req.body.distancia
   }
 
-  console.log('entro sitiosCercanos', punto);
+  console.log('entro sitiosCercanosRuta', punto);
 
-  sitiosServicio.sitiosCercanos(punto, function (error, resultado) {
+  sitiosServicio.sitiosCercanosRuta(punto, function (error, resultado) {
     if (error || resultado == undefined) {
       return res.status(500).json(error);
     } else {

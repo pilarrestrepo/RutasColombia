@@ -45,11 +45,11 @@ function sitiosCercanos(punto, callback) {
         })
 }
 function sitiosCercanosRuta(puntos, callback) {
-    let coordenadas =[];
-    puntos.coordenadas.forEach(function (valor) {
-        let coordenada =[valor.latitud, valor.longitud];
-        coordenadas.push(coordenada)        
-      }); 
+    let coordenadas = [];
+    puntos.coordenadas.forEach(function (valor) {        
+        coordenadas.push(valor.longitud)
+        coordenadas.push(valor.latitud)
+    });    
     sitios.find(
         {
             punto:
@@ -58,9 +58,9 @@ function sitiosCercanosRuta(puntos, callback) {
                 {
                     $geometry: {
                         type: "Polygon",
-                        coordinates: puntos
+                        coordinates: coordenadas
                     },
-                    $maxDistance: punto.distancia
+                    $maxDistance: puntos.distancia
                 }
             }
         }
@@ -150,7 +150,7 @@ function obtenerSitio(idSitio, callback) {
 
 }
 function crearSitio(sitio, callback) {
-    console.log("repositirio crearSitio ",sitio)
+    console.log("repositirio crearSitio ", sitio)
     let nuevoSitio = new sitios(sitio);
 
     nuevoSitio.save(function (err, result) {
