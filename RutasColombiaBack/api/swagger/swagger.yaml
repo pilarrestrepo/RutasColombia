@@ -129,7 +129,7 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"            
+            $ref: "#/definitions/ErrorResponse"
   /listarSitios:
     x-swagger-router-controller: sitios.controlador
     post:
@@ -548,6 +548,94 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"                    
+  /listarVisitasSitio:
+    x-swagger-router-controller: visitasSitio.controlador
+    post:
+      description: Devuelve todas las visitasSitio
+      operationId: listarVisitasSitio
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"     
+  /obtenerVisitaSitio:
+    x-swagger-router-controller: visitasSitio.controlador
+    post:
+      description: Obtener una visitaSitio
+      operationId: obtenerVisitaSitio
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                   
+  /crearVisitaSitio:
+    x-swagger-router-controller: visitasSitio.controlador
+    post:
+      description: Creación de una visitaSitio
+      operationId: crearVisitaSitio
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                 
+  /editarVisitaSitio:
+    x-swagger-router-controller: visitasSitio.controlador
+    post:
+      description: Edición de una visitaSitio
+      operationId: editarVisitaSitio
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Object"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Object"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"             
   /swagger:
     x-swagger-pipe: swagger_raw
 
