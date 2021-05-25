@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://127.0.0.1:10010/'
+  /* baseUrl: 'http://127.0.0.1:10010/' */
+  baseUrl: "https://apps.diegopedroza.co:11017/"
 };

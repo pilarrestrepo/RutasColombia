@@ -3,13 +3,13 @@ info:
   version: "0.0.1"
   title: Hello World App
 # during dev, should point to your local machine
-host: 186.155.206.74:11001
+host: 192.168.0.7:10010
 # basePath prefixes all resource paths 
 basePath: /
 # 
 schemes:
   # tip: remove http to make production-grade
-  - http
+  # - http
   - https
 # format of bodies a client can send (Content-Type)
 consumes:

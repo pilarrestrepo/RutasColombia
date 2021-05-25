@@ -84,6 +84,7 @@ function sitiosCercanosRuta(puntos, callback) {
             resultado.forEach(element => {
                 vectorSitios.push(element.toCleanObject());
             });
+            console.log("resultado consulta ruta", vectorSitios)
             return callback(null, vectorSitios);
         }).catch((error) => {
             console.log('error', error);
