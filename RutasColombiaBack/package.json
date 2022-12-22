@@ -10,7 +10,7 @@
   "dependencies": {
     "camelcase": "^6.0.0",
     "express": "^4.12.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.9.10",
     "mongoose-snake-to-camel": "^0.3.0",
